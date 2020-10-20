@@ -24,6 +24,7 @@ Basic description : A site to track and mark movie filming locations, by display
 - Acount Details : Manage acount details
 - My stalks : Manage all the movies/shows/people tracked
 - Go : Travel details directing you to the areas you have yet to see
+- Contact us
 
 
 #API's
