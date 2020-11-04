@@ -30,9 +30,6 @@ Basic description : A site to track and mark movie filming locations, by display
 #API's
 
 ##look into
--leaflet.js
--mapquest
--and a way to get imdb api or omdb for dilming locations
 
 
 ## movies:
@@ -40,9 +37,11 @@ Basic description : A site to track and mark movie filming locations, by display
 
 
 ##travel
--Skyscanner Flight Search API Documentation : https://rapidapi.com/skyscanner/api/skyscanner-flight-search    a API to look for flights
+-SKyscaner https://skyscanner.github.io/slate/#api-documentation
 -Travel Hacking Tool API Documentation : https://rapidapi.com/travelhackingtool/api/travel-hacking-tool    a API that can be used to get a list of airpost locations
 
 
+
 ##maps
--Gogole maps : https://cloud.google.com/maps-platform  a API to display maps on the website, "get $200 in free usage for Maps, Routes, and Places every month", cannot properly add title (might be my mistake)
+-leaflet.js     to make the map
+-OpenCage Geocoding API     https://opencagedata.com/     to convert address to lat-lng
