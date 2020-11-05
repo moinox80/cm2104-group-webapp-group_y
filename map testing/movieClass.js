@@ -3,8 +3,8 @@ class Movie{
         this.name = name;
         this.imdbID = imdbID;
         this.filmingLocations = [];
-        getFilmingLocationsOf(this.setUpFilmingLocations, imdbID, this);
-        //this.testFakeAddress();
+        //getFilmingLocationsOf(this.setUpFilmingLocations, imdbID, this); //uses imdb which has max 500 call requests per month
+        this.testFakeAddress();// acts as getFilmingLocationsOf
     }
 
     setUpFilmingLocations(locationsByName, movie){
@@ -34,7 +34,7 @@ class Movie{
                             "Dubrovnik, Croatia",
                             "Almodóvar del Río, Córdoba, Andalucía, Spain",
                             "Los Angeles, California, USA",
-                            "San Juan de Gaztelugatxe, Bermeo, Vizcaya, País Vasco, Spain"];
+                            "San Juan de Gaztelugatxe, Bermeo, Vizcaya, País Vasco, Spain"];// basic copy paste of addreses returned by getFilmingLocationsOf
         this.setUpFilmingLocations(locationsByName)
     }
 }
