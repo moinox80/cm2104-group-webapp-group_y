@@ -1,9 +1,10 @@
 class Movie{
-    constructor(name, imdbID){
-        this.name = name;
-        this.imdbID = imdbID;
+    constructor(movieDeatilsOMDB){
+        this.OMDBData = movieDeatilsOMDB
+        this.name =this.OMDBData.Title;
+        this.imdbID = this.OMDBData.imdbID;
         this.filmingLocations = [];
-        //getFilmingLocationsOf(this.setUpFilmingLocations, imdbID, this); //uses imdb which has max 500 call requests per month
+        // getFilmingLocationsOf(this.setUpFilmingLocations, this.imdbID, this); //uses imdb which has max 500 call requests per month
         this.testFakeAddress();// acts as getFilmingLocationsOf
     }
 
@@ -26,8 +27,6 @@ class Movie{
     }
 
 
-
-
     testFakeAddress(){// so i dont make too many imdb calls
         var locationsByName = ["Split, Split-Dalmatia County, Croatia",
                             "Vrsno, Sibenik, Croatia",
@@ -35,6 +34,10 @@ class Movie{
                             "Almodóvar del Río, Córdoba, Andalucía, Spain",
                             "Los Angeles, California, USA",
                             "San Juan de Gaztelugatxe, Bermeo, Vizcaya, País Vasco, Spain"];// basic copy paste of addreses returned by getFilmingLocationsOf
-        this.setUpFilmingLocations(locationsByName)
+        this.setUpFilmingLocations(locationsByName, this)
     }
+}
+
+function makeMovie(movieDeatilsOMDB){
+    new Movie(movieDeatilsOMDB);
 }
