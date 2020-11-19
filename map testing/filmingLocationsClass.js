@@ -3,6 +3,7 @@ class FilmingLocation{
         this.movie = movie;
         this.location = openCageAPIConvertToLatLong(locationByName, this.setCoordinates, this);
         this.name = locationByName;
+        movie.filmingLocations.push(this);
     }
     
     setCoordinates(filmingLocation, coordinates){

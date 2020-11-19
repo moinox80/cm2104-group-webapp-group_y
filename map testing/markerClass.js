@@ -17,6 +17,6 @@ class Marker{
     }
 
     removeFromMap(){
-        this.marker.removeFromMap(mymap);
+        this.marker.removeFrom(mymap);
     }
 }
