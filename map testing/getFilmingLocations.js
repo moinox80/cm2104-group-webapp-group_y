@@ -1,17 +1,21 @@
+var imdb8Settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "",
+    "method": "GET",
+    "headers": {
+        "x-rapidapi-key": "2215b5754fmsh339dd4545346c2bp1d5792jsnc7ebe24b4e77",
+        "x-rapidapi-host": "imdb8.p.rapidapi.com"
+    }
+};
+
+var imdb8BaseURL = "https://rapidapi.p.rapidapi.com/title/get-filming-locations?tconst="
+
+
 function getFilmingLocationsOf(callback, imdbID, movie){
     if(confirmUseOfIMDBWithUser()){
-        const settings = {
-            "async": true,
-            "crossDomain": true,
-            "url": "https://rapidapi.p.rapidapi.com/title/get-filming-locations?tconst=" + imdbID,
-            "method": "GET",
-            "headers": {
-                "x-rapidapi-key": "2215b5754fmsh339dd4545346c2bp1d5792jsnc7ebe24b4e77",
-                "x-rapidapi-host": "imdb8.p.rapidapi.com"
-            }
-        };
-        $.ajax(settings).done(function (response) {
-            
+        imdb8Settings["url"] = imdb8BaseURL + String(imdbID);
+        $.ajax(imdb8Settings).done(function (response) {
             locations = unpackLocationList(response);
             callback(locations, movie);
         });
