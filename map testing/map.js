@@ -10,26 +10,22 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1
 }).addTo(mymap);
 
-//t1 = new Movie("Avengers", "tt4154756");
-//t2 = new Movie("GoT", "tt0944947");
-
 $(function(){
     $('#add_movie').submit(function(){
-        if ($("#new_movie_input_by_imdb_number").val() != ""){
-            var movie_id = $("#new_movie_input_by_imdb_number").val()
-            getResultsFromOMDBByID(movie_id)
-            return false
+        if ($("#new_movie_input_by_imdb_number").val()){
+            var movie_id = $("#new_movie_input_by_imdb_number").val();
+            getResultsFromOMDBByID(movie_id);
         }
-        if ($("#new_movie_input_by_name").val()){
-            var movie_name = $("#new_movie_input_by_name").val()
-            movie_name = setStringForOMDBFormat(movie_name)
-            getResultsFromOMDBByName(movie_name)
+        else if($("#new_movie_input_by_name").val()){
+            var movie_name = $("#new_movie_input_by_name").val();
+            movie_name = setStringForOMDBURLFormat(movie_name);
+            getResultsFromOMDBByName(movie_name);
         }
         return false;
     })
 })
 
-function setStringForOMDBFormat(string){
+function setStringForOMDBURLFormat(string){
     var words = string.split(" ");
     var new_string = "";
     new_string += words.shift();

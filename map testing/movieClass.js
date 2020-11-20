@@ -4,8 +4,8 @@ class Movie{
         this.name = this.OMDBData.Title;
         this.imdbID = this.OMDBData.imdbID;
         this.filmingLocations = [];
-        // getFilmingLocationsOf(this.setUpFilmingLocations, this.imdbID, this); //uses imdb which has max 500 call requests per month
-        this.testFakeAddress();// acts as getFilmingLocationsOf
+        getFilmingLocationsOf(this.setUpFilmingLocations, this.imdbID, this); //uses imdb which has max 500 call requests per month
+        // this.testFakeAddress();// acts as getFilmingLocationsOf
         this.addSelfToSHowMovieCheckBox()
         this.visibleOnMap = true;
     }
@@ -18,14 +18,16 @@ class Movie{
     
     addAllMarkersToMap(){
         this.filmingLocations.forEach( location =>{
-            location.marker.addToMap()
+            location.marker.addToMap();
         })
+        this.visibleOnMap = true;
     }
     
     removeAllMarkersFromMap(){
         this.filmingLocations.forEach( location =>{
             location.marker.removeFromMap()
         })
+        this.visibleOnMap = false;
     }
     
     
@@ -36,31 +38,28 @@ class Movie{
         "Almodóvar del Río, Córdoba, Andalucía, Spain",
         "Los Angeles, California, USA",
         "San Juan de Gaztelugatxe, Bermeo, Vizcaya, País Vasco, Spain"];// basic copy paste of addreses returned by getFilmingLocationsOf
-        this.setUpFilmingLocations(locationsByName, this)
+        this.setUpFilmingLocations(locationsByName, this);
     }
 
     changeVisibilityStateOnMap(){
         if(this.visibleOnMap){
-            this.removeAllMarkersFromMap()
+            this.removeAllMarkersFromMap();
         }
         else{
-            this.addAllMarkersToMap()
+            this.addAllMarkersToMap();
         }
-        this.visibleOnMap = !this.visibleOnMap
     }
-
+    
     addSelfToSHowMovieCheckBox(){
-        var movie = this
+        var movie = this;
         var checkboxID = this.imdbID + "Checkbox";
-        $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + "> <label for='" + this.name + "Checkbox'>" + this.name + "</label>").appendTo($("#showMovieCheckBox"))
+        $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + "> <label for='" + this.name + "Checkbox'>" + this.name + "</label>").appendTo($("#showMovieCheckBox"));
         $('#'+ checkboxID).change(function() {
             movie.changeVisibilityStateOnMap();
-            // changeVisibilityStateOnMap();
         })
     }
 
 }
-
 
 
 function makeMovie(movieDeatilsOMDB){

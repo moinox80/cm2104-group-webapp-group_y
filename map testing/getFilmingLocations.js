@@ -1,5 +1,5 @@
 function getFilmingLocationsOf(callback, imdbID, movie){
-    if(confirm("will use imdb with 500 querries per months, unless neccesery switch to testFakeAddress in movieClass")){
+    if(confirmUseOfIMDBWithUser()){
         const settings = {
             "async": true,
             "crossDomain": true,
@@ -28,4 +28,8 @@ function unpackLocationList(rapidapiResponse){
         locations.push(location.location)
     });
     return locations
+}
+
+function confirmUseOfIMDBWithUser(){
+    return (confirm("will use imdb with 500 querries per months, press cancel to use testFakeAddress"))
 }

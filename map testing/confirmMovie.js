@@ -1,17 +1,36 @@
+var movies_dict = {};
+
 function confirmMovie(movies){
-    $("#movieSelectDiv").remove();
-    div = $('<div id="movieSelectDiv"> <select id="movieSelect"></select> <button id="submitMovie"> submit </button> </div>').appendTo('body');
+    createMovieSelectDiv()
+    addAllMoviesToOptionsListAndDict(movies)
+    $("#submitMovie").click(onMovieChossen);
+}
 
-    var movies_dict = {};
+function onMovieChossen(){
+    var selectedMovie = $(movieSelect).val();
+    var movie = movies_dict[selectedMovie];
+    makeMovie(movie);
+    deleteOldMovieSelectDiv();
+}
+
+function addMovieToOptionsListAndDict(movie){
+    var movieNameAndDate = String(movie.Title) + " " + String(movie.Year);
+    movies_dict[movieNameAndDate] = movie;
+    $("<option>" + movieNameAndDate + "</option>").appendTo($("#movieSelect"));
+}
+
+function addAllMoviesToOptionsListAndDict(movies){
+    movies_dict = {};
     movies.forEach(movie => {
-        var movieNameANdDate = String(movie.Title) + " " + String(movie.Year)
-        movies_dict[movieNameANdDate] = movie;
-        $("<option>" + movieNameANdDate + "</option>").appendTo($("#movieSelect"))
+        addMovieToOptionsListAndDict(movie)
     });
+}
 
-    $("#submitMovie").click( function (){
-        var movie = movies_dict[$(movieSelect).val()]
-        makeMovie(movie)
-        $("#movieSelectDiv").remove();
-    });
+function deleteOldMovieSelectDiv(){
+    $("#movieSelectDiv").remove();
+}
+
+function createMovieSelectDiv(){
+    deleteOldMovieSelectDiv()
+    $('<div id="movieSelectDiv"> <select id="movieSelect"></select> <button id="submitMovie"> submit </button> </div>').appendTo('body');
 }
