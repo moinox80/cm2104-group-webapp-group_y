@@ -1,7 +1,7 @@
-var baseURL = "http://www.omdbapi.com/?apikey=7c3f362c&s=";
+var baseURL = "http://www.omdbapi.com/?apikey=7c3f362c&";
 
 function getResultsFromOMDBByName(movieName){
-    var url = baseURL + movieName;
+    var url = baseURL + "s=" + movieName;
     
     $.getJSON(url, function(jsondata){
         if(jsondata.Search){
@@ -11,7 +11,7 @@ function getResultsFromOMDBByName(movieName){
 };
 
 function getResultsFromOMDBByID(movieID){
-    var url = baseURL + movieID;
+    var url = baseURL + "i=" + movieID;
     
     $.getJSON(url, function(jsondata){
         if(jsondata){
