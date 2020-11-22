@@ -81,5 +81,20 @@ function removeMovieFromMovieCheckBox(movie){
 
 
 function makeMovie(movieDeatilsOMDB){
-    new Movie(movieDeatilsOMDB);
+    if (!checkIfMovieExists(movieDeatilsOMDB.imdbID)){
+        new Movie(movieDeatilsOMDB);
+    }
+    else{
+        alert(movieDeatilsOMDB.Title + " already exists");
+    }
+}
+
+function checkIfMovieExists(newMovieIMDBID){
+    var found = false;
+    movies.forEach(movie =>{
+        if(movie.imdbID == newMovieIMDBID){
+            found = true
+        };
+    });
+    return found;
 }
