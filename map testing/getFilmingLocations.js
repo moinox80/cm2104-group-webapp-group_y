@@ -9,7 +9,7 @@ var imdb8Settings = {
     }
 };
 
-var imdb8BaseURL = "https://rapidapi.p.rapidapi.com/title/get-filming-locations?tconst="
+var imdb8BaseURL = "https://rapidapi.p.rapidapi.com/title/get-filming-locations?tconst=";
 
 
 function getFilmingLocationsOf(callback, imdbID, movie){
@@ -21,7 +21,7 @@ function getFilmingLocationsOf(callback, imdbID, movie){
         });
     }
     else{
-        movie.testFakeAddress()
+        movie.testFakeAddress();
     }
     
 }
@@ -29,11 +29,11 @@ function getFilmingLocationsOf(callback, imdbID, movie){
 function unpackLocationList(rapidapiResponse){
     locations = []
     rapidapiResponse.locations.forEach(location => {
-        locations.push(location.location)
+        locations.push(location.location);
     });
-    return locations
+    return locations;
 }
 
 function confirmUseOfIMDBWithUser(){
-    return (confirm("will use imdb with 500 querries per months, press cancel to use testFakeAddress"))
+    return (confirm("will use imdb with 500 querries per months, press cancel to use testFakeAddress"));
 }

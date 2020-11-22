@@ -1,7 +1,7 @@
 var movies_dict = {};
 
-function confirmMovie(movies){
-    createMovieSelectDiv()
+function selectMovieFromOptions(movies){
+    createMovieSelectionDiv()
     addAllMoviesToOptionsListAndDict(movies)
     $("#submitMovie").click(onMovieChossen);
 }
@@ -10,7 +10,7 @@ function onMovieChossen(){
     var selectedMovie = $(movieSelect).val();
     var movie = movies_dict[selectedMovie];
     makeMovie(movie);
-    deleteOldMovieSelectDiv();
+    removeMovieSelectionDiv();
 }
 
 function addMovieToOptionsListAndDict(movie){
@@ -26,11 +26,11 @@ function addAllMoviesToOptionsListAndDict(movies){
     });
 }
 
-function deleteOldMovieSelectDiv(){
+function removeMovieSelectionDiv(){
     $("#movieSelectDiv").remove();
 }
 
-function createMovieSelectDiv(){
-    deleteOldMovieSelectDiv()
+function createMovieSelectionDiv(){
+    removeMovieSelectionDiv()
     $('<div id="movieSelectDiv"> <select id="movieSelect"></select> <button id="submitMovie"> submit </button> </div>').appendTo('body');
 }

@@ -5,7 +5,7 @@ function getResultsFromOMDBByName(movieName){
     
     $.getJSON(url, function(jsondata){
         if(jsondata.Search){
-            confirmMovie(jsondata.Search)
+            selectMovieFromOptions(jsondata.Search)
         };
     });
 };
