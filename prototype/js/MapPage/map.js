@@ -11,10 +11,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
     zoomOffset: -1
 }).addTo(mymap);
 
-mymap.setMaxBounds([
-    [180, -180],
-    [-180, 180]
-]);
+mymap.setMaxBounds([[180, -180], [-180, 180]]);
 
 
 $(function(){

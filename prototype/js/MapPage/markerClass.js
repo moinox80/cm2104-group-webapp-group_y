@@ -9,7 +9,7 @@ class Marker{
 
     createMarker(){
         this.marker = L.marker(this.position);
-        this.marker.bindPopup(this.movie.name + "<br><br>" + this.label);
+        this.marker.bindPopup(this.movie.name + "  " + this.movie.year + "<br><br>" + this.label);
     }
 
     addToMap(){
