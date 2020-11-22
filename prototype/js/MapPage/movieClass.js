@@ -57,14 +57,20 @@ class Movie{
     addSelfToSHowMovieCheckBox(){
         var movie = this;
         var checkboxID = this.imdbID + "Checkbox";
-        var labelID = this.imdbID + "Label";
-        $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + "> <label for='" + this.name + "Checkbox' id =" + labelID + " >" + this.name + " " + this.year + "</label>").appendTo($("#showMovieCheckBox"));
+        var checkboxDivID = this.imdbID + "Div";
+        this.makeCheckBox(checkboxDivID, checkboxID);
         $('#'+ checkboxID).change(function() {
             movie.changeVisibilityStateOnMap();
         })
     }
-
+    
+    makeCheckBox(checkboxDivID, checkboxID){
+        $("<div id=" + checkboxDivID + "></div>").appendTo("#showMovieCheckBox");
+        $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + ">").appendTo("#" + checkboxDivID);
+        $("<label for='" + this.name + "Checkbox'>" + this.name + " " + this.year + "</label>").appendTo("#" + checkboxDivID);
+    }
 }
+
 
 function removeMovie(movie){
     var movieIndex = movies.indexOf(movie) - 1;
@@ -73,10 +79,8 @@ function removeMovie(movie){
 }
 
 function removeMovieFromMovieCheckBox(movie){
-    var checkboxID = movie.imdbID + "Checkbox";
-    var labelID = movie.imdbID + "Label";
-    $('#'+ checkboxID).remove();
-    $('#'+ labelID).remove();
+    var divID = movie.imdbID + "Div";
+    $('#'+ divID).remove();
 }
 
 

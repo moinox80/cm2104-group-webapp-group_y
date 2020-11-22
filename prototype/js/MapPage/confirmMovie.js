@@ -4,6 +4,7 @@ function selectMovieFromOptions(movies){
     createMovieSelectionDiv()
     addAllMoviesToOptionsListAndDict(movies)
     $("#submitMovie").click(onMovieChossen);
+    $("#cancelMovieSelect").click(removeMovieSelectionDiv)
 }
 
 function onMovieChossen(){
@@ -31,6 +32,10 @@ function removeMovieSelectionDiv(){
 }
 
 function createMovieSelectionDiv(){
-    removeMovieSelectionDiv()
-    $('<div id="movieSelectDiv"> <select id="movieSelect"></select> <button id="submitMovie"> submit </button> </div>').appendTo('body');
+    removeMovieSelectionDiv();
+    var newDiv = "";
+    $('<div id="movieSelectDiv"></div>').appendTo('body');
+    $("<select id='movieSelect'></select>").appendTo("#movieSelectDiv");
+    $("<button id='submitMovie'> submit </button>").appendTo("#movieSelectDiv");
+    $("<button id='cancelMovieSelect'> cancel </button>").appendTo("#movieSelectDiv");
 }
