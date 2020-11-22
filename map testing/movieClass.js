@@ -1,13 +1,17 @@
+var movies = [];
+
 class Movie{
     constructor(movieDeatilsOMDB){
         this.OMDBData = movieDeatilsOMDB
         this.name = this.OMDBData.Title;
         this.imdbID = this.OMDBData.imdbID;
+        this.year = this.OMDBData.Year;
         this.filmingLocations = [];
         getFilmingLocationsOf(this.setUpFilmingLocations, this.imdbID, this); //uses imdb which has max 500 call requests per month
         // this.testFakeAddress();// acts as getFilmingLocationsOf
         this.addSelfToSHowMovieCheckBox()
         this.visibleOnMap = true;
+        movies.push(this);
     }
     
     setUpFilmingLocations(locationsByName, movie){
@@ -53,12 +57,26 @@ class Movie{
     addSelfToSHowMovieCheckBox(){
         var movie = this;
         var checkboxID = this.imdbID + "Checkbox";
-        $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + "> <label for='" + this.name + "Checkbox'>" + this.name + "</label>").appendTo($("#showMovieCheckBox"));
+        var labelID = this.imdbID + "Label";
+        $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + "> <label for='" + this.name + "Checkbox' id =" + labelID + " >" + this.name + " " + this.year + "</label>").appendTo($("#showMovieCheckBox"));
         $('#'+ checkboxID).change(function() {
             movie.changeVisibilityStateOnMap();
         })
     }
 
+}
+
+function removeMovie(movie){
+    var movieIndex = movies.indexOf(movie) - 1;
+    movies.splice(movieIndex);
+    removeMovieFromMovieCheckBox(movie);
+}
+
+function removeMovieFromMovieCheckBox(movie){
+    var checkboxID = movie.imdbID + "Checkbox";
+    var labelID = movie.imdbID + "Label";
+    $('#'+ checkboxID).remove();
+    $('#'+ labelID).remove();
 }
 
 

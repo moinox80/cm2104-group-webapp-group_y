@@ -16,14 +16,19 @@ function getFilmingLocationsOf(callback, imdbID, movie){
     if(confirmUseOfIMDBWithUser()){
         imdb8Settings["url"] = imdb8BaseURL + String(imdbID);
         $.ajax(imdb8Settings).done(function (response) {
-            locations = unpackLocationList(response);
-            callback(locations, movie);
+            if(response && response.locations){
+                locations = unpackLocationList(response);
+                callback(locations, movie);
+            }
+            else{
+                alert("Film or Show has no filming locations");
+                removeMovie(movie);
+            }
         });
     }
     else{
         movie.testFakeAddress();
     }
-    
 }
 
 function unpackLocationList(rapidapiResponse){
