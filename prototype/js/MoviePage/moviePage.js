@@ -30,7 +30,6 @@ $(document).ready(function(){
     $("#movieYear").append(fakeMovie.Year);
     $("#PosterIMG").attr("src", fakeMovie.Poster);
 
-    console.log(fakeMovie)
     fakeMovie.filmingLocations.forEach(location => {
         var locationTableLine = "<tr>";
         locationTableLine += ("<th>" + location[0] + "</th>");
