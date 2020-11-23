@@ -6,7 +6,8 @@ class Movie{
         this.name = this.OMDBData.Title;
         this.imdbID = this.OMDBData.imdbID;
         this.year = this.OMDBData.Year;
-        this.filmingLocations = [];
+        this.filmingLocationsMarkers = [];
+        this.filmingLocationsByNameAndLatLong = []
         getFilmingLocationsOf(this.setUpFilmingLocations, this.imdbID, this); //uses imdb which has max 500 call requests per month
         // this.testFakeAddress();// acts as getFilmingLocationsOf
         this.addSelfToSHowMovieCheckBox()
@@ -14,6 +15,10 @@ class Movie{
         movies.push(this);
     }
     
+    setUpFilmingLocationByNameAndLatLong(locationName, locationLatLong){
+        this.filmingLocationsByNameAndLatLong.push([locationName, locationLatLong]);
+    }
+
     setUpFilmingLocations(locationsByName, movie){
         locationsByName.forEach(locationByName => {
             new FilmingLocation(movie, locationByName);
@@ -21,14 +26,14 @@ class Movie{
     }
     
     addAllMarkersToMap(){
-        this.filmingLocations.forEach( location =>{
+        this.filmingLocationsMarkers.forEach( location =>{
             location.marker.addToMap();
         })
         this.visibleOnMap = true;
     }
     
     removeAllMarkersFromMap(){
-        this.filmingLocations.forEach( location =>{
+        this.filmingLocationsMarkers.forEach( location =>{
             location.marker.removeFromMap()
         })
         this.visibleOnMap = false;

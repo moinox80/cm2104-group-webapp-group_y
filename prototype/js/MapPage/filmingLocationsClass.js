@@ -1,12 +1,13 @@
 class FilmingLocation{
     constructor(movie, locationByName){
         this.movie = movie;
-        this.location = openCageAPIConvertToLatLong(locationByName, this.setCoordinates, this);
+        this.location = openCageAPIConvertToLatLong(locationByName, this.setMarker, this);
         this.name = locationByName;
-        movie.filmingLocations.push(this);
+        movie.filmingLocationsMarkers.push(this);
     }
     
-    setCoordinates(filmingLocation, coordinates){
+    setMarker(filmingLocation, coordinates){
+        filmingLocation.movie.setUpFilmingLocationByNameAndLatLong(filmingLocation.name, coordinates);
         filmingLocation.location = coordinates;        
         filmingLocation.marker = new Marker(filmingLocation.location, filmingLocation.name, filmingLocation.movie)
     }
