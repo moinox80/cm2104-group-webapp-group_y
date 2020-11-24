@@ -10,7 +10,8 @@ class Movie{
         this.filmingLocationsByNameAndLatLong = []
         getFilmingLocationsOf(this.setUpFilmingLocations, this.imdbID, this); //uses imdb which has max 500 call requests per month
         // this.testFakeAddress();// acts as getFilmingLocationsOf
-        this.addSelfToSHowMovieCheckBox()
+        this.addSelfToSHowMovieCheckBox();
+        this.makeDeleteButton();
         this.visibleOnMap = true;
         movies.push(this);
     }
@@ -66,7 +67,7 @@ class Movie{
         this.makeCheckBox(checkboxDivID, checkboxID);
         $('#'+ checkboxID).change(function() {
             movie.changeVisibilityStateOnMap();
-        })
+        });
     }
     
     makeCheckBox(checkboxDivID, checkboxID){
@@ -74,13 +75,29 @@ class Movie{
         $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + ">").appendTo("#" + checkboxDivID);
         $("<label for='" + this.name + "Checkbox'>" + this.name + " " + this.year + "</label>").appendTo("#" + checkboxDivID);
     }
+
+    makeDeleteButton(){
+        var movie = this;
+        $("<button id='deleteMovie" + this.imdbID + "'>Delete</button>").appendTo("#" + this.imdbID + "Div");
+        $('#deleteMovie' + this.imdbID).click(function(){
+            removeMovie(movie);
+        });
+    }
 }
 
 
 function removeMovie(movie){
-    var movieIndex = movies.indexOf(movie) - 1;
-    movies.splice(movieIndex);
-    removeMovieFromMovieCheckBox(movie);
+    var movieIndex = movies.indexOf(movie);
+    if(movieIndex != -1){
+        movie.removeAllMarkersFromMap();
+        if(movieIndex == 0){
+            movies.shift();
+        }
+        else{
+            movies.splice(movieIndex, movieIndex);
+        }
+        removeMovieFromMovieCheckBox(movie);
+    }
 }
 
 function removeMovieFromMovieCheckBox(movie){
@@ -102,7 +119,7 @@ function checkIfMovieExists(newMovieIMDBID){
     var found = false;
     movies.forEach(movie =>{
         if(movie.imdbID == newMovieIMDBID){
-            found = true
+            found = true;
         };
     });
     return found;
