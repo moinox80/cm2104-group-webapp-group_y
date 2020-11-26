@@ -34,7 +34,7 @@ function removeMovieSelectionDiv(){
 function createMovieSelectionDiv(){
     removeMovieSelectionDiv();
     var newDiv = "";
-    $('<div id="movieSelectDiv"></div>').appendTo('body');
+    $('<div id="movieSelectDiv"></div>').appendTo('#add_movie_div');
     $("<select id='movieSelect'></select>").appendTo("#movieSelectDiv");
     $("<button id='submitMovie'> submit </button>").appendTo("#movieSelectDiv");
     $("<button id='cancelMovieSelect'> cancel </button>").appendTo("#movieSelectDiv");
