@@ -1,3 +1,9 @@
+/**
+ * Opencage api
+ * used to convert addresses to latitude and logitude
+ * code is from https://opencagedata.com/tutorials/geocode-in-javascript and hardly edited
+ */
+
 const APIKey = "5021b9e2912f454494eee897238f672a";//kaveh's API Key
 const api_url = 'https://api.opencagedata.com/geocode/v1/json'
 

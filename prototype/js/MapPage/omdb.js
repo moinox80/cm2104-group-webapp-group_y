@@ -1,4 +1,9 @@
-var baseURL = "http://www.omdbapi.com/?apikey=7c3f362c&";
+/**
+ * omdb
+ * gets movie information from omdb database
+ */
+
+var baseURL = "http://www.omdbapi.com/?apikey=7c3f362c&";//base url without movie id or name, kavehs api key
 
 function getResultsFromOMDBByName(movieName){
     var url = baseURL + "s=" + movieName;

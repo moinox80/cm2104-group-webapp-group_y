@@ -1,8 +1,14 @@
+/**
+ * confirm movie
+ * user confirms movie from imdbs most relevant based on innitial user input
+ * displays a selection box on the page for the user to choose from
+ */
 var movies_dict = {};
 
 function selectMovieFromOptions(movies){
-    createMovieSelectionDiv()
-    addAllMoviesToOptionsListAndDict(movies)
+    movies_dict = {};
+    createMovieSelectionDiv();
+    addAllMoviesToOptionsListAndDict(movies);
     $("#submitMovie").click(onMovieChossen);
     $("#cancelMovieSelect").click(removeMovieSelectionDiv)
 }

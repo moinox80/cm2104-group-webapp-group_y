@@ -1,3 +1,7 @@
+/** 
+ * movie page
+ * sets up the moie page with the given movie
+*/
 var fakeMovie = {
     Poster: "https://m.media-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg",
     Title: "Ghostbusters",
@@ -24,7 +28,7 @@ var fakeMovie = {
     ]
 };
 
-$(document).ready(function(){
+$(document).ready(function(){//onload set up movie with movie passed in url
 
     var queryString = window.location.search;
     queryString = queryString.substring(1)

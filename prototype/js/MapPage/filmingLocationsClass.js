@@ -1,3 +1,7 @@
+/**
+ * FilmLocationClass
+ * the individual filming locations of each movie
+ */
 class FilmingLocation{
     constructor(movie, locationByName){
         this.movie = movie;

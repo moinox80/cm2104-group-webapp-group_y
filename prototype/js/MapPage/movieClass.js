@@ -1,3 +1,8 @@
+/**
+ * movieClass
+ * main class for all movies and shows
+ * manages creation of all subclasses
+ */
 var movies = [];
 
 class Movie{
@@ -15,8 +20,8 @@ class Movie{
         movies.push(this);
     }
     
-    setUpComplete(movie){
-        movie.addSelfToSHowMovieCheckBox();
+    setUpComplete(movie){//when the set up is complete, add ui
+        movie.addSelfToShowMovieCheckBox();
         movie.makeDeleteButton();
         movie.addSelfToMyMovies();
     }
@@ -73,7 +78,7 @@ class Movie{
         }
     }
     
-    addSelfToSHowMovieCheckBox(){
+    addSelfToShowMovieCheckBox(){
         var movie = this;
         var checkboxID = this.imdbID + "Checkbox";
         var checkboxDivID = this.imdbID + "Div";
@@ -99,7 +104,7 @@ class Movie{
 
     addSelfToMyMovies(){
         var movie = this;
-        var url = "href=movie.html?" + this.imdbID + "stringified"
+        var url = "href=movie.html?" + this.imdbID + "stringified"//containes movie stored in session
         var id = "id=" + this.imdbID + "myMoviesLink";
         var text = this.name + "-" + this.year;
 
@@ -110,7 +115,7 @@ class Movie{
         })
     }
         
-    storeMovieInSession(movie){
+    storeMovieInSession(movie){//store movie in session
         const getCircularReplacer = () => {//from https://docs.w3cub.com/javascript/errors/cyclic_object_value/
             const seen = new WeakSet();
             return (key, value) => {
@@ -123,6 +128,7 @@ class Movie{
               return value;
             };
           };
+
         sessionStorage.setItem(movie.imdbID + "stringified", JSON.stringify(movie ,getCircularReplacer()));
     }
 }

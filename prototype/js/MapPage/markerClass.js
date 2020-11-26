@@ -1,3 +1,8 @@
+/**
+ * MarkerClass
+ * manages the mao markers for the filming locations
+ */
+
 var numberOfMarkers = 0;
 var  buttonMap = {};
 
@@ -18,7 +23,7 @@ class Marker{
         this.creatMarkerPopUp();
     }
     
-    creatMarkerPopUp(){
+    creatMarkerPopUp(){//creates the text for the marker pop up
         var toggleVisitButton = "<button onclick=markerToggleVisistedButtonClicked(" + this.markerID + ")>toggle visited</button>";
         var movieNameAndYear = this.movie.name + "  " + this.movie.year;
         var visited = "Visited:" + this.parent.visited;
@@ -34,14 +39,14 @@ class Marker{
     removeFromMap(){
         this.marker.removeFrom(mymap);
     }
-    
+
 }
 
 function makeMarkerID(){
     return ++numberOfMarkers;
 }
 
-function markerToggleVisistedButtonClicked(markerID){
+function markerToggleVisistedButtonClicked(markerID){//when visited button is clicked, change visited status to the opposite of the current.
     var marker = buttonMap[markerID];
     marker.parent.visited = !marker.parent.visited;
     marker.creatMarkerPopUp();
