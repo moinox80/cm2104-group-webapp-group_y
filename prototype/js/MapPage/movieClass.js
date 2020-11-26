@@ -6,18 +6,31 @@ class Movie{
         this.name = this.OMDBData.Title;
         this.imdbID = this.OMDBData.imdbID;
         this.year = this.OMDBData.Year;
+        this.poster = this.OMDBData.Poster;
         this.filmingLocationsMarkers = [];
         this.filmingLocationsByNameAndLatLong = []
-        getFilmingLocationsOf(this.setUpFilmingLocations, this.imdbID, this); //uses imdb which has max 500 call requests per month
+        getFilmingLocationsOf(this.setUpFilmingLocationsForTheFirstTime, this.imdbID, this); //uses imdb which has max 500 call requests per month
         // this.testFakeAddress();// acts as getFilmingLocationsOf
-        this.addSelfToSHowMovieCheckBox();
-        this.makeDeleteButton();
         this.visibleOnMap = true;
         movies.push(this);
     }
     
+    setUpComplete(movie){
+        movie.addSelfToSHowMovieCheckBox();
+        movie.makeDeleteButton();
+        movie.addSelfToMyMovies();
+    }
+    
     setUpFilmingLocationByNameAndLatLong(locationName, locationLatLong){
         this.filmingLocationsByNameAndLatLong.push([locationName, locationLatLong]);
+    }
+
+
+    setUpFilmingLocationsForTheFirstTime(locationsByName, movie){
+        movie.setUpFilmingLocations(locationsByName, movie);
+        setTimeout(function (){
+            movie.setUpComplete(movie);
+          }, 1000);
     }
 
     setUpFilmingLocations(locationsByName, movie){
@@ -48,7 +61,7 @@ class Movie{
         "Almodóvar del Río, Córdoba, Andalucía, Spain",
         "Los Angeles, California, USA",
         "San Juan de Gaztelugatxe, Bermeo, Vizcaya, País Vasco, Spain"];// basic copy paste of addreses returned by getFilmingLocationsOf
-        this.setUpFilmingLocations(locationsByName, this);
+        this.setUpFilmingLocationsForTheFirstTime(locationsByName, this);
     }
 
     changeVisibilityStateOnMap(){
@@ -83,6 +96,24 @@ class Movie{
             removeMovie(movie);
         });
     }
+
+    addSelfToMyMovies(){
+        const getCircularReplacer = () => {//from https://docs.w3cub.com/javascript/errors/cyclic_object_value/
+            const seen = new WeakSet();
+            return (key, value) => {
+              if (typeof value === "object" && value !== null) {
+                if (seen.has(value)) {
+                  return;
+                }
+                seen.add(value);
+              }
+              return value;
+            };
+          };
+
+          sessionStorage.setItem(this.imdbID + "stringified", JSON.stringify(this ,getCircularReplacer()));
+        $("<br> <a href='movie.html?" + this.imdbID + "stringified' id=" + this.imdbID + "myMoviesLink" + ">" + this.name + "-" + this.year + "</a>").appendTo("#myMovies")
+    }
 }
 
 
@@ -97,12 +128,18 @@ function removeMovie(movie){
             movies.splice(movieIndex, movieIndex);
         }
         removeMovieFromMovieCheckBox(movie);
+        removeMovieFromMyMoviesLinkSection(movie)
     }
 }
 
 function removeMovieFromMovieCheckBox(movie){
     var divID = movie.imdbID + "Div";
     $('#'+ divID).remove();
+}
+
+function removeMovieFromMyMoviesLinkSection(movie){
+    var linkID = movie.imdbID + "myMoviesLink";
+    $('#'+ linkID).remove();
 }
 
 

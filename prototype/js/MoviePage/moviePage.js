@@ -25,16 +25,21 @@ var fakeMovie = {
 };
 
 $(document).ready(function(){
-    $("#TitleHeader").text(fakeMovie.Title);
-    $("#imdbID").text(fakeMovie.imdbID);
-    $("#movieYear").append(fakeMovie.Year);
-    $("#PosterIMG").attr("src", fakeMovie.Poster);
 
-    fakeMovie.filmingLocations.forEach(location => {
+    var queryString = window.location.search;
+    queryString = queryString.substring(1)
+
+    var movie = JSON.parse(sessionStorage.getItem(queryString));
+    $("#TitleHeader").text(movie.name);
+    $("#imdbID").text(movie.imdbID);
+    $("#movieYear").append(movie.year);
+    $("#PosterIMG").attr("src", movie.poster);
+    
+    movie.filmingLocationsMarkers.forEach(marker => {
         var locationTableLine = "<tr>";
-        locationTableLine += ("<th>" + location[0] + "</th>");
-        locationTableLine += ("<th>" + location[1][0] + "-" + location[1][1] + "</th>");
-        location += "</tr>";
+        locationTableLine += ("<th>" + marker.name + "</th>");
+        locationTableLine += ("<th>" + marker.location[0] + " - " + marker.location[1] + "</th>");
+        locationTableLine += "</tr>";
         $(locationTableLine).appendTo("#filmingLocationTable");
     })
 })
