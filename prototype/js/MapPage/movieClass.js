@@ -98,6 +98,19 @@ class Movie{
     }
 
     addSelfToMyMovies(){
+        var movie = this;
+        var url = "href=movie.html?" + this.imdbID + "stringified"
+        var id = "id=" + this.imdbID + "myMoviesLink";
+        var text = this.name + "-" + this.year;
+
+        $("<br> <a " + url + " + id='" + this.imdbID + "myMoviesLink" + "' >" + text + "</a>").appendTo("#myMovies");
+
+        $("#" + this.imdbID + "myMoviesLink").click(function(){
+            movie.storeMovieInSession(movie);
+        })
+    }
+        
+    storeMovieInSession(movie){
         const getCircularReplacer = () => {//from https://docs.w3cub.com/javascript/errors/cyclic_object_value/
             const seen = new WeakSet();
             return (key, value) => {
@@ -110,9 +123,7 @@ class Movie{
               return value;
             };
           };
-
-          sessionStorage.setItem(this.imdbID + "stringified", JSON.stringify(this ,getCircularReplacer()));
-        $("<br> <a href='movie.html?" + this.imdbID + "stringified' id=" + this.imdbID + "myMoviesLink" + ">" + this.name + "-" + this.year + "</a>").appendTo("#myMovies")
+        sessionStorage.setItem(movie.imdbID + "stringified", JSON.stringify(movie ,getCircularReplacer()));
     }
 }
 

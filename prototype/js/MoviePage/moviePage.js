@@ -39,6 +39,7 @@ $(document).ready(function(){
         var locationTableLine = "<tr>";
         locationTableLine += ("<th>" + marker.name + "</th>");
         locationTableLine += ("<th>" + marker.location[0] + " - " + marker.location[1] + "</th>");
+        locationTableLine += ("<th>" + marker.visited + "</th>")
         locationTableLine += "</tr>";
         $(locationTableLine).appendTo("#filmingLocationTable");
     })
