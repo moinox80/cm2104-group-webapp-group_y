@@ -11,6 +11,6 @@
 <ul>
   <li>ARTHUR SIDLE - MyStalks</li>
   <li>BRADLEY TODD - Login & Account</li>
-  <li>ANDER MOINA URRUTIA - Travel</li>
-  <li>KAVEH NEJAD - Map</li>
+  <li>ANDER MOINA URRUTIA - About & Index</li>
+  <li>KAVEH NEJAD - Map & Travel</li>
 </ul>
