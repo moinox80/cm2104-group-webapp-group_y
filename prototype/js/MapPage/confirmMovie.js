@@ -3,10 +3,10 @@
  * user confirms movie from imdbs most relevant based on innitial user input
  * displays a selection box on the page for the user to choose from
  */
-var movies_dict = {};
+var moviesDict = {};
 
 function selectMovieFromOptions(movies){
-    movies_dict = {};
+    moviesDict = {};
     createMovieSelectionDiv();
     addAllMoviesToOptionsListAndDict(movies);
     $("#submitMovie").click(onMovieChossen);
@@ -15,19 +15,19 @@ function selectMovieFromOptions(movies){
 
 function onMovieChossen(){
     var selectedMovie = $(movieSelect).val();
-    var movie = movies_dict[selectedMovie];
+    var movie = moviesDict[selectedMovie];
     makeMovie(movie);
     removeMovieSelectionDiv();
 }
 
 function addMovieToOptionsListAndDict(movie){
     var movieNameAndDate = String(movie.Title) + " " + String(movie.Year);
-    movies_dict[movieNameAndDate] = movie;
+    moviesDict[movieNameAndDate] = movie;
     $("<option>" + movieNameAndDate + "</option>").appendTo($("#movieSelect"));
 }
 
 function addAllMoviesToOptionsListAndDict(movies){
-    movies_dict = {};
+    moviesDict = {};
     movies.forEach(movie => {
         addMovieToOptionsListAndDict(movie)
     });

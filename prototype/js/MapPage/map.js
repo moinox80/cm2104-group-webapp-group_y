@@ -15,15 +15,15 @@ mymap.setMaxBounds([[180, -180], [-180, 180]]);//sets max bounds to top left and
 
 
 $(function(){
-    $('#add_movie').submit(function(){
-        if ($("#new_movie_input_by_imdb_number").val()){//add movie by imdb id
-            var movie_id = $("#new_movie_input_by_imdb_number").val();
-            getResultsFromOMDBByID(movie_id);
+    $('#add-movie').submit(function(){
+        if ($("#new-movie-input-by-name").val()){//add movie by imdb id
+            var movieId = $("#new-movie-input-by-name").val();
+            getResultsFromOMDBByID(movieId);
         }
-        else if($("#new_movie_input_by_name").val()){//add movie by name
-            var movie_name = $("#new_movie_input_by_name").val();
-            movie_name = setStringForOMDBURLFormat(movie_name);
-            getResultsFromOMDBByName(movie_name);
+        else if($("#new-movie-input-by-name").val()){//add movie by name
+            var movieName = $("#new-movie-input-by-name").val();
+            movieName = setStringFoOMDBURLFormat(movieName);
+            getResultsFromOMDBByName(movieName);
         }
         return false;
     })
@@ -31,10 +31,10 @@ $(function(){
 
 function setStringForOMDBURLFormat(string){//remove string from name to work with urls, ie. no spaces
     var words = string.split(" ");
-    var new_string = "";
-    new_string += words.shift();
+    var newString = "";
+    newString += words.shift();
     words.forEach(word => {
-        new_string += "%20" + word;
+        newString += "%20" + word;
     });
-    return new_string;
+    return newString;
 }
