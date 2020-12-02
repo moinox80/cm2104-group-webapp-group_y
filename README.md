@@ -7,3 +7,10 @@
   <li>KAVEH NEJAD (1905933)</li>
 </ul>
 
+<h1>Roles:</h1>
+<ul>
+  <li>ARTHUR SIDLE - MyStalks</li>
+  <li>BRADLEY TODD - Login & Account</li>
+  <li>ANDER MOINA URRUTIA - Travel</li>
+  <li>KAVEH NEJAD - Map</li>
+</ul>
