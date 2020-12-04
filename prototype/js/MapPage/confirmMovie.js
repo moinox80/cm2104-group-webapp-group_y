@@ -9,12 +9,12 @@ function selectMovieFromOptions(movies){
     moviesDict = {};
     createMovieSelectionDiv();
     addAllMoviesToOptionsListAndDict(movies);
-    $("#submitMovie").click(onMovieChossen);
-    $("#cancelMovieSelect").click(removeMovieSelectionDiv)
+    $("#submit-movie").click(onMovieChossen);
+    $("#cancel-movie-select").click(removeMovieSelectionDiv)
 }
 
 function onMovieChossen(){
-    var selectedMovie = $(movieSelect).val();
+    var selectedMovie = $("#movie-select").val();
     var movie = moviesDict[selectedMovie];
     makeMovie(movie);
     removeMovieSelectionDiv();
@@ -23,7 +23,7 @@ function onMovieChossen(){
 function addMovieToOptionsListAndDict(movie){
     var movieNameAndDate = String(movie.Title) + " " + String(movie.Year);
     moviesDict[movieNameAndDate] = movie;
-    $("<option>" + movieNameAndDate + "</option>").appendTo($("#movieSelect"));
+    $("<option>" + movieNameAndDate + "</option>").appendTo($("#movie-select"));
 }
 
 function addAllMoviesToOptionsListAndDict(movies){
@@ -34,14 +34,14 @@ function addAllMoviesToOptionsListAndDict(movies){
 }
 
 function removeMovieSelectionDiv(){
-    $("#movieSelectDiv").remove();
+    $("#movie-select-div").remove();
 }
 
 function createMovieSelectionDiv(){
     removeMovieSelectionDiv();
     var newDiv = "";
-    $('<div id="movieSelectDiv"></div>').appendTo('#add_movie_div');
-    $("<select id='movieSelect'></select>").appendTo("#movieSelectDiv");
-    $("<button id='submitMovie'> submit </button>").appendTo("#movieSelectDiv");
-    $("<button id='cancelMovieSelect'> cancel </button>").appendTo("#movieSelectDiv");
+    $('<div id="movie-select-div"></div>').appendTo('#add-movie-div');
+    $("<select id='movie-select'></select>").appendTo("#movie-select-div");
+    $("<button id='submit-movie'> submit </button>").appendTo("#movie-select-div");
+    $("<button id='cancel-movie-select'> cancel </button>").appendTo("#movie-select-div");
 }

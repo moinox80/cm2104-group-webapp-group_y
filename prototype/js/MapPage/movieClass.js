@@ -80,8 +80,8 @@ class Movie{
     
     addSelfToShowMovieCheckBox(){
         var movie = this;
-        var checkboxID = this.imdbID + "Checkbox";
-        var checkboxDivID = this.imdbID + "Div";
+        var checkboxID = this.imdbID + "-checkbox";
+        var checkboxDivID = this.imdbID + "-div";
         this.makeCheckBox(checkboxDivID, checkboxID);
         $('#'+ checkboxID).change(function() {
             movie.changeVisibilityStateOnMap();
@@ -89,15 +89,15 @@ class Movie{
     }
     
     makeCheckBox(checkboxDivID, checkboxID){
-        $("<div id=" + checkboxDivID + "></div>").appendTo("#showMovieCheckBox");
+        $("<div id=" + checkboxDivID + "></div>").appendTo("#show-movie-checkbox");
         $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + ">").appendTo("#" + checkboxDivID);
         $("<label for='" + this.name + "Checkbox'>" + this.name + " " + this.year + "</label>").appendTo("#" + checkboxDivID);
     }
 
     makeDeleteButton(){
         var movie = this;
-        $("<button id='deleteMovie" + this.imdbID + "'>Delete</button>").appendTo("#" + this.imdbID + "Div");
-        $('#deleteMovie' + this.imdbID).click(function(){
+        $("<button id='delete-movie-" + this.imdbID + "'>Delete</button>").appendTo("#" + this.imdbID + "Div");
+        $('#delete-movie-' + this.imdbID).click(function(){
             removeMovie(movie);
         });
     }
@@ -105,12 +105,12 @@ class Movie{
     addSelfToMyMovies(){
         var movie = this;
         var url = "href=movie.html?" + this.imdbID + "stringified"//containes movie stored in session
-        var id = "id=" + this.imdbID + "myMoviesLink";
+        var id = "id=" + this.imdbID + "-my-movies-link";
         var text = this.name + "-" + this.year;
 
-        $("<br> <a " + url + " + id='" + this.imdbID + "myMoviesLink" + "' >" + text + "</a>").appendTo("#myMovies");
+        $("<br> <a " + url + " + id='" + this.imdbID + "-my-movies-link" + "' >" + text + "</a>").appendTo("#my-movies");
 
-        $("#" + this.imdbID + "myMoviesLink").click(function(){
+        $("#" + this.imdbID + "-my-movies-link").click(function(){
             movie.storeMovieInSession(movie);
         })
     }
@@ -150,12 +150,12 @@ function removeMovie(movie){
 }
 
 function removeMovieFromMovieCheckBox(movie){
-    var divID = movie.imdbID + "Div";
+    var divID = movie.imdbID + "-div";
     $('#'+ divID).remove();
 }
 
 function removeMovieFromMyMoviesLinkSection(movie){
-    var linkID = movie.imdbID + "myMoviesLink";
+    var linkID = movie.imdbID + "-my-movies-link";
     $('#'+ linkID).remove();
 }
 

@@ -34,10 +34,10 @@ $(document).ready(function(){//onload set up movie with movie passed in url
     queryString = queryString.substring(1)
 
     var movie = JSON.parse(sessionStorage.getItem(queryString));
-    $("#TitleHeader").text(movie.name);
+    $("#title-header").text(movie.name);
     $("#imdbID").text(movie.imdbID);
-    $("#movieYear").append(movie.year);
-    $("#PosterIMG").attr("src", movie.poster);
+    $("#movie-year").append(movie.year);
+    $("#poster-IMG").attr("src", movie.poster);
     
     movie.filmingLocationsMarkers.forEach(marker => {
         var locationTableLine = "<tr>";
@@ -45,6 +45,6 @@ $(document).ready(function(){//onload set up movie with movie passed in url
         locationTableLine += ("<th>" + marker.location[0] + " - " + marker.location[1] + "</th>");
         locationTableLine += ("<th>" + marker.visited + "</th>")
         locationTableLine += "</tr>";
-        $(locationTableLine).appendTo("#filmingLocationTable");
+        $(locationTableLine).appendTo("#filming-location-table");
     })
 })

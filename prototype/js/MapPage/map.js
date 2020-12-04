@@ -16,13 +16,13 @@ mymap.setMaxBounds([[180, -180], [-180, 180]]);//sets max bounds to top left and
 
 $(function(){
     $('#add-movie').submit(function(){
-        if ($("#new-movie-input-by-name").val()){//add movie by imdb id
-            var movieId = $("#new-movie-input-by-name").val();
+        if ($("#new-movie-input-by-imdb-number").val()){//add movie by imdb id
+            var movieId = $("#new-movie-input-by-imdb-number").val();
             getResultsFromOMDBByID(movieId);
         }
         else if($("#new-movie-input-by-name").val()){//add movie by name
             var movieName = $("#new-movie-input-by-name").val();
-            movieName = setStringFoOMDBURLFormat(movieName);
+            movieName = setStringForOMDBURLFormat(movieName);
             getResultsFromOMDBByName(movieName);
         }
         return false;
