@@ -11,7 +11,7 @@ const SETTINGS = {
 };
 
 
-function getNearestAirports(latLng){
+function getNearestAirports(latLng){//max 100 requests per month
     var settings = SETTINGS;
     settings["url"] = setUpUrl(latLng);
     $.ajax(settings).done(function (response) {
