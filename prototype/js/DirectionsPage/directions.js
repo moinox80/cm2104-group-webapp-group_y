@@ -4,10 +4,10 @@ var mapQuestResponseFunctionsMap = {"0" : mapQuestSucces, "402" : locationNotFou
 
 var start = '350 5th Ave, New York, NY 10118';
 var end = 'New York, NY';
-var map;
-var userLocation;
+var userLocation = {};
 
 window.onload = function(){
+    getUserLocation();
     getDirections(start, end);
 }
 
@@ -16,7 +16,19 @@ function getUserLocation(){
 }
 
 function onUserLocationRecieved(location){
-    userLocation = location;
+    userLocation["coordinates"] = [location.coords.latitude, location.coords.longitude];
+    openCageAPIConvertLatLongToAddress(userLocation["coordinates"], setUsersAddress)
+}
+
+function setUsersAddress(openCageresponce){
+    userLocation["address"] = openCageresponce.results[0].formatted;
+    console.log(userLocation)
+}
+
+function addDirectionsToMap(response){
+    var directionsLayer = L.mapquest.directionsLayer({
+        directionsResponse: response
+  }).addTo(map);
 }
 
 function getDirections(start, end){
@@ -35,27 +47,13 @@ function directionsCallback(error, response) {
     handleResponseStatus(response)
 }
 
-function makeMap(){
-    map = L.mapquest.map('map', {
-      center: [0,0],
-      layers: L.mapquest.tileLayer('map'),
-      zoom: 7
-    });
-}
-
-function addDirectionsToMap(response){
-    var directionsLayer = L.mapquest.directionsLayer({
-        directionsResponse: response
-  }).addTo(map);
-}
-
 function mapQuestSucces(response){
-    makeMap();
+    makeMap(start, end);
     addDirectionsToMap(response);
 }
 
 function locationNotFound(response){
-    console.log("notfound")
+    $("body").html("No driving route found")
 }
 
 function handleResponseStatus(response){
