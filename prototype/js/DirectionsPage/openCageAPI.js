@@ -1,6 +1,6 @@
 /**
  * Opencage api
- * used to convert latitude and logitudevto addresses
+ * used to convert latitude and logitudevto addresses and viceversa
  * code is from https://opencagedata.com/tutorials/geocode-in-javascript and hardly edited
  */
 

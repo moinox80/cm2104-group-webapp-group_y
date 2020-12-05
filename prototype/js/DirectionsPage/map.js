@@ -1,3 +1,8 @@
+/**
+ * makes mapquest map for directions page
+ * and adds route to map with ui
+ */
+
 var map;
 
 function makeMap(){
@@ -10,7 +15,6 @@ function makeMap(){
 
 
 function addUserInputToMap(start, end){
-  console.log(1)
     L.mapquest.directionsControl({
         className: '',
         directions: {
@@ -39,12 +43,12 @@ function addUserInputToMap(start, end){
           viaMarker: {
             title: 'Drag to change route'
           },
-          // routeRibbon: {
-          //   showTraffic: true
-          // },
-          // alternateRouteRibbon: {
-          //   showTraffic: true
-          // },
+          routeRibbon: {
+            showTraffic: true
+          },
+          alternateRouteRibbon: {
+            showTraffic: true
+          },
           paddingTopLeft: [100, 20],
           paddingBottomRight: [180, 20],
         },

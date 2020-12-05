@@ -26,7 +26,7 @@ function getNearestAirports(latLng, callback){//max 100 requests per month
         var settings = SETTINGS;
         settings["url"] = setUpUrl(latLng);
         $.ajax(settings).done(function (response) {
-            console.log(response)
+            //console.log(response)
             var airportLatLng = [response.items[0].location.lat, response.items[0].location.lon];
             callback(airportLatLng);
         });
@@ -34,7 +34,6 @@ function getNearestAirports(latLng, callback){//max 100 requests per month
 }
 
 function setUpUrl(latLng){
-    var latLng = latLng.split(",");
     var url = baseurl;
     url = url.replace("LAT", latLng[0]);
     url = url.replace("LNG", latLng[1]);
