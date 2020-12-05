@@ -51,7 +51,6 @@ function sixzerotwo(response){
     console.log(602 + " status code");
 }
 
-
 function locationNotFound(){
     getNearestAirports(start, getDirectionsToAirport);
     //getNearestAirports(end, onCoordsForDestinationAirportFound);
