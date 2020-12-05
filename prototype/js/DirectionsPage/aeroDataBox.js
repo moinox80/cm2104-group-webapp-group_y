@@ -10,13 +10,14 @@ const SETTINGS = {
 	}
 };
 
-
 function getNearestAirports(latLng){//max 100 requests per month
-    var settings = SETTINGS;
-    settings["url"] = setUpUrl(latLng);
-    $.ajax(settings).done(function (response) {
-        callback(response.items[0]);
-    });
+    if(confirmTouseAeroDataBox()){
+        var settings = SETTINGS;
+        settings["url"] = setUpUrl(latLng);
+        $.ajax(settings).done(function (response) {
+            callback(response.items[0]);
+        });
+    }
 }
 
 function setUpUrl(latLng){
@@ -24,4 +25,8 @@ function setUpUrl(latLng){
     url = url.replace("LAT", latLng[0]);
     url = url.replace("LNG", latLng[1]);
     return url;
+}
+
+function confirmTouseAeroDataBox(){
+    return(confirm("will use aeroDataBox, max 100 requests per month"));
 }
