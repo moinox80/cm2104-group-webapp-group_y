@@ -27,8 +27,9 @@ class Marker{
         var toggleVisitButton = "<button onclick=markerToggleVisistedButtonClicked(" + this.markerID + ")>toggle visited</button>";
         var movieNameAndYear = this.movie.name + "  " + this.movie.year;
         var visited = "Visited:" + this.parent.visited;
+        var directionsLink = this.googleMapsLink()
         
-        this.marker.bindPopup(movieNameAndYear + "<br><br>" + this.label +  "<br><br>" + visited + toggleVisitButton);
+        this.marker.bindPopup(movieNameAndYear + "<br><br>" + this.label +  "<br><br>" + visited + toggleVisitButton + "<br>" + directionsLink);
     }
     
     
@@ -40,6 +41,9 @@ class Marker{
         this.marker.removeFrom(mymap);
     }
 
+    googleMapsLink(){
+       return "<a href=https://www.google.com/maps/dir/?api=1&origin=" + userLocation + "&destination=" + this.position + ">Directions</a>";
+    }
 }
 
 function makeMarkerID(){
@@ -50,5 +54,4 @@ function markerToggleVisistedButtonClicked(markerID){//when visited button is cl
     var marker = buttonMap[markerID];
     marker.parent.visited = !marker.parent.visited;
     marker.creatMarkerPopUp();
-
 }
