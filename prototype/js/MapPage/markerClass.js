@@ -27,9 +27,10 @@ class Marker{
         var toggleVisitButton = "<button onclick=markerToggleVisistedButtonClicked(" + this.markerID + ")>toggle visited</button>";
         var movieNameAndYear = this.movie.name + "  " + this.movie.year;
         var visited = "Visited:" + this.parent.visited;
-        var directionsLink = this.googleMapsLink()
+        var directionsLink = this.googleMapsLink();
+        var directionsPageLink = this.directionsLink();
         
-        this.marker.bindPopup(movieNameAndYear + "<br><br>" + this.label +  "<br><br>" + visited + toggleVisitButton + "<br>" + directionsLink);
+        this.marker.bindPopup(movieNameAndYear + "<br>" + this.label +  "<br>" + visited + toggleVisitButton + "<br>" + directionsLink + "<br>" + directionsPageLink);
     }
     
     
@@ -42,7 +43,11 @@ class Marker{
     }
 
     googleMapsLink(){
-       return "<a href=https://www.google.com/maps/dir/?api=1&origin=" + userLocation + "&destination=" + this.position + ">Directions</a>";
+       return "<a href=https://www.google.com/maps/dir/?api=1&origin=" + userLocation + "&destination=" + this.position + ">Directions by google</a>";
+    }
+
+    directionsLink(){
+        return "<a href=directions.html?destination=" + this.position + ">Directions by filmstalker</a>";
     }
 }
 

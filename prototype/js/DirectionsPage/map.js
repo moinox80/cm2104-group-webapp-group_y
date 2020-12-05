@@ -1,15 +1,16 @@
 var map;
 
-function makeMap(start, end){
-    map = L.mapquest.map('map', {
-      center: [0,0],
-      layers: L.mapquest.tileLayer('map'),
-      zoom: 7
-    });
-    addUserInputToMap(start, end);
+function makeMap(){
+  map = L.mapquest.map('map', {
+    center: [0,0],
+    layers: L.mapquest.tileLayer('map'),
+    zoom: 7
+  });
 }
 
+
 function addUserInputToMap(start, end){
+  console.log(1)
     L.mapquest.directionsControl({
         className: '',
         directions: {
@@ -38,19 +39,19 @@ function addUserInputToMap(start, end){
           viaMarker: {
             title: 'Drag to change route'
           },
-          routeRibbon: {
-            showTraffic: true
-          },
-          alternateRouteRibbon: {
-            showTraffic: true
-          },
+          // routeRibbon: {
+          //   showTraffic: true
+          // },
+          // alternateRouteRibbon: {
+          //   showTraffic: true
+          // },
           paddingTopLeft: [100, 20],
           paddingBottomRight: [180, 20],
         },
         startInput: {
           compactResults: true,
           disabled: false,
-          location: {},
+          location: start,
           placeholderText: start,
           geolocation: {
             enabled: true
@@ -60,7 +61,7 @@ function addUserInputToMap(start, end){
         endInput: {
           compactResults: true,
           disabled: false,
-          location: {},
+          location: end,
           placeholderText: end,
           geolocation: {
             enabled: true
@@ -89,6 +90,6 @@ function addUserInputToMap(start, end){
           compactResults: false,
           interactive: true,
         }
-
+        
     }).addTo(map);
 }
