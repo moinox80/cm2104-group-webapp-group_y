@@ -7,19 +7,20 @@ var numberOfMarkers = 0;
 var  buttonMap = {};
 
 class Marker{
-    constructor(position, label, movie, parent){
+    constructor(position, label, icon, movie, parent){
         this.markerID = makeMarkerID();
         buttonMap[this.markerID] = this;
         this.position = position;
         this.label = label;
         this.movie = movie;
         this.parent = parent;
+        this.icon = icon;
         this.createMarker();
         this.addToMap();
     }
     
     createMarker(){
-        this.marker = L.marker(this.position);
+        this.marker = L.marker(this.position, {icon: this.icon});
         this.creatMarkerPopUp();
     }
     

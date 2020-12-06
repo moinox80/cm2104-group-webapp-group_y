@@ -12,10 +12,11 @@
 		<link rel="stylesheet" href="../css/main.css">
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
 		<link rel="stylesheet" href="../css/bootstrap.min.css">
+		<link rel="stylesheet" href="../css/mappage.css">
 
 		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-
-
+		
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="../js/MapPage/markerClass.js"></script>
 		<script src="../js/MapPage/movieClass.js"></script>
@@ -23,7 +24,7 @@
 		<script src="../js/MapPage/getFilmingLocations.js"></script>
 		<script src="../js/MapPage/omdb.js"></script>
 		<script src="../js/MapPage/confirmMovie.js"></script>
-
+		<script src="../js/MapPage/map.js"></script>
 		<script src="../js/MapPage/openCageAPI.js"></script>
 	</head>
 	
@@ -41,25 +42,30 @@
 		</nav>
 		
 		<main>
-			<div class="container" style="text-align: center">
-				<div class="row">
-					<div class="col-12">
-						<div id="mapid" style="width: 900px; height: 500px; margin: 0 auto"></div>
-						<script src="../js/MapPage/map.js"></script>
-
-						<div id="add-movie-div">
-							<form id="add-movie">
-								<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
-								<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
-								<input type="submit" value="Search">
-							</form>
+			<div class="row" style="text-align: center;">
+				<div class="col-12">
+					<div class="row">
+						<div class="col">
+							<div id="show-movie-checkbox">
+								<p>Click checkbox to toggle visibility on map</p>
+							</div>
 						</div>
-
-						<div id="show-movie-checkbox">
-							<p>Click checkbox to toggle visibility on map</p>
+						<div class="col">
+							<div id="mapid"></div>
 						</div>
-						<br><br>
-						<div id="my-movies"></div>
+						<div class="col">
+							<div id="my-movies">
+								<p>Click on movie to go to movie page</p>
+							</div>
+						</div>
+					</div>
+
+					<div id="add-movie-div">
+						<form id="add-movie">
+							<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
+							<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
+							<input type="submit" value="Search">
+						</form>
 					</div>
 				</div>
 			</div>
