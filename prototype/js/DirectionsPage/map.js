@@ -14,7 +14,7 @@ function makeMap(){
 }
 
 
-function addUserInputToMap(start, end){
+function addUserInputToMap(start, end){//code mostly copy pasted from mapquest
     L.mapquest.directionsControl({
         className: '',
         directions: {

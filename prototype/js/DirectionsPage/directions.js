@@ -29,7 +29,8 @@ function alertAboutPage(){//tell user how page works and about possible error
     basicFuncOfPage += " it will gives directions from your current location to the nearest airport,";
     basicFuncOfPage += "and from the nearest airpot of the location to the location.";
     var possibleError = " Sometimes mapquest returns error, i believe this to be due to a mistake in their software, error states,";
-    possibleError += " 'Error: this.data.latLng is undefined'";
+    possibleError += " 'Error: this.data.latLng is undefined'.";
+    possibleError += " Aiport returned is ofter wrong.";
     alert(basicFuncOfPage + possibleError);
 }
 
@@ -46,12 +47,14 @@ function getUserLocation(){//gets the users current location
 function onUserLocationRecieved(location){//is run once the user has agreed to giving their location
     userLocation = [location.coords.latitude, location.coords.longitude];
     startLocation = userLocation;
-    //startLocation = "40.731855,-73.982775"; // somewhere in New York
-    // startLocation = "48.877952,2.351985"; //Paris
-    // startLocation = "-33.883778,151.202363" //Sydney
-    // startLocation = "30.087878,31.274098" //Cairo
-    // startLocation = "28.653330,77.204324" //New Delhi
-    // startLocation = "35.718355,139.714722" //Tokyo
+
+    // startLocation = "40.731855,-73.982775"; // New York
+    // startLocation = "48.877952,2.351985"; // Paris
+    // startLocation = "-33.883778,151.202363"; // Sydney
+    // startLocation = "30.087878,31.274098"; // Cairo
+    // startLocation = "28.653330,77.204324"; // New Delhi
+    // startLocation = "35.718355,139.714722"; // Tokyo
+    // startLocation = "51.516700,-0.147527"; // London
     
     getDirections(startLocation, endLocation);
 }
@@ -79,21 +82,24 @@ function mapQuestSucces(response){//if map quest is succesfull in ploting
 function sixZeroTwoStatus(response){
     console.log(602 + " status code");
     console.log(response);
+    locationNotFound();
 }
 
 function locationNotFound(){// if a route is not found, get directions to and from the airports
     getNearestAirports(startLocation, getDirectionsToAirport);
-    getNearestAirports(endLocation, getDestinationAirportFound);
+    getNearestAirports(endLocation, getDirectionsFromAirport);
 }
 
-function getDestinationAirportFound(coords){
+function getDirectionsFromAirport(coords){
+    console.log("getting directions from airport");
     var latLngInString = coords[0] + "," + coords[1];
-    getDirections(latLngInString, endLocation);
+    addUserInputToMap(latLngInString, endLocation);
 }
 
 function getDirectionsToAirport(coords){
+    console.log("getting directions from airport");
     var latLngInString = coords[0] + "," + coords[1];
-    getDirections(startLocation, latLngInString);
+    addUserInputToMap(startLocation, latLngInString);
 }
 
 function handleResponseStatus(response){// handles the response of the mapquest route maker, and calls appropriate function

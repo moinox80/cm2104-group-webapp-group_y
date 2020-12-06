@@ -10,6 +10,8 @@ const SETTINGS = {
 	}
 };
 
+const SPAREKEY = "dd766d886bmsh142a8ee201c2265p10db47jsnd2fb5575bec7";
+
 
 /*
 countryCode: "GB"
@@ -21,12 +23,12 @@ name: "London, London Biggin Hill"
 shortName: "Biggin Hill"
 */
 
+
 function getNearestAirports(latLng, callback){//max 100 requests per month
     if(confirmTouseAeroDataBox()){
         var settings = SETTINGS;
         settings["url"] = setUpUrl(latLng);
         $.ajax(settings).done(function (response) {
-            //console.log(response)
             var airportLatLng = [response.items[0].location.lat, response.items[0].location.lon];
             callback(airportLatLng);
         });
@@ -34,6 +36,9 @@ function getNearestAirports(latLng, callback){//max 100 requests per month
 }
 
 function setUpUrl(latLng){
+    if (latLng instanceof String || typeof latLng === "string"){
+        latLng = latLng.split(",");
+    }
     var url = baseurl;
     url = url.replace("LAT", latLng[0]);
     url = url.replace("LNG", latLng[1]);
