@@ -51,12 +51,12 @@ Basic description : A site to track and mark movie filming locations, by display
 #API's
 
 ##Movies
--IMDB API : https://rapidapi.com/apidojo/api/imdb8   a API to get movie and tv series information, will primeraly be used for filming locations. 500 per month
--OMDB API : http://www.omdbapi.com/   a API to get all the movie information
+- IMDB API : https://rapidapi.com/apidojo/api/imdb8   a API to get movie and tv series information, will primeraly be used for filming locations. 500 per month
+- OMDB API : http://www.omdbapi.com/   a API to get all the movie information
 
 
 ##travel/Travel
--MapQuest https://developer.mapquest.com/ used to make map on directions page and to get directions
--AeroData Box https://www.aerodatabox.com/  used to get locations of nearest airports
--leaflet.js     to make the map
--OpenCage Geocoding API     https://opencagedata.com/     to convert address to lat-lng
+- MapQuest https://developer.mapquest.com/ used to make map on directions page and to get directions
+- AeroData Box https://www.aerodatabox.com/  used to get locations of nearest airports
+- leaflet.js     to make the map
+- OpenCage Geocoding API     https://opencagedata.com/     to convert address to lat-lng
