@@ -50,7 +50,7 @@ Basic description : A site to track and mark movie filming locations, by display
 
 #API's
 
-## movies:
+##Movies
 -IMDB API : https://rapidapi.com/apidojo/api/imdb8   a API to get movie and tv series information, will primeraly be used for filming locations. 500 per month
 -OMDB API : http://www.omdbapi.com/   a API to get all the movie information
 
