@@ -206,7 +206,8 @@
   .footer-content{
     text-align: center;
     list-style-type: none;
-  }
+
+}
   .footer-content a{
     margin: 25px;
   }
@@ -252,6 +253,7 @@
     animation: animated-text 3s steps(30,end) 1s 1 normal both
   }
   
+
   #border {
      animation: animated-cursor 600ms steps(30,end) infinite;
   }
@@ -293,10 +295,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
-    
-
-  }
+}
   
   /* When moving the mouse over the submit button, add a darker green color */
   input[type=submit]:hover {
@@ -313,6 +312,7 @@
     text-align: center;
   }
 
+
 /*Tablet view*/
   @media only screen and (min-width: 520px) {
     .logo{
@@ -326,11 +326,11 @@
     #parent {
       font-size: 23px;
     }
+
     @keyframes animated-text{
       from{width: 0;}
       to{width: 480px;}
-    }
-    
+    }   
   }
 /*Tablet/Desktop view*/
   @media only screen and (min-width: 768px) {

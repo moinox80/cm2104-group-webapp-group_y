@@ -1,3 +1,8 @@
+/**
+ * movieClass
+ * main class for all movies and shows
+ * manages creation of all subclasses
+ */
 var movies = [];
 
 class Movie{
@@ -6,18 +11,31 @@ class Movie{
         this.name = this.OMDBData.Title;
         this.imdbID = this.OMDBData.imdbID;
         this.year = this.OMDBData.Year;
+        this.poster = this.OMDBData.Poster;
         this.filmingLocationsMarkers = [];
         this.filmingLocationsByNameAndLatLong = []
-        getFilmingLocationsOf(this.setUpFilmingLocations, this.imdbID, this); //uses imdb which has max 500 call requests per month
+        getFilmingLocationsOf(this.setUpFilmingLocationsForTheFirstTime, this.imdbID, this); //uses imdb which has max 500 call requests per month
         // this.testFakeAddress();// acts as getFilmingLocationsOf
-        this.addSelfToSHowMovieCheckBox();
-        this.makeDeleteButton();
         this.visibleOnMap = true;
         movies.push(this);
     }
     
+    setUpComplete(movie){//when the set up is complete, add ui
+        movie.addSelfToShowMovieCheckBox();
+        movie.makeDeleteButton();
+        movie.addSelfToMyMovies();
+    }
+    
     setUpFilmingLocationByNameAndLatLong(locationName, locationLatLong){
         this.filmingLocationsByNameAndLatLong.push([locationName, locationLatLong]);
+    }
+
+
+    setUpFilmingLocationsForTheFirstTime(locationsByName, movie){
+        movie.setUpFilmingLocations(locationsByName, movie);
+        setTimeout(function (){
+            movie.setUpComplete(movie);
+          }, 1000);
     }
 
     setUpFilmingLocations(locationsByName, movie){
@@ -48,7 +66,7 @@ class Movie{
         "Almodóvar del Río, Córdoba, Andalucía, Spain",
         "Los Angeles, California, USA",
         "San Juan de Gaztelugatxe, Bermeo, Vizcaya, País Vasco, Spain"];// basic copy paste of addreses returned by getFilmingLocationsOf
-        this.setUpFilmingLocations(locationsByName, this);
+        this.setUpFilmingLocationsForTheFirstTime(locationsByName, this);
     }
 
     changeVisibilityStateOnMap(){
@@ -60,10 +78,10 @@ class Movie{
         }
     }
     
-    addSelfToSHowMovieCheckBox(){
+    addSelfToShowMovieCheckBox(){
         var movie = this;
-        var checkboxID = this.imdbID + "Checkbox";
-        var checkboxDivID = this.imdbID + "Div";
+        var checkboxID = this.imdbID + "-checkbox";
+        var checkboxDivID = this.imdbID + "-div";
         this.makeCheckBox(checkboxDivID, checkboxID);
         $('#'+ checkboxID).change(function() {
             movie.changeVisibilityStateOnMap();
@@ -71,17 +89,47 @@ class Movie{
     }
     
     makeCheckBox(checkboxDivID, checkboxID){
-        $("<div id=" + checkboxDivID + "></div>").appendTo("#showMovieCheckBox");
+        $("<div id=" + checkboxDivID + "></div>").appendTo("#show-movie-checkbox");
         $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + ">").appendTo("#" + checkboxDivID);
         $("<label for='" + this.name + "Checkbox'>" + this.name + " " + this.year + "</label>").appendTo("#" + checkboxDivID);
     }
 
     makeDeleteButton(){
         var movie = this;
-        $("<button id='deleteMovie" + this.imdbID + "'>Delete</button>").appendTo("#" + this.imdbID + "Div");
-        $('#deleteMovie' + this.imdbID).click(function(){
+        $("<button id='delete-movie-" + this.imdbID + "'>Delete</button>").appendTo("#" + this.imdbID + "Div");
+        $('#delete-movie-' + this.imdbID).click(function(){
             removeMovie(movie);
         });
+    }
+
+    addSelfToMyMovies(){
+        var movie = this;
+        var url = "href=movie.html?" + this.imdbID + "stringified"//containes movie stored in session
+        var id = "id=" + this.imdbID + "-my-movies-link";
+        var text = this.name + "-" + this.year;
+
+        $("<br> <a " + url + " + id='" + this.imdbID + "-my-movies-link" + "' >" + text + "</a>").appendTo("#my-movies");
+
+        $("#" + this.imdbID + "-my-movies-link").click(function(){
+            movie.storeMovieInSession(movie);
+        })
+    }
+        
+    storeMovieInSession(movie){//store movie in session
+        const getCircularReplacer = () => {//from https://docs.w3cub.com/javascript/errors/cyclic_object_value/
+            const seen = new WeakSet();
+            return (key, value) => {
+              if (typeof value === "object" && value !== null) {
+                if (seen.has(value)) {
+                  return;
+                }
+                seen.add(value);
+              }
+              return value;
+            };
+          };
+
+        sessionStorage.setItem(movie.imdbID + "stringified", JSON.stringify(movie ,getCircularReplacer()));
     }
 }
 
@@ -97,12 +145,18 @@ function removeMovie(movie){
             movies.splice(movieIndex, movieIndex);
         }
         removeMovieFromMovieCheckBox(movie);
+        removeMovieFromMyMoviesLinkSection(movie)
     }
 }
 
 function removeMovieFromMovieCheckBox(movie){
-    var divID = movie.imdbID + "Div";
+    var divID = movie.imdbID + "-div";
     $('#'+ divID).remove();
+}
+
+function removeMovieFromMyMoviesLinkSection(movie){
+    var linkID = movie.imdbID + "-my-movies-link";
+    $('#'+ linkID).remove();
 }
 
 

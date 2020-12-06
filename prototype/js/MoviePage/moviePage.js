@@ -1,3 +1,7 @@
+/** 
+ * movie page
+ * sets up the moie page with the given movie
+*/
 var fakeMovie = {
     Poster: "https://m.media-amazon.com/images/M/MV5BMTkxMjYyNzgwMl5BMl5BanBnXkFtZTgwMTE3MjYyMTE@._V1_SX300.jpg",
     Title: "Ghostbusters",
@@ -24,17 +28,23 @@ var fakeMovie = {
     ]
 };
 
-$(document).ready(function(){
-    $("#TitleHeader").text(fakeMovie.Title);
-    $("#imdbID").text(fakeMovie.imdbID);
-    $("#movieYear").append(fakeMovie.Year);
-    $("#PosterIMG").attr("src", fakeMovie.Poster);
+$(document).ready(function(){//onload set up movie with movie passed in url
 
-    fakeMovie.filmingLocations.forEach(location => {
+    var queryString = window.location.search;
+    queryString = queryString.substring(1)
+
+    var movie = JSON.parse(sessionStorage.getItem(queryString));
+    $("#title-header").text(movie.name);
+    $("#imdbID").text(movie.imdbID);
+    $("#movie-year").append(movie.year);
+    $("#poster-IMG").attr("src", movie.poster);
+    
+    movie.filmingLocationsMarkers.forEach(marker => {
         var locationTableLine = "<tr>";
-        locationTableLine += ("<th>" + location[0] + "</th>");
-        locationTableLine += ("<th>" + location[1][0] + "-" + location[1][1] + "</th>");
-        location += "</tr>";
-        $(locationTableLine).appendTo("#filmingLocationTable");
+        locationTableLine += ("<th>" + marker.name + "</th>");
+        locationTableLine += ("<th>" + marker.location[0] + " - " + marker.location[1] + "</th>");
+        locationTableLine += ("<th>" + marker.visited + "</th>")
+        locationTableLine += "</tr>";
+        $(locationTableLine).appendTo("#filming-location-table");
     })
 })

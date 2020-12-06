@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+
+  <meta name="theme-color" content="#fafafa">
+  
+  <style>
+    .movie {
+      background-color: lightgrey;
+    }
+
+    .movie-title {
+      text-align: left;
+    }
+
+    .movie-facts {
+      background-color: inherit;
+      list-style-type: initial;
+    }
+  </style>
+</head>
+
+<body>
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here -->
+  
+  <h1>FilmStalker</h1>
+  <ul>
+    <li><a href="map.html">Map</a></li>
+    <li><a href="movie.html">Movies</a></li>
+    <li><a href="logIn.html">Log in</a></li>
+  </ul>
+
+  <div class="container">
+    <div class="row movie">
+      <div class="row movie-info">
+        <div class="col-6">
+          <h1 class="movie-title">Ghostbusters</h1>
+        </div>
+        <div class="col-6">
+          <ul class="movie-facts">
+            <li>Release year: 1984</li>
+            <li>Genres: Action, Comedy, Fantasy</li>
+            <li>Director: Ivan Reitman</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/vendor/bootstrap.min.js"></script>
+  <script src="..\js\vendor\modernizr-2.8.3-respond-1.4.2.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+  <script src="..\js\main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set','transport','beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>
