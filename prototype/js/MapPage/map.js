@@ -1,6 +1,17 @@
+
 var mymap;
+var userLocation;
+
+function getUserLocation(){
+    navigator.geolocation.getCurrentPosition(onUserLocationRecieved);
+}
+
+function onUserLocationRecieved(location){
+    userLocation = [location.coords.latitude, location.coords.longitude];
+}
 
 $(document).ready(function(){
+    getUserLocation();
 
     mymap = L.map('mapid').setView([0,0], 1);
     
