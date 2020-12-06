@@ -10,20 +10,11 @@
   border-bottom-right-radius: 110%;
 }
 
-#show-movie-checkbox{
-    margin-top: 5%;
-    background-color: grey;
-    overflow-x:scroll;
-}
 
-show-movie-checkbox div{
-    border: 1px solid #006;
-    white-space:nowrap;
-    display: inline-block;
-}
-
-#my-movies{
-    background-color: goldenrod;
+#my-movies, #show-movie-checkbox{
+    height: 100%;
+    width: 100%;
+    background-color: orange;
 }
 
 #mapid{

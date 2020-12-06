@@ -42,28 +42,30 @@
 		</nav>
 		
 		<main>
-			<div class="container" style="text-align: center">
-				<div class="row">
-					<div class="col-12">
-
-						<div id="mapid"></div>
-						
-
-						<div id="add-movie-div">
-							<form id="add-movie">
-								<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
-								<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
-								<input type="submit" value="Search">
-							</form>
+			<div class="row" style="text-align: center;">
+				<div class="col-12">
+					<div class="row">
+						<div class="col">
+							<div id="show-movie-checkbox">
+								<p>Click checkbox to toggle visibility on map</p>
+							</div>
 						</div>
-
-						<div id="show-movie-checkbox">
-							<p>Click checkbox to toggle visibility on map</p>
+						<div class="col">
+							<div id="mapid"></div>
 						</div>
+						<div class="col">
+							<div id="my-movies">
+								<p>Click on movie to go to movie page</p>
+							</div>
+						</div>
+					</div>
 
-						<br>
-
-						<div id="my-movies"></div>
+					<div id="add-movie-div">
+						<form id="add-movie">
+							<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
+							<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
+							<input type="submit" value="Search">
+						</form>
 					</div>
 				</div>
 			</div>
