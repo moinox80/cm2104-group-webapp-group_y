@@ -1,0 +1,11 @@
+.leaflet-marker-icon {
+    content:  '';
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  background: lightgreen;
+  border-top-left-radius: 20%;
+  border-top-right-radius: 20%;
+  border-bottom-left-radius: 110%;
+  border-bottom-right-radius: 110%;
+}
