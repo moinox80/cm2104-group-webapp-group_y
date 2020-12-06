@@ -24,12 +24,13 @@ window.onload = function(){//runs when page is loaded
     endLocation = getSearchParamFromUrl("destination");
 }
 
-function alertAboutPage(){
-    var basicFuncOfPage = "Page gives directions to location by car. If the route is impossible,"
-    basicFuncOfPage += " it will gives directions from your current location to the nearest airport,"
-    basicFuncOfPage += "and from the nearest airpot of the location to the location."
-    var possibleError = " Sometimes mapquest returns error, i believe this to be due to a mistake in their software, error states, 'Error: this.data.latLng is undefined'"
-    alert(basicFuncOfPage + possibleError)
+function alertAboutPage(){//tell user how page works and about possible error
+    var basicFuncOfPage = "Page gives directions to location by car. If the route is impossible,";
+    basicFuncOfPage += " it will gives directions from your current location to the nearest airport,";
+    basicFuncOfPage += "and from the nearest airpot of the location to the location.";
+    var possibleError = " Sometimes mapquest returns error, i believe this to be due to a mistake in their software, error states,";
+    possibleError += " 'Error: this.data.latLng is undefined'";
+    alert(basicFuncOfPage + possibleError);
 }
 
 function getSearchParamFromUrl(param){//gets the param from the url
@@ -46,6 +47,12 @@ function onUserLocationRecieved(location){//is run once the user has agreed to g
     userLocation = [location.coords.latitude, location.coords.longitude];
     startLocation = userLocation;
     //startLocation = "40.731855,-73.982775"; // somewhere in New York
+    // startLocation = "48.877952,2.351985"; //Paris
+    // startLocation = "-33.883778,151.202363" //Sydney
+    // startLocation = "30.087878,31.274098" //Cairo
+    // startLocation = "28.653330,77.204324" //New Delhi
+    // startLocation = "35.718355,139.714722" //Tokyo
+    
     getDirections(startLocation, endLocation);
 }
 
@@ -76,10 +83,10 @@ function sixZeroTwoStatus(response){
 
 function locationNotFound(){// if a route is not found, get directions to and from the airports
     getNearestAirports(startLocation, getDirectionsToAirport);
-    getNearestAirports(endLocation, onCoordsForDestinationAirportFound);
+    getNearestAirports(endLocation, getDestinationAirportFound);
 }
 
-function onCoordsForDestinationAirportFound(coords){
+function getDestinationAirportFound(coords){
     var latLngInString = coords[0] + "," + coords[1];
     getDirections(latLngInString, endLocation);
 }
@@ -88,21 +95,6 @@ function getDirectionsToAirport(coords){
     var latLngInString = coords[0] + "," + coords[1];
     getDirections(startLocation, latLngInString);
 }
-
-// function onAirportFound(isArrivalAirport, airport){
-//     var aiportLatLng = airport.location;
-//     if(!isArrivalAirport){
-//         openCageAPIConvertLatLongToAddress(aiportLatLng, setUpDirectionFromAirport);
-//     }
-// }
-
-// function setUpDirectionsToAirport(airportAddress){
-//     getDirections(startLocation, airportAddress);
-// }
-
-// function setUpDirectionFromAirport(airportAddress){
-//     getDirections(airportAddress, endLocation);
-// }
 
 function handleResponseStatus(response){// handles the response of the mapquest route maker, and calls appropriate function
     if(response){
