@@ -18,20 +18,17 @@ var endLocation;
 var userLocation;
 
 window.onload = function(){//runs when page is loaded
-    alertAboutPage();
+    logAboutPage();
     makeMap();
     getUserLocation();
     endLocation = getSearchParamFromUrl("destination");
 }
 
-function alertAboutPage(){//tell user how page works and about possible error
+function logAboutPage(){//tell user how page works and about possible error
     var basicFuncOfPage = "Page gives directions to location by car. If the route is impossible,";
     basicFuncOfPage += " it will gives directions from your current location to the nearest airport,";
-    basicFuncOfPage += "and from the nearest airpot of the location to the location.";
-    var possibleError = " Sometimes mapquest returns error, i believe this to be due to a mistake in their software, error states,";
-    possibleError += " 'Error: this.data.latLng is undefined'.";
-    possibleError += " Aiport returned is ofter wrong.";
-    alert(basicFuncOfPage + possibleError);
+    basicFuncOfPage += " and from the nearest airpot of the location to the location.";
+    console.log(basicFuncOfPage);
 }
 
 function getSearchParamFromUrl(param){//gets the param from the url
