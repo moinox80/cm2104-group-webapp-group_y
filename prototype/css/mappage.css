@@ -9,3 +9,25 @@
   border-bottom-left-radius: 110%;
   border-bottom-right-radius: 110%;
 }
+
+#show-movie-checkbox{
+    margin-top: 5%;
+    background-color: grey;
+    overflow-x:scroll;
+}
+
+show-movie-checkbox div{
+    border: 1px solid #006;
+    white-space:nowrap;
+    display: inline-block;
+}
+
+#my-movies{
+    background-color: goldenrod;
+}
+
+#mapid{
+    width: 900px;
+    height: 500px;
+    margin: 0 auto
+}

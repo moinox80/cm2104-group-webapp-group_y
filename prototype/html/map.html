@@ -15,8 +15,8 @@
 		<link rel="stylesheet" href="../css/mappage.css">
 
 		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-
-
+		
+		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 		<script src="../js/MapPage/markerClass.js"></script>
 		<script src="../js/MapPage/movieClass.js"></script>
@@ -24,7 +24,7 @@
 		<script src="../js/MapPage/getFilmingLocations.js"></script>
 		<script src="../js/MapPage/omdb.js"></script>
 		<script src="../js/MapPage/confirmMovie.js"></script>
-
+		<script src="../js/MapPage/map.js"></script>
 		<script src="../js/MapPage/openCageAPI.js"></script>
 	</head>
 	
@@ -45,8 +45,9 @@
 			<div class="container" style="text-align: center">
 				<div class="row">
 					<div class="col-12">
-						<div id="mapid" style="width: 900px; height: 500px; margin: 0 auto"></div>
-						<script src="../js/MapPage/map.js"></script>
+
+						<div id="mapid"></div>
+						
 
 						<div id="add-movie-div">
 							<form id="add-movie">
@@ -59,7 +60,9 @@
 						<div id="show-movie-checkbox">
 							<p>Click checkbox to toggle visibility on map</p>
 						</div>
-						<br><br>
+
+						<br>
+
 						<div id="my-movies"></div>
 					</div>
 				</div>
