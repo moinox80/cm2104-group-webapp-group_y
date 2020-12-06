@@ -7,10 +7,14 @@ var map;
 
 function makeMap(){
   map = L.mapquest.map('map', {
-    center: [0,0],
+    center: [20, 3],
     layers: L.mapquest.tileLayer('map'),
-    zoom: 7
+    zoom: 2,
+    maxZoom: 18,
+    minZoom: 1
   });
+
+  map.setMaxBounds([[180, -180], [-180, 180]]);
 }
 
 
