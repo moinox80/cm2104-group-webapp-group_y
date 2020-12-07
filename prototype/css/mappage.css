@@ -1,24 +1,35 @@
-.leaflet-marker-icon {
-    content:  '';
-  position: absolute;
-  width: 110%;
-  height: 110%;
-  background: lightgreen;
-  border-top-left-radius: 20%;
-  border-top-right-radius: 20%;
-  border-bottom-left-radius: 110%;
-  border-bottom-right-radius: 110%;
+body{
+    background-color:rgba(0, 0, 0, 0.1);
 }
-
 
 #my-movies, #show-movie-checkbox{
     height: 100%;
     width: 100%;
-    background-color: orange;
+    background-color: white;
 }
 
 #mapid{
-    width: 900px;
-    height: 500px;
-    margin: 0 auto
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+    z-index:-1;
+}
+nav{
+    height:100px;
+}
+#add-movie-div{
+    margin-bottom: 16px;
+}
+main h1{
+    text-align: center;
+}
+
+
+
+@media only screen and (min-width: 768px) {
+    #add-movie{
+        width:768px;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
 }
