@@ -33,12 +33,12 @@ $(document).ready(function(){
         $('#add-movie').submit(function(){
             if ($("#new-movie-input-by-imdb-number").val()){//add movie by imdb id
                 var movieId = $("#new-movie-input-by-imdb-number").val();
-                getResultsFromOMDBByID(movieId);
+                getResultsFromOMDBByID(movieId, makeMovie);
             }
             else if($("#new-movie-input-by-name").val()){//add movie by name
                 var movieName = $("#new-movie-input-by-name").val();
                 movieName = setStringForOMDBURLFormat(movieName);
-                getResultsFromOMDBByName(movieName);
+                getResultsFromOMDBByName(movieName, selectMovieFromOptions);
             }
             return false;
         })
