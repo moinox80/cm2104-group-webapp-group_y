@@ -42,6 +42,6 @@ function createMovieSelectionDiv(){
     var newDiv = "";
     $('<div id="movie-select-div"></div>').appendTo('#add-movie-div');
     $("<select id='movie-select'></select>").appendTo("#movie-select-div");
-    $("<button id='submit-movie'> submit </button>").appendTo("#movie-select-div");
-    $("<button id='cancel-movie-select'> cancel </button>").appendTo("#movie-select-div");
+    $("<button id='submit-movie'> Submit </button>").appendTo("#movie-select-div");
+    $("<button id='cancel-movie-select'> Cancel </button>").appendTo("#movie-select-div");
 }
