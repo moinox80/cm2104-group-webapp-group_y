@@ -1,47 +1,16 @@
-# CM2104 Group Project Repository
+[![Work in Repl.it](https://classroom.github.com/assets/work-in-replit-14baed9a392b3a25080506f3b7b6d57f295ec2978f6f33ec97e36a161684cbe9.svg)](https://classroom.github.com/online_ide?assignment_repo_id=306342&assignment_repo_type=GroupAssignmentRepo)
+<h1>Contributors:</h1>
+<ul>
+  <li>ARTHUR SIDLE (1911859)</li>
+  <li>BRADLEY TODD (2005704)</li>
+  <li>ANDER MOINA URRUTIA (1900909)</li>
+  <li>KAVEH NEJAD (1905933)</li>
+</ul>
 
-#Info
-Site Name : Film Stalker
-
-Basic description : A site to track and mark movie filming locations, by displaying the filming locations of your favorite movies on a map, and allowing you to mark areas as visited.
-
-##Stuff to show on map:
-- Eveywhere every movie has been shot with a actor or director
-- Everywhere a tvShow has been shot
-- Everywhere a movie has been shot
-- Combination of the above
-- Change color depending on if visited or not
-
-##User info to store
-- Acount name
-- Some form of login in credential, preferably 3rd party logins ie FB/Insta/IMDB
-- Users movies/TVShows
-- Where the user has been and when
-
-##pages
-- Login : Login details
-- Main : The map, side customization for map, quick add title/name
-- Acount Details : Manage acount details
-- My stalks : Manage all the movies/shows/people tracked
-- Go : Travel details directing you to the areas you have yet to see
-- Contact us
-
-
-#API's
-
-##look into
-
-
-## movies:
--IMDB API : https://rapidapi.com/apidojo/api/imdb8   a API to get movie and tv series information, will primeraly be used for filming locations. 500 per month
-
-
-##travel
--SKyscaner https://skyscanner.github.io/slate/#api-documentation
--Travel Hacking Tool API Documentation : https://rapidapi.com/travelhackingtool/api/travel-hacking-tool    a API that can be used to get a list of airpost locations
-
-
-
-##maps
--leaflet.js     to make the map
--OpenCage Geocoding API     https://opencagedata.com/     to convert address to lat-lng
+<h1>Roles:</h1>
+<ul>
+  <li>ARTHUR SIDLE - MyStalks</li>
+  <li>BRADLEY TODD - Login & Account</li>
+  <li>ANDER MOINA URRUTIA - About & Index</li>
+  <li>KAVEH NEJAD - Map & Travel</li>
+</ul>
