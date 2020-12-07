@@ -5,7 +5,6 @@ class Card {
 
         this.currentLocation;
         this.filmingLocations = [];
-        this.distances = [];
         this.filmingLocationsJSON;
 
         this.$card;
@@ -122,8 +121,8 @@ class Card {
             setTimeout(function(){ this.waitForCurrentLocation(index, position) }.bind(this), 500)
             return;
         } else {
-            this.distances[index] = this.getDistance(this.filmingLocations[index]);
-            this.$locationList[index].find(".proximity").text(this.distances[index] + " miles");
+            var distance = this.getDistance(this.filmingLocations[index]);
+            this.$locationList[index].find(".proximity").text(distance + " miles");
         }
     }
 
