@@ -72,7 +72,7 @@ class Card {
 
     addLocationsToCard() {
         this.currentLocation = navigator.geolocation.getCurrentPosition(function(position) {
-            this.currentLocation = [position.coords.longitude, position.coords.latitude];
+            this.currentLocation = [position.coords.latitude, position.coords.longitude];
         }.bind(this));
 
         var apiKey = "a9eb244cd4msh1023a1ad25868ebp174b04jsn1fa8197ee780";
