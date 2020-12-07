@@ -21,6 +21,6 @@ function getResultsFromOMDBByID(movieID, callback){
     $.getJSON(url, function(jsondata){
         if(jsondata){
             callback(jsondata);
-        };
+        }
     });
 };
