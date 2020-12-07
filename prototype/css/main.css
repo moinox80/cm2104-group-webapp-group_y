@@ -30,7 +30,10 @@
  {
    color: rgb(224, 224, 224);
  }
- 
+ /*To not display the nav links*/
+ #nav-links{
+   display:none;
+ }
  #menuToggle
  {
    display: block;
@@ -38,7 +41,7 @@
    top: 50px;
    right: 50px;
    
-   z-index: 1;
+   z-index: 1000;
    
    -webkit-user-select: none;
    user-select: none;
@@ -125,7 +128,7 @@
    box-shadow: -3px 4px 3px 1px rgba(0, 0, 0, 0.1);
    border-radius: 2%;
     
-   background: rgb(248, 238, 222, 0.9);
+   background: rgba(255, 255, 255, 0.9);
    list-style-type: none;
    -webkit-font-smoothing: antialiased;
    /* to stop flickering of text in safari */
@@ -134,27 +137,53 @@
    transform: translate(100%, 0);
    
    transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+   
  }
  
  #menu li
  {
-   padding: 10px 0;
+  padding: 10px 0;
    font-size: 22px;
  }
 
- #nav-links{
-   display:none;
- }
+ 
  
  /*Fade the menu */
  #menuToggle input:checked ~ ul
  {
    transform: none;
-   background: rgb(248, 238, 222, 0.9);
+   background: rgba(255, 255, 255, 0.9);
  }
  #menu a {
    opacity:1;
  }
+
+ /*Menu Launch button*/
+#menu-launchapp li{
+  font-weight: normal;
+  color: white;
+  border: 1px solid;
+  padding: 5px;
+  margin-top: -10px;
+  border-radius: 8px;
+  background-color: black;
+  border-color:black;
+  box-shadow: 1px 10px 30px 1px rgba(0, 0, 0, 0.2);
+  transition: bottom ease 0.5s, right ease 0.5s;
+  bottom: 0px;
+  right: 0px;
+  position: relative;
+}
+#menu-launchapp{
+  margin-top:20px;
+  padding-right: 50px;
+}
+
+#menu-launchapp li:hover{
+  bottom: -2px;
+  right: -2px;
+}
+
 /*Middle Launch button*/
  .LaunchButton{
     text-align: center;
