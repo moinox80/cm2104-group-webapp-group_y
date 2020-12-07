@@ -38,7 +38,11 @@ function getSearchParamFromUrl(param){//gets the param from the url
 }
 
 function getUserLocation(){//gets the users current location
-    navigator.geolocation.getCurrentPosition(onUserLocationRecieved);
+    navigator.geolocation.getCurrentPosition(onUserLocationRecieved, onUserLocationDenied);
+}
+
+function onUserLocationDenied(){
+    alert("Your locations is necessary to determine the directions.\nPLease enable location, either by editing page permisions or by reloading.");
 }
 
 function onUserLocationRecieved(location){//is run once the user has agreed to giving their location
