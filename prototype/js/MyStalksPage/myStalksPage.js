@@ -12,7 +12,7 @@ class Card {
         this.$locationList = [];
         this.addCardTemplate();
 
-        getResultsFromOMDBByID(this.imdbID, function(movie) {
+        getResultsFromOMDBByID(this.imdbID, function (movie) {
             this.movieName = movie.Title;
 
             this.$card.find(".movie-title").text(movie.Title);
@@ -33,7 +33,7 @@ class Card {
 
     addCardTemplate() {
         var cardTemplate =
-        `<div class="card m-2 p-2 shadow-sm movie-box">
+            `<div class="card m-2 p-2 shadow-sm movie-box">
             <div class="card-header">
             <div class="row movie-info">
                 <div class="col-lg-4">
@@ -65,19 +65,19 @@ class Card {
                 </div> 
             </div>
         </div>`;
-        
+
         this.$card = $(cardTemplate).appendTo(".container");
     }
 
     addLocationsToCard() {
-        this.currentLocation = navigator.geolocation.getCurrentPosition(function(position) {
+        this.currentLocation = navigator.geolocation.getCurrentPosition(function (position) {
             this.currentLocation = [position.coords.latitude, position.coords.longitude];
         }.bind(this));
 
         var apiKey = "a9eb244cd4msh1023a1ad25868ebp174b04jsn1fa8197ee780";
         var url = "https://imdb8.p.rapidapi.com/title/get-filming-locations?tconst=" + this.imdbID + "&rapidapi-key=" + apiKey;
 
-        $.getJSON(url, function(data) {
+        $.getJSON(url, function (data) {
             this.filmingLocationsJSON = data;
             this.filmingLocationsJSON.length = this.filmingLocationsJSON.locations.length;
             for (var i = 0; i < this.filmingLocationsJSON.locations.length; i++) {
@@ -90,7 +90,7 @@ class Card {
                     While the following function was originally intended to take a FilmingLocation object as its third parameter,
                     it just so happens it has the right number of arguments for the purpose of ordering the filming locations in the array
                 */
-                openCageAPIConvertToLatLong(locationText, function(index, position){
+                openCageAPIConvertToLatLong(locationText, function (index, position) {
                     this.filmingLocations[index] = position;
                     this.waitForCurrentLocation(index, position);
                 }.bind(this), i);
@@ -100,7 +100,7 @@ class Card {
 
     addLocationTemplate() {
         var locationTemplate =
-        `<div class="row">
+            `<div class="row">
             <div class="col-lg-8">
                 <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" value="">
@@ -121,7 +121,7 @@ class Card {
 
     waitForCurrentLocation(index, position) {
         if (typeof this.currentLocation === "undefined") {
-            setTimeout(function(){ this.waitForCurrentLocation(index, position) }.bind(this), 500)
+            setTimeout(function () { this.waitForCurrentLocation(index, position) }.bind(this), 500)
             return;
         } else {
             var distance = this.getDistance(this.filmingLocations[index]);
@@ -137,18 +137,18 @@ class Card {
 
         //Code from https://www.movable-type.co.uk/scripts/latlong.html
         const R = 6371e3; // metres
-        const φ1 = lat1 * Math.PI/180; // φ, λ in radians
-        const φ2 = lat2 * Math.PI/180;
-        const Δφ = (lat2-lat1) * Math.PI/180;
-        const Δλ = (lon2-lon1) * Math.PI/180;
+        const φ1 = lat1 * Math.PI / 180; // φ, λ in radians
+        const φ2 = lat2 * Math.PI / 180;
+        const Δφ = (lat2 - lat1) * Math.PI / 180;
+        const Δλ = (lon2 - lon1) * Math.PI / 180;
 
-        const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-                Math.cos(φ1) * Math.cos(φ2) *
-                Math.sin(Δλ/2) * Math.sin(Δλ/2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        const a = Math.sin(Δφ / 2) * Math.sin(Δφ / 2) +
+            Math.cos(φ1) * Math.cos(φ2) *
+            Math.sin(Δλ / 2) * Math.sin(Δλ / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
         const d = R * c; // in metres
-        
+
         var miles = this.metresToMiles(d);
         return Math.round(miles * 100) / 100;
     }
@@ -159,22 +159,22 @@ class Card {
 
 }
 
-$(function(){
-    getMoviesFromSession()
+$(function () {
+    getMoviesFromSession();
     /*
     Note: This script can only display a select set of movies.
     The final product would store movies of interest for a user in a backend database.
     */
-   movies.forEach(movie =>{
-       new Card(movie.imdbID);
+    movies.forEach(movie => {
+        new Card(movie.imdbID);
     })
 });
 
-function getMoviesFromSession(){
+function getMoviesFromSession() {
     var queryString = window.location.search;
     queryString = queryString.substring(1);
     var movieStrings = queryString.split("NEXT");
-    movieStrings.forEach(movieString =>{
+    movieStrings.forEach(movieString => {
         movies.push(JSON.parse(sessionStorage.getItem(movieString)));
     })
     movies.pop();
