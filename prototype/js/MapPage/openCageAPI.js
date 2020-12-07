@@ -28,9 +28,9 @@ function openCageAPIConvertToLatLong(locationByName, callback, location){
         if (request.status == 200){ 
             // Success!
             var data = JSON.parse(request.responseText);
+
+            callback(location, [data.results[0].geometry.lat, data.results[0].geometry.lng]);
             
-            callback(location, [data.results[0].geometry.lat, data.results[0].geometry.lng])
-        
         }
         else if (request.status <= 500){ 
             // We reached our target server, but it returned an error
@@ -51,4 +51,3 @@ function openCageAPIConvertToLatLong(locationByName, callback, location){
 
     request.send();  // make the request
 }
-
