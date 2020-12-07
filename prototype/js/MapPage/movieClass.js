@@ -90,8 +90,8 @@ class Movie{
     
     makeCheckBox(checkboxDivID, checkboxID){
         $("<div id=" + checkboxDivID + "></div>").appendTo("#show-movie-checkbox");
-        $("<input type='checkbox' id='" + checkboxID + "'checked='true' value = " + this + ">").appendTo("#" + checkboxDivID);
-        $("<label for='" + this.name + "Checkbox'>" + this.name + " " + this.year + "</label>").appendTo("#" + checkboxDivID);
+        $("<input type='checkbox'  id='" + checkboxID + "'checked='true' value = " + this + ">").appendTo("#" + checkboxDivID);
+        $("<label  for='" + this.name + "Checkbox'>" + this.name + " " + this.year + "</label>").appendTo("#" + checkboxDivID);
     }
 
     makeDeleteButton(){

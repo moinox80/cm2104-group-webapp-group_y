@@ -308,6 +308,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition:  0.5s;
 }
   
   /* When moving the mouse over the submit button, add a darker green color */

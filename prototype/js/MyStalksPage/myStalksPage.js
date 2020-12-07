@@ -6,7 +6,6 @@ class Card {
 
         this.currentLocation;
         this.filmingLocations = [];
-        this.distances = [];
         this.filmingLocationsJSON;
 
         this.$card;
@@ -33,7 +32,7 @@ class Card {
     }
 
     addCardTemplate() {
-        var appendString =
+        var cardTemplate =
         `<div class="card m-2 p-2 shadow-sm movie-box">
             <div class="card-header">
             <div class="row movie-info">
@@ -65,10 +64,9 @@ class Card {
                     
                 </div> 
             </div>
-        </div>`
+        </div>`;
         
-
-        this.$card = $(appendString).appendTo(".container");
+        this.$card = $(cardTemplate).appendTo(".container");
     }
 
     addLocationsToCard() {
@@ -101,21 +99,24 @@ class Card {
     }
 
     addLocationTemplate() {
-        this.$locationList.push($(`
-            <div class="row">
-                <div class="col-lg-8">
-                    <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" value="">
-                    </label>
-                </div>
-                <div class="col-lg-2 proximity">
-                    
-                </div>
-                <div class="col-lg-2">
-                    See on map >
-                </div>
+        var locationTemplate =
+        `<div class="row">
+            <div class="col-lg-8">
+                <label class="form-check-label">
+                    <input type="checkbox" class="form-check-input" value="">
+                </label>
             </div>
-        `).appendTo(this.$card.find(".collapse")));
+            <div class="col-lg-2 proximity">
+                
+            </div>
+            <div class="col-lg-2">
+                See on map >
+            </div>
+        </div>`;
+
+        this.$locationList.push(
+            $(locationTemplate).appendTo(this.$card.find(".collapse"))
+        );
     }
 
     waitForCurrentLocation(index, position) {
@@ -123,8 +124,8 @@ class Card {
             setTimeout(function(){ this.waitForCurrentLocation(index, position) }.bind(this), 500)
             return;
         } else {
-            this.distances[index] = this.getDistance(this.filmingLocations[index]);
-            this.$locationList[index].find(".proximity").text(this.distances[index] + " miles");
+            var distance = this.getDistance(this.filmingLocations[index]);
+            this.$locationList[index].find(".proximity").text(distance + " miles");
         }
     }
 
