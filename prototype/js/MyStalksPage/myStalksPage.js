@@ -91,8 +91,6 @@ class Card {
                     While the following function was originally intended to take a FilmingLocation object as its third parameter,
                     it just so happens it has the right number of arguments for the purpose of ordering the filming locations in the array
                 */
-
-
                 openCageAPIConvertToLatLong(locationText, function(index, position){
                     this.filmingLocations[index] = position;
                     this.waitForCurrentLocation(index, position);
@@ -151,11 +149,6 @@ class Card {
         
         var miles = this.metresToMiles(d);
         return Math.round(miles * 100) / 100;
-
-        /*var xDistance = filmingLocation[0] - this.currentLocation[0];
-        var yDistance = filmingLocation[1] - this.currentLocation[1];
-        var fullDistance = Math.sqrt(Math.pow(xDistance,2) + Math.pow(yDistance,2));
-        return fullDistance;*/
     }
 
     metresToMiles(metres) {
