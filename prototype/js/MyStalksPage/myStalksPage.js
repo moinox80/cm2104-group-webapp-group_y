@@ -3,7 +3,7 @@ class Card {
         this.imdbID = movieID;
         this.movieName;
 
-        this.currentLocation = false;
+        this.currentLocation;
         this.filmingLocations = [];
         this.distances = [];
         this.filmingLocationsJSON;
@@ -120,12 +120,12 @@ class Card {
     }
 
     waitForCurrentLocation(index, position) {
-        if (this.currentLocation === false) {
+        if (typeof this.currentLocation === "undefined") {
             setTimeout(function(){ this.waitForCurrentLocation(index, position) }.bind(this), 500)
             return;
         } else {
             this.distances[index] = this.getDistance(this.filmingLocations[index]);
-            this.$card.find(".proximity").text(this.distances[index] + " miles");
+            this.$locationList[index].find(".proximity").text(this.distances[index] + " miles");
         }
     }
 
