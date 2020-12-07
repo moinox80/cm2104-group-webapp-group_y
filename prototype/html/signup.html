@@ -2,7 +2,7 @@
 
 <html>
     <head>
-        <title>FilmStalker - Log in</title>
+        <title>FilmStalker - Sign Up</title>
         <link rel="stylesheet" href="../css/main.css">
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="styleshet" href="../css/normalize.min.css">
@@ -18,9 +18,9 @@
               <ul id="nav-links">
                 <a href="../index.html"><li>Home</li></a>
                 <a href="about.html"><li>About</li></a>
-                <a href="contact.html"><li>Contact</li></a>
                 <a href="account.html"><li>Account</li></a>
                 <a href="mystalks.html"><li>mystalks</li></a>
+                <a href="logIn.html"><li>logIn</li></a>
                 <a id="nav-launchapp" href="map.html"><li>Launch&nbsp;app&nbsp;↗</li></a>
               </ul>
             </div>
@@ -36,7 +36,6 @@
               <ul id="menu">
                 <a href="../index.html"><li>Home</li></a>
                 <a href="about.html"><li>About</li></a>
-                <a href="contact.html"><li>Contact</li></a>
                 <a href="account.html"><li>Account</li></a>
                 <a href="mystalks.html"><li>mystalks</li></a>
                 <a href="logIn.html"><li>logIn</li></a>
@@ -45,17 +44,20 @@
           </nav>
         <div class="container">
             <form class="form" id="login">
-                <h1 class="formTitle">Login</h1>
+                <h1 class="formTitle">Sign Up</h1>
                 <div class="formInput">
-                    <input type="text" class="form__input" autofocus placeholder="Username or email">
+                    <input type="text" class="form__input" autofocus placeholder="Email">
+                </div>
+                <div class="formInput">
+                    <input type="text" class="form__input" autofocus placeholder="Username">
                 </div>
                 <div class="formInput">
                     <input type="password" class="form__input" autofocus placeholder="Password">
                 </div> 
-                <button class="formButton" type="submit">Sign in.</button>
-                <p class="form__text">
-                    <a class="form__link" href="../html/signup.html" id="linkCreateAccount" >Sign up here.</a>
-                </p>
+                <div class="formInput">
+                    <input type="password" class="form__input" autofocus placeholder="Confirm Password">
+                </div> 
+                <button class="formButton" type="submit">Sign up.</button>
             </form> 
         </div>
         <script src="../js/login_action.js "></script>

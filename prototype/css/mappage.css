@@ -1,0 +1,40 @@
+body{
+    background-color:rgba(0, 0, 0, 0.1);
+}
+
+#my-movies, #show-movie-checkbox{
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+#mapid{
+    width: 500px;
+    height: 500px;
+    margin: 0 auto;
+    
+}
+nav{
+    height:100px;
+}
+#add-movie-div{
+    margin-bottom: 16px;
+    margin-right:20px;
+    margin-left: 20px;
+}
+main h1{
+    text-align: center;
+}
+
+@media only screen and (min-width: 520px) {
+    
+}
+
+
+@media only screen and (min-width: 768px) {
+    #add-movie{
+        width:768px;
+        margin: 0 auto;
+        margin-bottom: 50px;
+    }
+}

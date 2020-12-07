@@ -58,6 +58,9 @@ http.createServer(function (req, res) {
         res.end(`Error getting the file: ${err}.`);
       } else {
         // if the file is found, set Content-type and send data
+
+        res.setHeader("Access-Control-Allow-Origin", "aerodatabox.p.rapidapi.com");//I had to add this line to allow aero data to work with ajax request. Hope thats ok
+
         res.setHeader('Content-type', map[ext] || 'text/plain' );
         res.end(data);
       }

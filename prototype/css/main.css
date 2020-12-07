@@ -1,417 +1,452 @@
-/*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
-
-html {
-    color: #222;
-    font-size: 1em;
-    line-height: 1.4;
-}
-
-::-moz-selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
-
-::selection {
-    background: #b3d4fc;
-    text-shadow: none;
-}
-
-hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 1em 0;
-    padding: 0;
-}
-
-audio,
-canvas,
-iframe,
-img,
-svg,
-video {
-    vertical-align: middle;
-}
-
-fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
-
-textarea {
-    resize: vertical;
-}
-
-.browserupgrade {
-    margin: 0.2em 0;
-    background: #ccc;
-    color: #000;
-    padding: 0.2em 0;
-}
+/*Mobile first*/
+ 
+ body
+ {
+   margin: 0;
+   padding: 0;
+   font-family: "Avenir Next", "Avenir", sans-serif;
+   
+   overflow-x: hidden;/*To hide menu on the right*/
+  background-color: rgba(0, 0, 0, 0.1);
+ }
 
 
-/* ===== Initializr Styles ==================================================
-   Author: Jonathan Verrecchia - verekia.com/initializr/responsive-template
-   ========================================================================== */
+ .logo{
+   width:60%;
+ }
+ .banner{
+   width:220%;
+ }
+ 
+  a
+ {
+   text-decoration: none;
+   color: #000000;
+   
+   transition: color 0.3s ease;
+ }
+ 
+  a:hover
+ {
+   color: rgb(224, 224, 224);
+ }
+ 
+ #menuToggle
+ {
+   display: block;
+   position: absolute;
+   top: 50px;
+   right: 50px;
+   
+   z-index: 1;
+   
+   -webkit-user-select: none;
+   user-select: none;
+ }
+ 
+ #menuToggle input
+ {
+   display: block;
+   width: 40px;
+   height: 32px;
+   position: absolute;
+   top: -7px;
+   left: -5px;
+   
+   cursor: pointer;
+   
+   opacity: 0; 
+   z-index: 2; 
+   
+   -webkit-touch-callout: none;
+ }
+ 
+ /*Creating the hamburger*/
+ #menuToggle span
+ {
+   display: block;
+   width: 33px;
+   height: 4px;
+   margin-bottom: 5px;
+   position: relative;
+   
+   background: black;
+   border-radius: 3px;
+   
+   z-index: 1;
+   
+   transform-origin: 4px 0px;
+   
+   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+               background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+               opacity 0.55s ease;
+ }
+ 
+ #menuToggle span:first-child
+ {
+   transform-origin: 0% 0%;
+ }
+ 
+ #menuToggle span:nth-last-child(2)
+ {
+   transform-origin: 0% 100%;
+ }
+ 
+ /*Transform the hamburger into a crossmark*/
+ #menuToggle input:checked ~ span
+ {
+   opacity: 1;
+   transform: rotate(45deg) translate(-2px, -1px);
+   background: #232323;
+ }
+ 
+ /*Hide the middle line*/
+ #menuToggle input:checked ~ span:nth-last-child(3)
+ {
+   opacity: 0;
+   transform: rotate(0deg) scale(0.2, 0.2);
+ }
+ 
+ #menuToggle input:checked ~ span:nth-last-child(2)
+ {
+   opacity: 1;
+   transform: rotate(-45deg) translate(0, -1px);
+ }
+ 
+ /*Position menu on the right*/
+ #menu
+ {
+   position: absolute;
+   width: 200px;
+   margin: -100px 0 0 0;
+   padding: 50px;
+   padding-top: 125px;
+   right: -100px;
+   box-shadow: -3px 4px 3px 1px rgba(0, 0, 0, 0.1);
+   border-radius: 2%;
+    
+   background: rgb(248, 238, 222, 0.9);
+   list-style-type: none;
+   -webkit-font-smoothing: antialiased;
+   /* to stop flickering of text in safari */
+   
+   transform-origin: 0% 0%;
+   transform: translate(100%, 0);
+   
+   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+ }
+ 
+ #menu li
+ {
+   padding: 10px 0;
+   font-size: 22px;
+ }
 
-body {
-    font: 16px/26px Helvetica, Helvetica Neue, Arial;
-}
-
-
-h1 {
+ #nav-links{
+   display:none;
+ }
+ 
+ /*Fade the menu */
+ #menuToggle input:checked ~ ul
+ {
+   transform: none;
+   background: rgb(248, 238, 222, 0.9);
+ }
+ #menu a {
+   opacity:1;
+ }
+/*Middle Launch button*/
+ .LaunchButton{
     text-align: center;
-}
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  }
+  .LaunchApp{
+    position: relative;
+    bottom: 0;
+    right: 0;
+    transition: 1s;
+    border: 1px solid;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  .LaunchApp:hover{
+    bottom:-3px;
+    right: -3px;
+    color:rgb(170, 170, 170);
+    border-color:black;
+  }
 
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    /*background-color: #333;*/
-  }
-  
-  li {
-    float: left;
-  }
-  
-  li a {
+/*Content page */
+  .content img{
     display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid white;
+    padding: 15px;
+    border-radius: 100%;
+    background-color: white;
+    box-shadow: 15px 10px 30px 1px rgba(0, 0, 0, 0.1);
   }
-  
-  /* Change the link color to #111 (black) on hover */
-  li a:hover {
-    background-color: #111;
-    color: white;
-  }
-
-.wrapper {
-    width: 90%;
-    margin: 0 5%;
-}
-
-/* ===================
-    ALL: Orange Theme
-   =================== */
-
-.header-container {
-    border-bottom: 20px solid white;
-}
-
-.footer-container,
-.main aside {
-    border-top: 20px solid rgb(255,255,255);
-}
-
-.header-container,
-.footer-container,
-.main aside {
-    background: white;
-}
-
-.title {
-    color: black;
+  .content p{
+    font-size: large;
     margin-left: 10%;
-}
-
-/* ==============
-    MOBILE: Menu
-   ============== */
-
-nav ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-/*
-nav a {
-    display: block;
+    margin-right: 10%;
+  }
+  .content-container-1{
     text-align: center;
+  }
+/*footer*/
+  footer{
+    height:300px;
+    background-color: rgb(1,1,1,0.1);
+  }
+  .footer-content{
+    text-align: center;
+    list-style-type: none;
+
+}
+  .footer-content a{
+    margin: 25px;
+  }
+  .footer-media{
+    display:flex;
+  }
+  .footer-media img{
+    margin-left:auto;
+    margin-right:auto;
+    border: 1px solid;
+    border-color: black;
+    padding: 5px;
+    border-radius: 30%;
+    width:30px;
+  }
+/*Typewritter*/
+  #parent {
+    height: 40px;
+    white-space: nowrap;
+    overflow: hidden; 
+    font-family: 'Source Code Pro', monospace;  
+    font-size: 20px;
+    color: black;
+    position: relative;
+    text-align: center;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width:100%;
+  }
+  
+  #border {
+    border-bottom: solid 3px rgba(0,255,0,.75);
+    position: absolute;
+    right: -7px;
+    width: 20px;
+  }
+  
+  /* Animation */
+  
+  #parent {
+    animation: animated-text 3s steps(30,end) 1s 1 normal both
+  }
+  
+
+  #border {
+     animation: animated-cursor 600ms steps(30,end) infinite;
+  }
+  
+  /* text animation */
+  
+  
+  @keyframes animated-text{
+    from{width: 0;}
+    to{width: 435px;}
+  }
+  
+  /* cursor animations */
+  
+  
+  @keyframes animated-cursor{
+    from{border-bottom-color: rgba(0,255,0,.75);}
+    to{border-bottom-color: transparent;}
+  }
+
+/*Contact Form*/
+  input[type=text], select, textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical;
+    font-family: "Avenir Next", "Avenir", sans-serif;
+    outline:none;
+     transition: 0.6s;
+    -webkit-transition:  0.6s;
+  }
+  input[type=text]:focus{
+    border: 1px solid black;
+    box-shadow: 0 0 0 3px rgb(161, 158, 158);
+  }input[type=text]:hover{
+    border-color:black;
+    
+
+  }
+  
+
+  
+  /* Style the submit button with a specific background color etc */
+  input[type=submit] {
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+  /* When moving the mouse over the submit button, add a darker green color */
+  input[type=submit]:hover {
+    background-color: rgb(73, 71, 71);
+  }
+  
+  /* Add a background color and some padding around the form */
+  .container {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  content h1{
+    text-align: center;
+  }
+
+
+/*Tablet view*/
+  @media only screen and (min-width: 520px) {
+    .logo{
+      max-width: 45%;
+      height: auto !important;
+    }
+    .banner{
+      max-width: 190%;
+      height: auto !important;
+    }
+    #parent {
+      font-size: 23px;
+    }
+
+    @keyframes animated-text{
+      from{width: 0;}
+      to{width: 490px;}
+    }   
+  }
+/*Tablet/Desktop view*/
+  @media only screen and (min-width: 768px) {
+    .logo{
+      max-width: 30%;
+      height: auto !important;
+    }
+
+    #menuToggle{
+      display: none;
+    }
+    
+   .desktop-nav{
+     display: flex;
+   }
+   #nav-links{
+     display:flex;
+     list-style-type: none;
+     position:fixed;
+     right: 250px;
+     top:10px;
+   }
+   #nav-links a{
+    margin-left: 20%;
     text-decoration: none;
     font-weight: bold;
 
     color: black;
     position: relative;
     bottom: 0;
-    transition: bottom ease 0.4s
-    
-}
-
-nav a:hover{
-    color: rgba(56, 54, 54, 0.836);
+    right:0;
+    transition: bottom ease 0.5s, right ease 0.5s;
+     
+   }
+   #nav-links a:hover{
+     transition: 0.5s;
+    color: rgb(255, 255, 255);
     bottom: -2px;
-}
-*/
-/* ==============
-    MOBILE: Main
-   ============== */
+    right: -2px;
+   }
 
-.main {
-    padding: 30px 0;
-}
+   .content-container-1{
+     display:flex;
+     margin-top: 10%;
+   }
+   .content{
+    margin-left:auto;
+    margin-right:auto;
+   }
 
-.main aside,
-
-.footer-container footer {
-    color: black;
-    padding: 20px 0;
-}
-.footer-container footer input{
-    width: 5%;
-    height: auto;
-}
-.home-banner {
-   
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(home-banner.jpg);
-   
-    height: 100%;
-    width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
+   .banner{
+    max-width: 100%;
+    height: auto !important;
   }
 
-  .banner-text {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  #nav-launchapp li{
+    font-weight: normal;
     color: white;
-  }
-  .banner-text button {
-    border: none;
-    outline: 0;
-    display: inline-block;
-    padding: 10px 25px;
-    color: black;
-    background-color: #ddd;
-    text-align: center;
-    cursor: pointer;
+    border: 1px solid;
+    padding: 10px;
+    margin-top: -10px;
+    border-radius: 8px;
+    background-color: black;
+    border-color:black;
+    box-shadow: 1px 10px 30px 1px rgba(0, 0, 0, 0.2);
   }
 
-/* ===============
-    ALL: IE Fixes
-   =============== */
+  #parent {
+    font-size: 26px;
+  }
+  @keyframes animated-text{
+    from{width: 0;}
+    to{width: 570px;}
+  }
+  .container {
+    width:768px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+  footer{
+    height:250px;
+  }
 
-.ie7 .title {
-    padding-top: 20px;
-}
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ==========================================================================
-   Media Queries
-   ========================================================================== */
-
-@media only screen and (min-width: 480px) {
-
-/* ====================
-    INTERMEDIATE: Menu
-   ==================== */
-/*
-    nav a {
-        float: left;
-        width: 27%;
-        margin: 0 1.7%;
-        padding: 25px 2%;
-        
+  }
+/*Desktop view fixes*/
+  @media only screen and (min-width: 900px) {
+    .logo{
+      width: 25%;
     }
-*/
-    nav li:first-child a {
-        margin-left: 0;
+    .content-container-1{
+      margin-top:0%;
     }
-
-    nav li:last-child a {
-        margin-right: 0;
+  }
+  @media only screen and (min-width: 1200px) {
+    .logo{
+      width: 19%;
     }
+  }
 
-/* ========================
-    INTERMEDIATE: IE Fixes
-   ======================== */
+  
+ 
+  
+ 
+ 
 
-    nav ul li {
-        display: inline;
-    }
-
-    .oldie nav a {
-        margin: 0 0.7%;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-
-/* ====================
-    WIDE: CSS3 Effects
-   ==================== */
-
-    .header-container,
-    .main aside,
-
-/* ============
-    WIDE: Menu
-   ============ */
-
-    .title {
-        float: left;
-    }
-/*
-    nav {
-        float: right;
-        width: 38%;
-    }
-*/
-/* ============
-    WIDE: Main
-   ============ */
-
-    
-
-
-}
-@media only screen and (min-width: 1140px) {
-
-/* ===============
-    Maximal Width
-   =============== */
-
-    .wrapper {
-        width: 1026px; /* 1140px - 10% for margins */
-        margin: 0 auto;
-    }
-}
-
-/* ==========================================================================
-   Helper classes
-   ========================================================================== */
-
-.hidden {
-    display: none !important;
-    visibility: hidden;
-}
-
-.visuallyhidden {
-    border: 0;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-}
-
-.visuallyhidden.focusable:active,
-.visuallyhidden.focusable:focus {
-    clip: auto;
-    height: auto;
-    margin: 0;
-    overflow: visible;
-    position: static;
-    width: auto;
-}
-
-.invisible {
-    visibility: hidden;
-}
-
-.clearfix:before,
-.clearfix:after {
-    content: " ";
-    display: table;
-}
-
-.clearfix:after {
-    clear: both;
-}
-
-.clearfix {
-    *zoom: 1;
-}
-
-/* ==========================================================================
-   Print styles
-   ========================================================================== */
-
-@media print {
-    *,
-    *:before,
-    *:after {
-        background: transparent !important;
-        color: #000 !important;
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
-    }
-
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
-    }
-
-    thead {
-        display: table-header-group;
-    }
-
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
-}
+ 
