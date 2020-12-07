@@ -27,11 +27,21 @@
                 <a href="mystalks.html"><li>mystalks</li></a>
 			</ul>
 		</nav>
-        <form>
-            <label for="fname">Username:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <label for="lname">Password:</label><br>
-            <input type="text" id="lname" name="lname">
-          </form>
+        <div class="container">
+            <form class="form" id="login">
+                <h1 class="formTitle">Login</h1>
+                <div class="formInput">
+                    <input type="text" class="form__input" autofocus placeholder="Username or email">
+                </div>
+                <div class="formInput">
+                    <input type="password" class="form__input" autofocus placeholder="Password">
+                </div> 
+                <button class="formButton" type="submit">Sign in.</button>
+                <p class="form__text">
+                    <a class="form__link" href="./" id="linkCreateAccount" >Sign up here.</a>
+                </p>
+            </form> 
+        </div>
+        <script src="../js/login_action.js "></script>
     </body>
-</html>
+</html> 
