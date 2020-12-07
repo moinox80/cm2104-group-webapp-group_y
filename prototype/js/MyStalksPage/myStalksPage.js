@@ -1,3 +1,4 @@
+var movies = [];
 class Card {
     constructor(movieID) {
         this.imdbID = movieID;
@@ -158,9 +159,22 @@ class Card {
 }
 
 $(function(){
+    getMoviesFromSession()
     /*
     Note: This script can only display a select set of movies.
     The final product would store movies of interest for a user in a backend database.
     */
-    new Card("tt0087332");
+   movies.forEach(movie =>{
+       new Card(movie.imdbID);
+    })
 });
+
+function getMoviesFromSession(){
+    var queryString = window.location.search;
+    queryString = queryString.substring(1);
+    var movieStrings = queryString.split("NEXT");
+    movieStrings.forEach(movieString =>{
+        movies.push(JSON.parse(sessionStorage.getItem(movieString)));
+    })
+    movies.pop();
+}

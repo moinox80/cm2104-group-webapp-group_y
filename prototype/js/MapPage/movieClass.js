@@ -119,16 +119,15 @@ class Movie{
         const getCircularReplacer = () => {//from https://docs.w3cub.com/javascript/errors/cyclic_object_value/
             const seen = new WeakSet();
             return (key, value) => {
-              if (typeof value === "object" && value !== null) {
-                if (seen.has(value)) {
-                  return;
+                if (typeof value === "object" && value !== null) {
+                    if (seen.has(value)) {
+                        return;
+                    }
+                    seen.add(value);
                 }
-                seen.add(value);
-              }
-              return value;
+                return value;
             };
-          };
-
+        };
         sessionStorage.setItem(movie.imdbID + "stringified", JSON.stringify(movie ,getCircularReplacer()));
     }
 }
