@@ -19,7 +19,7 @@ function getResultsFromOMDBByID(movieID){
     var url = baseURL + "i=" + movieID;
     
     $.getJSON(url, function(jsondata){
-        if(jsondata){
+        if(jsondata && jsondata.imdbID){
             makeMovie(jsondata);
         };
     });
