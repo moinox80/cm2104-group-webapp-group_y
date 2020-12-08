@@ -101,16 +101,26 @@ class Movie {
     }
 
     addSelfToMyMovies() {
-        var movie = this;
-        var url = "href=movie.html?" + this.imdbID + "stringified"//containes movie stored in session
+        var url = "href=movie.html?m=" + this.imdbID + "," //containes movie stored in session
         var id = "id=" + this.imdbID + "-my-movies-link";
         var text = this.name + "-" + this.year;
 
-        $("<br> <a " + url + " + id='" + this.imdbID + "-my-movies-link" + "' >" + text + "</a>").appendTo("#my-movies");
+        var $movieTemplate = $(`
+            <div class="row mt-2">
+                <div class="col-md-3 d-flex align-items-center">
+                    <h5>${this.name}</h5>
+                </div>
+                <div class="col-md-9 d-flex align-items-center">
+                    <label class="form-check-label mr-3">
+                        <input type="checkbox" class="form-check-input" value="">Visible
+                    </label>
+                    <button type="button" class="btn btn-primary mr-3 mystalksbutton">Add to MyStalks</button>
+                </div>
+            </div>
+        `).appendTo("#my-movies");
 
-        $("#" + this.imdbID + "-my-movies-link").click(function () {
-            movie.storeMovieInSession();
-        }.bind(this));
+        $movieTemplate.find(".form-check-input").click(this.changeVisibilityStateOnMap.bind(this));
+        $movieTemplate.find(".mystalksbutton").click(this.storeMovieInSession.bind(this));
     }
 
     storeMovieInSession() {//store movie in session
