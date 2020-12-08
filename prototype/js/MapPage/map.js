@@ -10,7 +10,17 @@ function onUserLocationRecieved(location){
     userLocation = [location.coords.latitude, location.coords.longitude];
 }
 
+function addMarkerIfMyStalksRequested(){
+    var requestedLocationFromMyStalks = sessionStorage.getItem("locationOfInterest");
+    if(requestedLocationFromMyStalks){
+        var possititon = requestedLocationFromMyStalks.split(",")
+        var marker = L.marker(possititon);
+        marker.addTo(mymap);
+    }
+}
+
 $(document).ready(function(){
+    
     getUserLocation();
 
     mymap = L.map('mapid').setView([0,0], 1);
@@ -27,7 +37,8 @@ $(document).ready(function(){
     }).addTo(mymap);
     
     mymap.setMaxBounds([[180, -180], [-180, 180]]);//sets max bounds to top left and bottom right courners of common maps
-    
+
+    addMarkerIfMyStalksRequested();
     
     $(function(){
         $('#add-movie').submit(function(){

@@ -82,18 +82,18 @@ class Card {
                 this.addLocationTemplate();
 
                 var locationText = this.filmingLocationsJSON.locations[i].location;
-                this.$locationList[i].find(".form-check-label").append(locationText);
-                this.$locationList[i].find(".see-on-map").click(function() {
-                    sessionStorage.setItem("locationOfInterest", JSON.stringify(locationText));
-                });
                 
                 /*
-                    While the following function was originally intended to take a FilmingLocation object as its third parameter,
-                    it just so happens it has the right number of arguments for the purpose of ordering the filming locations in the array
+                While the following function was originally intended to take a FilmingLocation object as its third parameter,
+                it just so happens it has the right number of arguments for the purpose of ordering the filming locations in the array
                 */
-                openCageAPIConvertToLatLong(locationText, function (position, index) {
-                    this.filmingLocations[index] = position;
-                    this.waitForCurrentLocation(index, position);
+               openCageAPIConvertToLatLong(locationText, function (position, index) {
+                   this.filmingLocations[index] = position;
+                   this.waitForCurrentLocation(index, position);
+                   this.$locationList[index].find(".form-check-label").append(locationText);
+                   this.$locationList[index].find(".see-on-map").click(function() {
+                       sessionStorage.setItem("locationOfInterest", position);
+                   });
                 }.bind(this), i);
             }
         }.bind(this));
