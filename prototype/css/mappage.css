@@ -1,6 +1,9 @@
 body{
     background-color:rgba(0, 0, 0, 0.1);
 }
+body a[href="map.html"] li{
+    color:tomato;
+  }
 .leaflet-marker-icon{
     content:'';
     width:110%;
@@ -94,6 +97,9 @@ nav{
 main h1{
     text-align: center;
 }
+#nav-links{
+    right: 300px;
+  }
 
 @media only screen and (min-width: 520px) {
     #my-movies, #show-movie-checkbox{
@@ -130,8 +136,8 @@ main h1{
         
     }
     #my-movies, #show-movie-checkbox{
-        width:100%;
-        height:90%;
+        width: 100%;
+        height: 99%;
         margin: 0;
         margin-left: 10px;
         margin-right: 10px;

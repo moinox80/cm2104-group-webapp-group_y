@@ -400,6 +400,7 @@
     
    .desktop-nav{
      display: flex;
+     margin-bottom: 20px;
    }
    #nav-links{
      display:flex;
@@ -424,8 +425,8 @@
    #nav-links a:hover{
      transition: 0.5s;
     color:  tomato;
-    bottom: -2px;
-    right: -2px;
+    bottom: -1px;
+    right: -1px;
    }
 
    .content-container-1{

@@ -1,3 +1,7 @@
+body a[href="logIn.html"] li{
+  color:tomato;
+}
+
 input[type=password], select, textarea {
     width: 100%; 
     padding: 12px; 
@@ -32,4 +36,8 @@ input[type=password], select, textarea {
 }
     button[type=submit]:hover {
     background-color: rgb(73, 71, 71);
+  }
+
+  #nav-links{
+    right: 300px;
   }

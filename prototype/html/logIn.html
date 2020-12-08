@@ -4,6 +4,7 @@
     <head>
         <title>FilmStalker - Log in</title>
         <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/logIn.css">
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="styleshet" href="../css/normalize.min.css">
         <link rel='icon' href='../favicon.ico' type='image/x-icon'>	
@@ -17,8 +18,9 @@
               <img src="../img/Logo.png" class="logo" alt="logo">
               <ul id="nav-links">
                 <a href="../index.html"><li>Home</li></a>
-                <a href="account.html"><li>Account</li></a>
-                <a href="mystalks.html"><li>My Stalks</li></a>
+                <a href="map.html"><li>Map</li></a>
+                <a href="mystalks.html"><li>My&nbsp;Stalks</li></a>
+                <a href="account.html"><li>Account</li></a> 
                 <a href="logIn.html"><li>Login</li></a>
               </ul>
             </div>
@@ -33,8 +35,9 @@
               
               <ul id="menu">
                 <a href="../index.html"><li>Home</li></a>
-                <a href="account.html"><li>Account</li></a>
-                <a href="mystalks.html"><li>My Stalks</li></a>
+                <a href="map.html"><li>Map</li></a>
+                <a href="mystalks.html"><li>My&nbsp;Stalks</li></a>
+                <a href="account.html"><li>Account</li></a> 
                 <a href="logIn.html"><li>Login</li></a>
               </ul>
             </div>
@@ -48,12 +51,40 @@
                 <div class="formInput">
                     <input type="password" class="form__input" autofocus placeholder="Password">
                 </div> 
-                <form action="../html/map.html" method="GET"><button class="formButton" type="submit">Sign in.</button></form>
+                <form action="map.html" method="GET"><button class="formButton" type="submit">Sign in</button></form>
                 <p class="form__text">
-                    <a class="form__link" href="../html/signup.html" id="linkCreateAccount" >Sign up here.</a>
+                    <a class="form__link" href="signup.html" id="linkCreateAccount" >Sign up here</a>
                 </p>
             </form> 
         </div>
+        <footer>
+          <div class="footer-content">
+            <a href="index.html"><li>Home</li></a>
+            <a href="html/about.html"><li>About</li></a>
+            <a href="html/contact.html"><li>Contact</li></a>
+          </div>
+          <div class="footer-contact-form">
+            <form action="contact_response.php">
+            <label for="email">Email</label>
+            <input type="text" id="lname" name="email" placeholder="Your email...">
+        
+            <label for="subject">Message</label>
+            <textarea id="text" name="subject" placeholder="Write something.." style="height:100px"></textarea>
+        
+            <input type="submit" value="Submit ✈">
+        
+          </form>
+        </div>
+          <div class="footer-media">
+            <img src="img/facebook.png" alt="facebook">
+            <img src="img/twitter.png" alt="twitter">
+            <img src="img/instagram.png" alt="instagram">
+            <img src="img/mail.png" alt="mail">
+          </div>
+        </footer>
         <script src="../js/login_action.js "></script>
     </body>
+    <!--A Script with a space to fix the 
+  chrome transition bug when loading a page-->
+<script> </script>
 </html> 
