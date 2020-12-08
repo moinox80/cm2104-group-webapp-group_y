@@ -1,8 +1,8 @@
 var movies = [];
 class Card {
-    constructor(movieID) {
-        this.imdbID = movieID;
-        this.movieName;
+    constructor(movie) {
+        this.imdbID = movie.imdbID;
+        this.movieName = movie.name;
 
         this.currentLocation;
         this.filmingLocations = [];
@@ -83,7 +83,10 @@ class Card {
 
                 var locationText = this.filmingLocationsJSON.locations[i].location;
                 this.$locationList[i].find(".form-check-label").append(locationText);
-
+                this.$locationList[i].find(".see-on-map").click(function() {
+                    sessionStorage.setItem("locationOfInterest", JSON.stringify(locationText));
+                });
+                
                 /*
                     While the following function was originally intended to take a FilmingLocation object as its third parameter,
                     it just so happens it has the right number of arguments for the purpose of ordering the filming locations in the array
@@ -108,7 +111,7 @@ class Card {
                 
             </div>
             <div class="col-lg-2">
-                See on map >
+                <a class="see-on-map" href="../html/map.html?l=true">See on map</a>
             </div>
         </div>`;
 
@@ -165,16 +168,17 @@ $(function () {
     The final product would store movies of interest for a user in a backend database.
     */
     movies.forEach(movie => {
-        new Card(movie.imdbID);
+        new Card(movie);
     })
 });
 
 function getMoviesFromSession() {
-    var queryString = window.location.search;
-    queryString = queryString.substring(1);
-    var movieStrings = queryString.split("NEXT");
-    movieStrings.forEach(movieString => {
-        movies.push(JSON.parse(sessionStorage.getItem(movieString)));
-    })
-    movies.pop();
+    //var queryString = window.location.search;
+    //queryString = queryString.substring(1);
+    //var movieStrings = queryString.split("NEXT");
+    var keys = Object.keys(sessionStorage);
+    keys.forEach(key =>{
+        movies.push(JSON.parse(sessionStorage.getItem(key)));
+    });
+    //movies.pop();
 }
