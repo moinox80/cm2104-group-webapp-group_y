@@ -1,7 +1,3 @@
-body a[href="contact.html"] li{
-  color:tomato;
-}
-
 input[type=password], select, textarea {
     width: 100%; 
     padding: 12px; 

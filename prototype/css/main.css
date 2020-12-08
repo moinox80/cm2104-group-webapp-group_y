@@ -28,7 +28,7 @@
  
   a:hover
  {
-   color: rgb(224, 224, 224);
+   color: tomato;
  }
  /*To not display the nav links*/
  #nav-links{
@@ -200,12 +200,13 @@
     border: 1px solid;
     padding: 10px;
     border-radius: 5px;
+    background-color: black;
+    color: white;
   }
   .LaunchApp:hover{
     bottom:-3px;
     right: -3px;
-    color:rgb(170, 170, 170);
-    border-color:black;
+    color:white;
   }
 
 /*Content page */
@@ -228,8 +229,9 @@
     text-align: center;
   }
 /*footer*/
-  footer{
-    height:300px;
+  footer{ 
+    left: 0;
+    bottom: 0;
     background-color: rgb(1,1,1,0.1);
   }
   .footer-content{
@@ -237,11 +239,21 @@
     list-style-type: none;
 
 }
+
   .footer-content a{
     margin: 25px;
   }
+
+  .footer-contact-form{
+    margin: 0 auto;
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+
   .footer-media{
     display:flex;
+    padding: 20px;
   }
   .footer-media img{
     margin-left:auto;
@@ -303,7 +315,7 @@
     to{border-bottom-color: transparent;}
   }
 
-/*Contact Form*/
+/*Forms from all pages*/
   input[type=text], select, textarea {
     width: 100%; 
     padding: 12px; 
@@ -411,7 +423,7 @@
    }
    #nav-links a:hover{
      transition: 0.5s;
-    color: rgb(255, 255, 255);
+    color:  tomato;
     bottom: -2px;
     right: -2px;
    }
@@ -453,9 +465,6 @@
     width:768px;
     margin: 0 auto;
     margin-bottom: 50px;
-  }
-  footer{
-    height:250px;
   }
 
   }

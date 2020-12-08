@@ -3,6 +3,7 @@
   <head>
     <title>FilmStalker - Home</title>
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="styleshet" href="css/normalize.min.css">
     <link rel='icon' href='favicon.ico' type='image/x-icon'>	
@@ -14,9 +15,10 @@
   <div class="desktop-nav">
     <img src="img/Logo.png" class="logo" alt="logo">
     <ul id="nav-links">
+      <a href="index.html"><li>Home</li></a>
       <a href="html/about.html"><li>About</li></a>
       <a href="html/contact.html"><li>Contact&nbsp;Us</li></a>
-      <a id="nav-launchapp" href="html/map.html"><li>Launch&nbsp;app&nbsp;&#x2197;</li></a> 
+      <a id="nav-launchapp" href="html/map.html"><li>Launch&nbsp;App&nbsp;&#x2197;</li></a> 
     </ul>
   </div>
   <div id="menuToggle">
@@ -29,6 +31,7 @@
     <span></span>
     
     <ul id="menu">
+      <a href="index.html"><li>Home</li></a>
       <a href="html/about.html"><li>About</li></a>
       <a href="html/contact.html"><li>Contact&nbsp;Us</li></a>
       <div id="menu-launchapp">
@@ -75,24 +78,25 @@
       <a href="html/about.html"><li>About</li></a>
       <a href="html/contact.html"><li>Contact</li></a>
     </div>
+    <div class="footer-contact-form">
+      <form action="contact_response.php">
+      <label for="email">Email</label>
+      <input type="text" id="lname" name="email" placeholder="Your email...">
+  
+      <label for="subject">Message</label>
+      <textarea id="text" name="subject" placeholder="Write something.." style="height:100px"></textarea>
+  
+      <input type="submit" value="Submit ✈">
+  
+    </form>
+  </div>
     <div class="footer-media">
       <img src="img/facebook.png" alt="facebook">
       <img src="img/twitter.png" alt="twitter">
       <img src="img/instagram.png" alt="instagram">
       <img src="img/mail.png" alt="mail">
     </div>
-  
-    
   </footer>
-</body>
-  <script>
-  function toggleImage() {
-    var img1 = "https://cdn3.iconfinder.com/data/icons/meteocons/512/moon-black-512.png";
-    var img2 = "https://icons-for-free.com/iconfiles/png/512/SUN-131994911366617903.png";
-    
-    var imgElement = document.getElementById('toggleImage');
- 
-    imgElement.src = (imgElement.src === img1)? img2 : img1;
- }</script>
+</body> 
 
 </html>
