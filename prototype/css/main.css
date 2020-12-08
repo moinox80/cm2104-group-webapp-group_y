@@ -330,19 +330,7 @@
     right: -1px;
    }
 
-   .content-container-1{
-     display:flex;
-     margin-top: 10%;
-   }
-   .content{
-    margin-left:auto;
-    margin-right:auto;
-   }
-
-   .banner{
-    max-width: 100%;
-    height: auto !important;
-  }
+  
 
   #nav-launchapp li{
     font-weight: normal;
