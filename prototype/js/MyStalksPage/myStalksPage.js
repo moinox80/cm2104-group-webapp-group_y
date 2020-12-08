@@ -12,19 +12,17 @@ class Card {
         this.$locationList = [];
         this.addCardTemplate();
 
-        getResultsFromOMDBByID(this.imdbID, function (movie) {
-            this.movieName = movie.Title;
-
-            this.$card.find(".movie-title").text(movie.Title);
+        getResultsFromOMDBByID(this.imdbID, function(moveEx) {
+            this.$card.find(".movie-title").text(this.movieName);
             this.$card.find(".movie-facts").eq(0).html(`
-                <li>Release year: ${movie.Year}</li>
-                <li>Genres: ${movie.Genre}</li>
-                <li>Rating: ${movie.Rated}</li>
+                <li>Release year: ${movie.year}</li>
+                <li>Genres: ${moveEx.Genre}</li>
+                <li>Rating: ${moveEx.Rated}</li>
             `);
             this.$card.find(".movie-facts").eq(1).html(`
-                <li>Director: ${movie.Director}</li>
-                <li>Writers: ${movie.Writer}</li>
-                <li>Actors: ${movie.Actors}</li>
+                <li>Director: ${moveEx.Director}</li>
+                <li>Writers: ${moveEx.Writer}</li>
+                <li>Actors: ${moveEx.Actors}</li>
             `);
 
             this.addLocationsToCard();
