@@ -136,7 +136,7 @@ class Movie {
                 return value;
             };
         };
-        sessionStorage.setItem(this.imdbID + "stringified", JSON.stringify(this, getCircularReplacer()));
+        sessionStorage.setItem(this.imdbID, JSON.stringify(this, getCircularReplacer()));
     }
 }
 
