@@ -395,6 +395,7 @@
      position:fixed;
      right: 250px;
      top:10px;
+     z-index:1000;
    }
    #nav-links a{
     margin-left: 20%;

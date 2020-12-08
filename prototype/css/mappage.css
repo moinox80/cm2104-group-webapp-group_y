@@ -11,6 +11,10 @@ body{
     border-bottom-left-radius: 110%;
     border-bottom-right-radius:110%
 }
+main h1{
+    margin-bottom: 30px;
+}
+
 #my-movies, #show-movie-checkbox{
     position:relative;
     height: 100%;
@@ -22,10 +26,12 @@ body{
     animation: colorchange 3s;
     animation-iteration-count:infinite;
     }
+
 #my-movies p, #show-movie-checkbox p{
     font-weight: bold;
     text-align:center;
 }
+
 #submit-movie,#cancel-movie-select{
     background-color: black;
     color: white;
@@ -48,6 +54,12 @@ background-color: rgb(139, 172, 233);
 #movie-select{
     cursor: pointer;
 }
+.movie-content{
+    margin:auto;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
 
 .movie-content img{
     width: 30px;
@@ -55,8 +67,6 @@ background-color: rgb(139, 172, 233);
     margin-left: auto;
     margin-right: auto;
 }
-
-
 
    @keyframes colorchange
     {
@@ -67,10 +77,11 @@ background-color: rgb(139, 172, 233);
 
 
 #mapid{
-    width: 500px;
+    width: 485px;
     height: 500px;
+    border-radius: 10px;
+    box-shadow: 1px 10px 30px 1px rgba(0, 0, 0, 0.2);
     margin: 0 auto;
-    
 }
 nav{
     height:100px;
@@ -83,22 +94,53 @@ nav{
 main h1{
     text-align: center;
 }
-.movie-content{
-    margin-bottom: 0;
-    margin-left:20px;
-    margin-right: 20px;
-    
-}
 
 @media only screen and (min-width: 520px) {
-    
+    #my-movies, #show-movie-checkbox{
+        width:485px;
+        margin: auto;
+        margin-top:10px;
+        
+    }
+    #add-movie-div{
+       width: 485px;
+       margin: 0 auto;
+       margin-bottom:16px;
+       margin-top: 10px;
+    }
 }
 
-
-@media only screen and (min-width: 768px) {
-    #add-movie{
-        width:768px;
-        margin: 0 auto;
-        margin-bottom: 50px;
+@media only screen and (min-width: 900px) {
+    #mapid{
+        width: 620px;
     }
+
+}
+@media only screen and (min-width: 1200px) {
+    #mapid{
+        margin: 0;
+        margin-left: 20px;
+    }
+    .map-and-content-container{
+        display:flex;
+    }
+    .movie-content{
+        display:flex;
+        margin: 0;
+        
+    }
+    #my-movies, #show-movie-checkbox{
+        width:100%;
+        height:90%;
+        margin: 0;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+    #add-movie-div{
+        width: 620px;
+        margin: 0 ;
+        margin-left: 20px;
+        margin-bottom: 16px;
+        margin-top: 10px;
+     }
 }

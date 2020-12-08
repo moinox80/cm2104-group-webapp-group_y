@@ -1,0 +1,35 @@
+input[type=password], select, textarea {
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-sizing: border-box; 
+    margin-top: 6px; 
+    margin-bottom: 16px; 
+    resize: vertical;
+    font-family: "Avenir Next", "Avenir", sans-serif;
+    outline:none;
+     transition: 0.6s;
+    -webkit-transition:  0.6s;
+  }
+  input[type=password]:focus{
+    border: 1px solid black;
+    box-shadow: 0 0 0 3px rgb(161, 158, 158);
+  }
+  input[type=password]:hover{
+    border-color:black;
+
+  }
+
+  button[type=submit] {
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:  0.5s;
+}
+    button[type=submit]:hover {
+    background-color: rgb(73, 71, 71);
+  }

@@ -12,10 +12,10 @@
         <script src="../js/DirectionsPage/directions.js"></script>
         <script src="../js/DirectionsPage/openCageAPI.js"></script>
         <script src="../js/DirectionsPage/aeroDataBox.js"></script>
-
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link rel="stylesheet" href="../css/normalize.css">
         <link rel="stylesheet" href="../css/main.css">
-        <link rel="stylesheet" href="../css/bootstrap.min.css">
         <link rel="stylesheet" href="../css/directions.css">
         <meta charset="UTF-8">
         
@@ -23,23 +23,36 @@
     
     <body>
         
-        <header>
-            <h1>FilmStalker - Directions</h1>
-		</header>
-        
-		<nav class="navbar navbar-expand bg-dark">
-            <ul class="navbar-nav">
-                <a href="../index.html"><li>Home</li></a>
-                <a href="map.html"><li>Map</li></a>
-                <a href="about.html"><li>About</li></a>
-                <a href="contact.html"><li>Contact</li></a>
-                <a href="mystalks.html"><li>mystalks</li></a>
-                <a href="account.html"><li>Account</li></a>
-                <a href="logIn.html"><li>logIn</li></a>
-			</ul>
-		</nav>
+        <nav role='navigation'>
+			<div class="desktop-nav">
+			  <img src="../img/Logo.png" class="logo" alt="logo">
+			  <ul id="nav-links">
+				<a href="../index.html"><li>Home</li></a>
+				<a href="../html/mystalks.html"><li>My&nbsp;Stalks</li></a>
+				<a href="../html/logIn.html"><li>Login</li></a>
+				<a href="../html/account.html"><li>Account</li></a>			
+			  </ul>
+			</div>
+			<div id="menuToggle">
+			
+			  <input type="checkbox" />
+			  
+			  <!--To make the hamburger-->
+			  <span></span>
+			  <span></span>
+			  <span></span>
+			  
+			  <ul id="menu">
+				<a href="../index.html"><li>Home</li></a>
+				<a href="html/account.html"><li>Account</li></a>
+				<a href="html/mystalks.html"><li>My Stalks</li></a>
+        <a href="html/logIn.html"><li>Login</li></a>
+			  </ul>
+			</div>
+		  </nav>
         
         <main>
+            <h1><div class="material-icons">&#xe52e;</div>Directions</h1>
             <div id="map"></div>
         </main>
         
