@@ -88,7 +88,7 @@ class Card {
                     While the following function was originally intended to take a FilmingLocation object as its third parameter,
                     it just so happens it has the right number of arguments for the purpose of ordering the filming locations in the array
                 */
-                openCageAPIConvertToLatLong(locationText, function (index, position) {
+                openCageAPIConvertToLatLong(locationText, function (position, index) {
                     this.filmingLocations[index] = position;
                     this.waitForCurrentLocation(index, position);
                 }.bind(this), i);
