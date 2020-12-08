@@ -18,11 +18,11 @@ main h1{
     margin-bottom: 30px;
 }
 
-#my-movies, #show-movie-checkbox{
-    position:relative;
+#my-movies{
     height: 100%;
-    width: 100%;
+    width: 400px;
     margin-top: 15px;
+    margin: auto;
     background-color: white;
     border: 0px solid black;
     border-radius: 5px;
@@ -30,7 +30,7 @@ main h1{
     animation-iteration-count:infinite;
     }
 
-#my-movies p, #show-movie-checkbox p{
+#my-movies p{
     font-weight: bold;
     text-align:center;
 }
@@ -48,20 +48,14 @@ main h1{
     background-color: rgb(73, 71, 71);
 }
 #cancel-movie-select{
-margin-left:10px;
-background-color: rgb(139, 172, 233);
+    margin-left:10px;
+    background-color: rgb(139, 172, 233);
 }
 #cancel-movie-select:hover{
     background-color: rgb(30, 88, 136);
 }
 #movie-select{
     cursor: pointer;
-}
-.movie-content{
-    margin:auto;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 10px;
 }
 
 .movie-content img{
@@ -100,9 +94,21 @@ main h1{
 #nav-links{
     right: 300px;
   }
+  button[type=button] {
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:  0.5s;
+}
+    button[type=button]:hover {
+    background-color: rgb(73, 71, 71);
+  }
 
 @media only screen and (min-width: 520px) {
-    #my-movies, #show-movie-checkbox{
+    #my-movies{
         width:485px;
         margin: auto;
         margin-top:10px;
@@ -122,25 +128,16 @@ main h1{
     }
 
 }
+
 @media only screen and (min-width: 1200px) {
     #mapid{
+        display:block;
         margin: 0;
         margin-left: 20px;
     }
-    .map-and-content-container{
-        display:flex;
-    }
-    .movie-content{
-        display:flex;
-        margin: 0;
-        
-    }
-    #my-movies, #show-movie-checkbox{
-        width: 100%;
-        height: 99%;
-        margin: 0;
-        margin-left: 10px;
-        margin-right: 10px;
+    #my-movies{
+        display:block;
+        width: 620px;
     }
     #add-movie-div{
         width: 620px;
