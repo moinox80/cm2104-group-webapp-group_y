@@ -329,7 +329,19 @@
     bottom: -1px;
     right: -1px;
    }
-
+   .container {
+    width:768px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+  .content-container-1{
+    display:flex;
+    margin-top: 10%;
+  }
+  .content{
+   margin-left:auto;
+   margin-right:auto;
+  }
   
 
   #nav-launchapp li{
