@@ -139,6 +139,7 @@ class Movie {
             };
         };
         sessionStorage.setItem(this.imdbID, JSON.stringify(this, getCircularReplacer()));
+        alert("Added " + this.name + " to MyStalks");
     }
 }
 
