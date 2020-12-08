@@ -8,7 +8,7 @@ const APIKey = "5021b9e2912f454494eee897238f672a";//kaveh's API Key
 const api_url = 'https://api.opencagedata.com/geocode/v1/json'
 
 //most of this code is copy pasted from https://opencagedata.com/tutorials/geocode-in-javascript
-function openCageAPIConvertToLatLong(locationByName, callback, location){
+function openCageAPIConvertToLatLong(locationByName, callback, index = -1){
     var request_url = api_url
     + '?'
     + 'key=' + APIKey
@@ -29,7 +29,12 @@ function openCageAPIConvertToLatLong(locationByName, callback, location){
             // Success!
             var data = JSON.parse(request.responseText);
 
-            callback(location, [data.results[0].geometry.lat, data.results[0].geometry.lng]);
+            if (index === -1) {
+                callback([data.results[0].geometry.lat, data.results[0].geometry.lng]);
+            } else {
+                callback([data.results[0].geometry.lat, data.results[0].geometry.lng], index);
+            }
+            
             
         }
         else if (request.status <= 500){ 

@@ -14,16 +14,16 @@ class Movie {
         this.poster = this.OMDBData.Poster;
         this.filmingLocationsMarkers = [];
         this.filmingLocationsByNameAndLatLong = [];
-        getFilmingLocationsOf(this.setUpFilmingLocationsForTheFirstTime, this.imdbID, this); //uses imdb which has max 500 call requests per month
+        getFilmingLocationsOf(this.setUpFilmingLocationsForTheFirstTime.bind(this), this.imdbID, this); //uses imdb which has max 500 call requests per month
         // this.testFakeAddress();// acts as getFilmingLocationsOf
         this.visibleOnMap = true;
         movies.push(this);
     }
 
-    setUpComplete(movie) {//when the set up is complete, add ui
-        movie.addSelfToShowMovieCheckBox();
-        movie.makeDeleteButton();
-        movie.addSelfToMyMovies();
+    setUpComplete() {//when the set up is complete, add ui
+        this.addSelfToShowMovieCheckBox();
+        this.makeDeleteButton();
+        this.addSelfToMyMovies();
     }
 
     setUpFilmingLocationByNameAndLatLong(locationName, locationLatLong) {
@@ -31,16 +31,16 @@ class Movie {
     }
 
 
-    setUpFilmingLocationsForTheFirstTime(locationsByName, movie) {
-        movie.setUpFilmingLocations(locationsByName, movie);
+    setUpFilmingLocationsForTheFirstTime(locationsByName) {
+        this.setUpFilmingLocations(locationsByName);
         setTimeout(function () {
-            movie.setUpComplete(movie);
-        }, 1000);
+            this.setUpComplete();
+        }.bind(this), 1000);
     }
 
-    setUpFilmingLocations(locationsByName, movie) {
+    setUpFilmingLocations(locationsByName) {
         locationsByName.forEach(locationByName => {
-            new FilmingLocation(movie, locationByName);
+            new FilmingLocation(this, locationByName);
         });
     }
 
@@ -79,13 +79,12 @@ class Movie {
     }
 
     addSelfToShowMovieCheckBox() {
-        var movie = this;
         var checkboxID = this.imdbID + "-checkbox";
         var checkboxDivID = this.imdbID + "-div";
         this.makeCheckBox(checkboxDivID, checkboxID);
         $('#' + checkboxID).change(function () {
-            movie.changeVisibilityStateOnMap();
-        });
+            this.changeVisibilityStateOnMap();
+        }.bind(this));
     }
 
     makeCheckBox(checkboxDivID, checkboxID) {
@@ -95,11 +94,10 @@ class Movie {
     }
 
     makeDeleteButton() {
-        var movie = this;
         $("<button id='delete-movie-" + this.imdbID + "'>Delete</button>").appendTo("#" + this.imdbID + "Div");
         $('#delete-movie-' + this.imdbID).click(function () {
-            removeMovie(movie);
-        });
+            removeMovie(this);
+        }.bind(this));
     }
 
     addSelfToMyMovies() {
@@ -111,11 +109,11 @@ class Movie {
         $("<br> <a " + url + " + id='" + this.imdbID + "-my-movies-link" + "' >" + text + "</a>").appendTo("#my-movies");
 
         $("#" + this.imdbID + "-my-movies-link").click(function () {
-            movie.storeMovieInSession(movie);
-        })
+            movie.storeMovieInSession();
+        }.bind(this));
     }
 
-    storeMovieInSession(movie) {//store movie in session
+    storeMovieInSession() {//store movie in session
         const getCircularReplacer = () => {//from https://docs.w3cub.com/javascript/errors/cyclic_object_value/
             const seen = new WeakSet();
             return (key, value) => {
@@ -128,7 +126,7 @@ class Movie {
                 return value;
             };
         };
-        sessionStorage.setItem(movie.imdbID + "stringified", JSON.stringify(movie, getCircularReplacer()));
+        sessionStorage.setItem(this.imdbID + "stringified", JSON.stringify(this, getCircularReplacer()));
     }
 }
 
