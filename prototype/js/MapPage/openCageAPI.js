@@ -4,7 +4,7 @@
  * code is from https://opencagedata.com/tutorials/geocode-in-javascript and hardly edited
  */
 
-const APIKey = "5021b9e2912f454494eee897238f672a";//kaveh's API Key
+const APIKey = "a71c9d2c16a84c71b64c3dda76245b2d";//kaveh's API Key
 const api_url = 'https://api.opencagedata.com/geocode/v1/json'
 
 //most of this code is copy pasted from https://opencagedata.com/tutorials/geocode-in-javascript
