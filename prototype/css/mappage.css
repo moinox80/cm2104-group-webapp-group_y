@@ -11,14 +11,15 @@ body a[href="map.html"] li{
     background:lightgreen;
     border-top-left-radius: 20%;
     border-top-right-radius: 20%;
-    border-bottom-left-radius: 110%;
-    border-bottom-right-radius:110%
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius:100px;
 }
 main h1{
     margin-bottom: 30px;
 }
 
 #my-movies{
+    position:relative;
     height: 100%;
     width: 400px;
     margin-top: 15px;
@@ -34,6 +35,7 @@ main h1{
     font-weight: bold;
     text-align:center;
 }
+
 
 #submit-movie,#cancel-movie-select{
     background-color: black;
@@ -74,6 +76,7 @@ main h1{
 
 
 #mapid{
+    position:relative;
     width: 485px;
     height: 500px;
     border-radius: 10px;
@@ -110,7 +113,7 @@ main h1{
 @media only screen and (min-width: 520px) {
     #my-movies{
         width:485px;
-        margin: auto;
+        margin:auto;
         margin-top:10px;
         
     }
@@ -130,24 +133,37 @@ main h1{
 }
 
 @media only screen and (min-width: 1200px) {
+    .general-wrapper{
+        width: 50%;
+        margin: 0 auto;
+    }
     #mapid{
         display:block;
         margin: 0;
-        margin-left: 20px;
+        margin-right: 20px;
+        
+    }
+    .map-and-content-container{
+        display:flex;
     }
     #my-movies{
         display:block;
-        width: 620px;
+        width: 200px;
+        height: 90%;
+        margin: 0;
+        margin-right: 20px;
     }
     #add-movie-div{
         width: 620px;
         margin: 0 ;
-        margin-left: 20px;
+        
         margin-bottom: 16px;
         margin-top: 10px;
      }
 }
 
-#movie-header {
-    background-color: rgb(1,1,1,0.1);
+@media only screen and (min-width: 1400px) {
+    #my-movies{  
+        width: 300px;       
+    }
 }
