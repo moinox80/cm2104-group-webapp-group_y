@@ -11,8 +11,8 @@ body a[href="map.html"] li{
     background:lightgreen;
     border-top-left-radius: 20%;
     border-top-right-radius: 20%;
-    border-bottom-left-radius: 110%;
-    border-bottom-right-radius:110%
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius:100px;
 }
 main h1{
     margin-bottom: 30px;
