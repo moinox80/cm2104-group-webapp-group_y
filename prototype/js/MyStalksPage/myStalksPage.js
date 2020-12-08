@@ -134,6 +134,7 @@ class Card {
         const lat2 = filmingLocation[1];
 
         //Code from https://www.movable-type.co.uk/scripts/latlong.html
+        //Converts distance between geographic coordinates into metres
         const R = 6371e3; // metres
         const φ1 = lat1 * Math.PI / 180; // φ, λ in radians
         const φ2 = lat2 * Math.PI / 180;
