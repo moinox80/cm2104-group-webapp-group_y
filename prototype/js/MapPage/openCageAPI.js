@@ -4,14 +4,19 @@
  * code is from https://opencagedata.com/tutorials/geocode-in-javascript and hardly edited
  */
 
-const APIKey = "5021b9e2912f454494eee897238f672a";//kaveh's API Key
+const APIKey = "a71c9d2c16a84c71b64c3dda76245b2d";//kaveh's API Key
+const APIkey2 = "2132037ffc084cda92aa80accb19238d";//also kavehs 
+const APIkey3 = "b063cafd9f27445b99d129a7f90d9e5d";//also kavehs //bug caused infinite loop
+const APIkey4 = "a71c9d2c16a84c71b64c3dda76245b2d"//also kavehs //bug caused infinite loop
+const APIKey5 = "dd3bd144d5424c96a05c764fb4d3e46f"//Arthur
+
 const api_url = 'https://api.opencagedata.com/geocode/v1/json'
 
 //most of this code is copy pasted from https://opencagedata.com/tutorials/geocode-in-javascript
-function openCageAPIConvertToLatLong(locationByName, callback, location){
+function openCageAPIConvertToLatLong(locationByName, callback, index = -1){
     var request_url = api_url
     + '?'
-    + 'key=' + APIKey
+    + 'key=' + APIKey5
     + '&q=' + encodeURIComponent(locationByName)
     + '&pretty=1';
 
@@ -29,7 +34,12 @@ function openCageAPIConvertToLatLong(locationByName, callback, location){
             // Success!
             var data = JSON.parse(request.responseText);
 
-            callback(location, [data.results[0].geometry.lat, data.results[0].geometry.lng]);
+            if (index === -1) {
+                callback([data.results[0].geometry.lat, data.results[0].geometry.lng]);
+            } else {
+                callback([data.results[0].geometry.lat, data.results[0].geometry.lng], index);
+            }
+            
             
         }
         else if (request.status <= 500){ 
