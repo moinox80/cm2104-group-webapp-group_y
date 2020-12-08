@@ -116,7 +116,7 @@ class Movie {
                     <label class="form-check-label mr-3">
                         <input type="checkbox" class="form-check-input" value="" checked>Visible
                     </label>
-                    <button type="button" class="btn btn-primary mr-3 mystalksbutton">Add to MyStalks</button>
+                    <button type="button" class="mystalksbutton">Add to MyStalks</button>
                 </div>
             </div>
         `).appendTo("#my-movies");
