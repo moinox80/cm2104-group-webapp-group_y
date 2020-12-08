@@ -253,8 +253,10 @@
 
   .footer-media{
     display:flex;
+    justify-content: space-around;
     padding: 20px;
   }
+
   .footer-media img{
     margin-left:auto;
     margin-right:auto;
