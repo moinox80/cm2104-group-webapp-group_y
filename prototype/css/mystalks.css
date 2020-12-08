@@ -5,3 +5,17 @@ body a[href="mystalks.html"] li{
 #nav-links{
     right: 300px;
   }
+
+.nav-link {
+  color: white;
+}
+
+.nav-link:hover {
+  color: white;
+  background-color: dodgerblue;
+}
+
+button {
+  background-color: inherit;
+  border: none;
+}
