@@ -31,6 +31,7 @@ var fakeMovie = {
 $(document).ready(function(){//onload set up movie with movie passed in url
 
     var queryString = window.location.search;
+    console.log(queryString)
     queryString = queryString.substring(1)
 
     var movie = JSON.parse(sessionStorage.getItem(queryString));

@@ -1,119 +1,132 @@
 <!DOCTYPE html>
 
 <html>
-	<head>
-		<link rel='icon' href='../favicon.ico' type='image/x-icon'>	
-		<title>FilmStalker - Map</title>
-		
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		
-		<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
-		<link rel="stylesheet" href="../css/main.css">
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-		<link rel="stylesheet" href="../css/mappage.css">
-		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-		
-		
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<script src="../js/MapPage/markerClass.js"></script>
-		<script src="../js/MapPage/movieClass.js"></script>
-		<script src="../js/MapPage/filmingLocationsClass.js"></script>
-		<script src="../js/MapPage/getFilmingLocations.js"></script>
-		<script src="../js/MapPage/omdb.js"></script>
-		<script src="../js/MapPage/confirmMovie.js"></script>
-		<script src="../js/MapPage/map.js"></script>
-		<script src="../js/MapPage/openCageAPI.js"></script>
-		<meta charset="UTF-8" />
-	</head>
-	
-	<body>
-		<nav role='navigation'>
-			<div class="desktop-nav">
-			  <img src="../img/Logo.png" class="logo" alt="logo">
-			  <ul id="nav-links">
-				<a href="../index.html"><li>Home</li></a>
-				<a href="map.html"><li>Map</li></a>
-				<a href="mystalks.html"><li>My&nbsp;Stalks</li></a>
-				<a href="logIn.html"><li>Login</li></a>
-				<a href="account.html"><li>Account</li></a>			
-			  </ul>
-			</div>
-			<div id="menuToggle">
-			
-			  <input type="checkbox" />
-			  
-			  <!--To make the hamburger-->
-			  <span></span>
-			  <span></span>
-			  <span></span>
-			  
-			  <ul id="menu">
-				<a href="../index.html"><li>Home</li></a>
-				<a href="map.html"><li>Map</li></a>
-				<a href="mystalks.html"><li>My Stalks</li></a>
-				<a href="logIn.html"><li>Login</li></a>
-				<a href="account.html"><li>Account</li></a>
-			  </ul>
-			</div>
-		  </nav>
-		
-		<main>
-			<h1><i class="material-icons">&#xe55b;</i>Map</h1>
-			<div class="map-and-content-container">
-			<div class="map-container">
-				<div id="mapid"></div>
-				</div>
-				<div class="movie-content">
-				<div id="my-movies">
-					<p>Click on movie to go to movie page</p>
-					<img src="../img/down-arrow.png" alt="arrow">
-				</div>
-				<div id="show-movie-checkbox">
-					<p>Click checkbox to toggle visibility on map</p>
-					<img src="../img/down-arrow.png" alt="arrow">
-					</div>
-			</div>			
-		</div>			
 
-					<div id="add-movie-div">
-						<form id="add-movie">
-							<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
-							<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
-							<input type="submit" value="Search">
-						</form>
+<head>
+	<link rel='icon' href='../favicon.ico' type='image/x-icon'>
+	<title>FilmStalker - Map</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin="" />
+	<link rel="stylesheet" href="../css/mappage.css">
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="../js/MapPage/markerClass.js"></script>
+	<script src="../js/MapPage/movieClass.js"></script>
+	<script src="../js/MapPage/filmingLocationsClass.js"></script>
+	<script src="../js/MapPage/getFilmingLocations.js"></script>
+	<script src="../js/MapPage/omdb.js"></script>
+	<script src="../js/MapPage/confirmMovie.js"></script>
+	<script src="../js/MapPage/map.js"></script>
+	<script src="../js/MapPage/openCageAPI.js"></script>
+	<script src="../js/vendor/bootstrap.min.js"></script>"
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<nav role='navigation'>
+		<div class="desktop-nav">
+			<img src="../img/Logo.png" class="logo" alt="logo">
+			<ul id="nav-links">
+				<a href="../index.html">
+					<li>Home</li>
+				</a>
+				<a href="../html/mystalks.html" id="MyStalks-link">
+					<li>My&nbsp;Stalks</li>
+				</a>
+				<a href="../html/logIn.html">
+					<li>Login</li>
+				</a>
+				<a href="../html/account.html">
+					<li>Account</li>
+				</a>
+			</ul>
+		</div>
+		<div id="menuToggle">
+
+			<input type="checkbox" />
+
+			<!--To make the hamburger-->
+			<span></span>
+			<span></span>
+			<span></span>
+
+			<ul id="menu">
+				<a href="html/account.html">
+					<li>Account</li>
+				</a>
+				<a href="html/mystalks.html" id="MyStalks-link">
+					<li>mystalks</li>
+				</a>
+				<a href="html/logIn.html">
+					<li>logIn</li>
+				</a>
+			</ul>
+		</div>
+	</nav>
+
+	<main>
+		<h1>Map</h1>
+		<div class="map-container">
+			<div id="mapid"></div>
+			<div class="movie-content">
+				<div id="my-movies" class="container">
+					<div class="row pl-2" id="movie-header">
+						<h1>Movies</h1>
 					</div>
-		</main>
+
+					<a href="movie.html?tt0087332," +="" id="tt0087332-my-movies-link"></a>
+				</div>
+			</div>
+		</div>
+
 
 		<footer>
 			<div class="footer-content">
-			  <a href="index.html"><li>Home</li></a>
-			  <a href="html/about.html"><li>About</li></a>
-			  <a href="html/contact.html"><li>Contact</li></a>
+				<a href="index.html">
+					<li>Home</li>
+				</a>
+				<a href="html/about.html">
+					<li>About</li>
+				</a>
+				<a href="html/contact.html">
+					<li>Contact</li>
+				</a>
 			</div>
 			<div class="footer-contact-form">
-			  <form action="contact_response.php">
-			  <label for="email">Email</label>
-			  <input type="text" id="lname" name="email" placeholder="Your email...">
-		  
-			  <label for="subject">Message</label>
-			  <textarea id="text" name="subject" placeholder="Write something.." style="height:100px"></textarea>
-		  
-			  <input type="submit" value="Submit ✈">
-		  
-			</form>
-		  </div>
-			<div class="footer-media">
-			  <img src="img/facebook.png" alt="facebook">
-			  <img src="img/twitter.png" alt="twitter">
-			  <img src="img/instagram.png" alt="instagram">
-			  <img src="img/mail.png" alt="mail">
+				<form action="contact_response.php">
+					<label for="email">Email</label>
+					<input type="text" id="lname" name="email" placeholder="Your email...">
+
+					<label for="subject">Message</label>
+					<textarea id="text" name="subject" placeholder="Write something.." style="height:100px"></textarea>
+
+					<input type="submit" value="Submit ✈">
+
+				</form>
 			</div>
-		  </footer>
+			<div class="footer-media">
+				<img src="img/facebook.png" alt="facebook">
+				<img src="img/twitter.png" alt="twitter">
+				<img src="img/instagram.png" alt="instagram">
+				<img src="img/mail.png" alt="mail">
+			</div>
+		</footer>
 
 		<script src="../js/vendor/bootstrap.min.js"></script>
-	</body>
-	<!--A Script with a space to fix the 
+</body>
+<!--A Script with a space to fix the 
   chrome transition bug when loading a page-->
 <script> </script>
+
 </html>

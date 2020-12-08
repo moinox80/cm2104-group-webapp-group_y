@@ -25,7 +25,7 @@ function getFilmingLocationsOf(callback, imdbID, movie){
 
             if(response && response.locations){
                 locations = unpackLocationList(response);
-                callback(locations, movie);
+                callback(locations);
             }
             else{
                 alert("Film or Show has no filming locations");

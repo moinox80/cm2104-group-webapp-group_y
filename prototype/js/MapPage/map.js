@@ -54,3 +54,13 @@ $(document).ready(function(){
         return newString;
     }
 })
+
+function addMovieIDsToUrl(link){
+    var url = "../html/mystalks.html?"
+    movies.forEach( movie => {
+        movie.storeMovieInSession(movie);
+        url += movie.imdbID + "stringifiedNEXT"
+        movie.storeMovieInSession(movie)
+    })
+    $(link).attr("href", url);
+}
