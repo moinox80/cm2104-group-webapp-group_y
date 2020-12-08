@@ -101,6 +101,8 @@ class Movie {
     }
 
     addSelfToMyMovies() {
+        $("#my-movies").css("display","block");
+
         var url = "href=movie.html?m=" + this.imdbID + "," //containes movie stored in session
         var id = "id=" + this.imdbID + "-my-movies-link";
         var text = this.name + "-" + this.year;
@@ -112,7 +114,7 @@ class Movie {
                 </div>
                 <div class="col-md-9 d-flex align-items-center">
                     <label class="form-check-label mr-3">
-                        <input type="checkbox" class="form-check-input" value="">Visible
+                        <input type="checkbox" class="form-check-input" value="" checked>Visible
                     </label>
                     <button type="button" class="btn btn-primary mr-3 mystalksbutton">Add to MyStalks</button>
                 </div>

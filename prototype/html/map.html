@@ -80,13 +80,20 @@
 		<div class="map-container">
 			<div id="mapid"></div>
 			<div class="movie-content">
-				<div id="my-movies" class="container">
+				<div id="my-movies" class="container" style="display:none">
 					<div class="row pl-2" id="movie-header">
 						<h1>Movies</h1>
 					</div>
 
 					<a href="movie.html?tt0087332," +="" id="tt0087332-my-movies-link"></a>
 				</div>
+			</div>
+			<div id="add-movie-div">
+				<form id="add-movie">
+					<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
+					<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
+					<input type="submit" value="Search">
+				</form>
 			</div>
 		</div>
 
