@@ -38,7 +38,7 @@ input[type=password], select, textarea {
     button[type=submit]:hover {
     background-color: rgb(73, 71, 71);
   }
-
-  #nav-links{
+#nav-links{
     right: 300px;
   }
+  
