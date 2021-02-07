@@ -5,7 +5,7 @@
 class FilmingLocation {
     constructor(movie, locationByName) {
         this.movie = movie;
-        this.location = openCageAPIConvertToLatLong(locationByName, this.setMarker.bind(this), this);
+        this.location = openCageAPIConvertToLatLong(locationByName, this.setMarker.bind(this));
         this.name = locationByName;
         this.visited = false;
         movie.filmingLocationsMarkers.push(this);
