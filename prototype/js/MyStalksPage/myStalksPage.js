@@ -78,7 +78,7 @@ class Card {
         $.getJSON(url, function (data) {
             this.filmingLocationsJSON = data;
             this.filmingLocationsJSON.length = this.filmingLocationsJSON.locations.length;
-            for (var i = 0; i < this.filmingLocationsJSON.locations.length; i++) {
+            this.filmingLocationsJSON.locations.forEach((locationIt, i) => {
                 this.addLocationTemplate();
 
                 var locationText = this.filmingLocationsJSON.locations[i].location;
