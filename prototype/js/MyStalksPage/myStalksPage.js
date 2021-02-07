@@ -31,38 +31,38 @@ class Card {
 
     addCardTemplate() {
         var cardTemplate =
-            `<div class="card m-2 p-2 shadow-sm movie-box">
+          `<div class="movie-box">
             <div class="card-header">
-            <div class="row movie-info">
-                <div class="col-lg-4">
-                <h2 class="movie-title"></h2>
+              <div class="row movie-info">
+                <div>
+                  <h2 class="movie-title"></h2>
                 </div>
-                <div class="col-lg-4">
-                <ul class="movie-facts">
+                <div>
+                  <ul class="movie-facts">
                     <li>Release year: </li>
                     <li>Genres: </li>
                     <li>Rating: </li>
-                </ul>
+                  </ul>
                 </div>
-                <div class="col-lg-4">
-                <ul class="movie-facts">
+                <div>
+                  <ul class="movie-facts">
                     <li>Director: </li>
                     <li>Writer: </li>
                     <li>Actors: </li>
-                </ul>
+                  </ul>
                 </div>
-            </div>
+              </div>
             </div>
 
             <div class="card-body">
-                <button data-toggle="collapse" data-target="#demo">
-                    <h5>Locations</h5>
-                </button>
-                <div id="demo" class="collapse">
-                    
-                </div> 
+              <button data-toggle="collapse" data-target="#demo">
+                <h5>Locations</h5>
+              </button>
+              <div id="demo" class="collapse">
+                
+              </div> 
             </div>
-        </div>`;
+          </div>`;
 
         this.$card = $(cardTemplate).appendTo(".container");
     }
@@ -99,19 +99,19 @@ class Card {
 
     addLocationTemplate() {
         var locationTemplate =
-            `<div class="row">
-            <div class="col-lg-8">
-                <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="">
-                </label>
+          `<div>
+            <div>
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input" value="">
+              </label>
             </div>
-            <div class="col-lg-2 proximity">
+            <div class="proximity">
                 
             </div>
-            <div class="col-lg-2">
-                <a class="see-on-map" href="../html/map.html?l=true">See on map</a>
+            <div>
+              <a class="see-on-map" href="../html/map.html?l=true">See on map</a>
             </div>
-        </div>`;
+          </div>`;
 
         this.filmingLocations.push(
             {
