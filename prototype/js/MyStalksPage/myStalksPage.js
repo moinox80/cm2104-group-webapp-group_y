@@ -79,23 +79,21 @@ class Card {
             this.filmingLocationsJSON = data;
             this.filmingLocationsJSON.length = this.filmingLocationsJSON.locations.length;
             this.filmingLocationsJSON.locations.forEach((locationIt, i) => {
-                this.addLocationTemplate();
+              this.addLocationTemplate();
 
-                var locationText = this.filmingLocationsJSON.locations[i].location;
-                this.$locationList[i].find(".form-check-label").append(locationText);
-                this.$locationList[i].find(".see-on-map").click(function() {
-                    sessionStorage.setItem("locationOfInterest", JSON.stringify(locationText));
-                });
-                
-                /*
-                    While the following function was originally intended to take a FilmingLocation object as its third parameter,
-                    it just so happens it has the right number of arguments for the purpose of ordering the filming locations in the array
-                */
-                openCageAPIConvertToLatLong(locationText, function (position, index) {
-                    this.filmingLocations[index] = position;
-                    this.waitForCurrentLocation(index, position);
-                }.bind(this), i);
-            }
+              var filmingLocation = this.filmingLocations[i];
+
+              var locationText = locationIt.location;
+              filmingLocation.$element.find(".form-check-label").append(locationText);
+              filmingLocation.$element.find(".see-on-map").click(function() {
+                  sessionStorage.setItem("locationOfInterest", JSON.stringify(locationText));
+              });
+              
+              openCageAPIConvertToLatLong(locationText, function (position) {
+                filmingLocation.geoCoord = position;
+                  this.waitForCurrentLocation(filmingLocation);
+              }.bind(this));
+            })
         }.bind(this));
     }
 
@@ -115,18 +113,23 @@ class Card {
             </div>
         </div>`;
 
-        this.$locationList.push(
-            $(locationTemplate).appendTo(this.$card.find(".collapse"))
+        this.filmingLocations.push(
+            {
+              $element: $(locationTemplate).appendTo(this.$card.find(".collapse")),
+              geoCoord: [0,0]
+            }
         );
     }
 
-    waitForCurrentLocation(index, position) {
+    waitForCurrentLocation(filmingLocation) {
         if (typeof this.currentLocation === "undefined") {
-            setTimeout(function () { this.waitForCurrentLocation(index, position) }.bind(this), 500)
+            setTimeout(function() {
+              this.waitForCurrentLocation(filmingLocation)
+            }.bind(this), 500);
             return;
         } else {
-            var distance = this.getDistance(this.filmingLocations[index]);
-            this.$locationList[index].find(".proximity").text(distance + " miles");
+            var distance = this.getDistance(filmingLocation.geoCoord);
+            filmingLocation.$element.find(".proximity").text(distance + " miles");
         }
     }
 
