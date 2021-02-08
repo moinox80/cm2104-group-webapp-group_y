@@ -125,7 +125,7 @@ class Card {
         if (typeof this.currentLocation === "undefined") {
             setTimeout(function() {
               this.waitForCurrentLocation(filmingLocation)
-            }.bind(this), 500);
+            }.bind(this), 100);
             return;
         } else {
             var distance = this.getDistance(filmingLocation.geoCoord);
