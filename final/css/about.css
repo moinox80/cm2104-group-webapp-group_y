@@ -1,0 +1,9 @@
+body a[href="about.html"] li{
+    color:tomato;
+}
+
+.about-container{
+    width: 450px;
+    margin: auto;
+    text-align: center;
+}

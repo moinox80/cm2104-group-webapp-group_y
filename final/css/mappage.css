@@ -1,0 +1,169 @@
+body{
+    background-color:rgba(0, 0, 0, 0.1);
+}
+body a[href="map.html"] li{
+    color:tomato;
+  }
+.leaflet-marker-icon{
+    content:'';
+    width:110%;
+    height:110%;
+    background:lightgreen;
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
+    border-bottom-left-radius: 100px;
+    border-bottom-right-radius:100px;
+}
+main h1{
+    margin-bottom: 30px;
+}
+
+#my-movies{
+    position:relative;
+    height: 100%;
+    width: 400px;
+    margin-top: 15px;
+    margin: auto;
+    background-color: white;
+    border: 0px solid black;
+    border-radius: 5px;
+    animation: colorchange 3s;
+    animation-iteration-count:infinite;
+    }
+
+#my-movies p{
+    font-weight: bold;
+    text-align:center;
+}
+
+
+#submit-movie,#cancel-movie-select{
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:  0.5s;
+}
+#submit-movie:hover{
+    background-color: rgb(73, 71, 71);
+}
+#cancel-movie-select{
+    margin-left:10px;
+    background-color: rgb(139, 172, 233);
+}
+#cancel-movie-select:hover{
+    background-color: rgb(30, 88, 136);
+}
+#movie-select{
+    cursor: pointer;
+}
+
+.movie-content img{
+    width: 30px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+   @keyframes colorchange
+    {
+      0%   {border:3px solid rgb(93, 93, 93);}
+      50%   {border:3px solid #a7a7a7;}
+      100% {border:3px solid rgb(93, 93, 93);}
+    }
+
+
+#mapid{
+    position:relative;
+    width: 485px;
+    height: 500px;
+    border-radius: 10px;
+    box-shadow: 1px 10px 30px 1px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+}
+nav{
+    height:100px;
+}
+#add-movie-div{
+    margin-bottom: 16px;
+    margin-right:20px;
+    margin-left: 20px;
+}
+main h1{
+    text-align: center;
+}
+#nav-links{
+    right: 300px;
+  }
+  button[type=button] {
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition:  0.5s;
+}
+    button[type=button]:hover {
+    background-color: rgb(73, 71, 71);
+  }
+
+@media only screen and (min-width: 520px) {
+    #my-movies{
+        width:485px;
+        margin:auto;
+        margin-top:10px;
+        
+    }
+    #add-movie-div{
+       width: 485px;
+       margin: 0 auto;
+       margin-bottom:16px;
+       margin-top: 10px;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    #mapid{
+        width: 620px;
+    }
+
+}
+
+@media only screen and (min-width: 1200px) {
+    .general-wrapper{
+        width: 50%;
+        margin: 0 auto;
+    }
+    #mapid{
+        display:block;
+        margin: 0;
+        margin-right: 20px;
+        
+    }
+    .map-and-content-container{
+        display:flex;
+    }
+    #my-movies{
+        display:block;
+        width: 200px;
+        height: 90%;
+        margin: 0;
+        margin-right: 20px;
+    }
+    #add-movie-div{
+        width: 620px;
+        margin: 0 ;
+        
+        margin-bottom: 16px;
+        margin-top: 10px;
+     }
+}
+
+@media only screen and (min-width: 1400px) {
+    #my-movies{  
+        width: 300px;       
+    }
+}

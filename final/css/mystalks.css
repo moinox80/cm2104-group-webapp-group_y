@@ -1,0 +1,17 @@
+body a[href="mystalks.html"] li{
+    color:tomato;
+  }
+
+button {
+    background-color: inherit;
+    border: none;
+  }
+
+#nav-links{
+    right: 300px;
+  }
+
+h1{
+  text-align:center;
+}
+
