@@ -60,3 +60,26 @@ Basic description : A site to track and mark movie filming locations, by display
 - AeroData Box https://www.aerodatabox.com/  used to get locations of nearest airports
 - leaflet.js     to make the map
 - OpenCage Geocoding API     https://opencagedata.com/     to convert address to lat-lng
+
+
+#Server stuff
+
+##Database
+
+- Process pages to be sent
+
+###Stuff to store
+- Login information
+- Saved Movies
+- Visited film locations
+- Filming locations/info cache and date/time cached to minomize API requests   - possible feature
+
+## partials
+- Navigation bar
+- Footer
+
+
+
+
+#Possible features to add
+- web3.js
