@@ -35,111 +35,37 @@
 </head>
 
 <body>
-	<nav role='navigation'>
-		<div class="desktop-nav">
-			<img src="../img/Logo.png" class="logo" alt="logo">
-			<ul id="nav-links">
-				<a href="../index.html">
-					<li>Home</li>
-				</a>
-				<a href="map.html">
-					<li>Map</li>
-				</a>
-				<a href="mystalks.html" id="MyStalks-link">
-					<li>My&nbsp;Stalks</li>
-				</a>
-				<a href="account.html">
-					<li>Account</li>
-				</a>
-				<a href="logIn.html">
-					<li>Log&nbsp;In</li>
-				</a>
-			</ul>
-		</div>
-		<div id="menuToggle">
-
-			<input type="checkbox" />
-
-			<!--To make the hamburger-->
-			<span></span>
-			<span></span>
-			<span></span>
-
-			<ul id="menu">
-				<a href="../index.html">
-					<li>Home</li>
-				</a>
-				<a href="map.html">
-					<li>Map</li>
-				</a>
-				<a href="account.html">
-					<li>Account</li>
-				</a>
-				<a href="mystalks.html" id="MyStalks-link">
-					<li>My&nbsp;Stalks</li>
-				</a>
-				<a href="logIn.html">
-					<li>Log&nbsp;In</li>
-				</a>
-			</ul>
-		</div>
-	</nav>
+	<%- include('../partials/navApp') %>  
 
 	<main>
 		<div class="general-wrapper">
-		<div class="map-and-content-container">
-		<div class="map-container">
-			<h1><i class="material-icons">&#xe55b;</i>Map</h1>
-			<div id="mapid">
-			</div>
-		</div>
-			<div class="movie-content">
-				<div id="my-movies" class="container" style="display:none">
-						<h1>Movies</h1>
+			<div class="map-and-content-container">
+				<div class="map-container">
+					<h1><i class="material-icons">&#xe55b;</i>Map</h1>
+					<div id="mapid">
+					</div>
+				</div>
+				<div class="movie-content">
+					<div id="my-movies" class="container" style="display:none">
+							<h1>Movies</h1>
 
-					<a href="movie.html?tt0087332," +="" id="tt0087332-my-movies-link"></a>
+						<a href="movie.html?tt0087332," +="" id="tt0087332-my-movies-link"></a>
+					</div>
+				</div>
+				</div>
+					<div id="add-movie-div">
+						<form id="add-movie">
+							<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
+							<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
+							<input type="submit" value="Search">
+						</form>
+					</div>
 				</div>
 			</div>
-		</div>
-			<div id="add-movie-div">
-				<form id="add-movie">
-					<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
-					<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
-					<input type="submit" value="Search">
-				</form>
-			</div>
-		</div>
-	</div>
-</div>	
-</main>
+		</div>	
+	</main>
 
-		<footer>
-			<div class="footer-content">
-				<a href="../index.html"><li>Home</li></a>
-                <a href="map.html"><li>Map</li></a>
-                <a href="mystalks.html"><li>My&nbsp;Stalks</li></a>
-                <a href="account.html"><li>Account</li></a> 
-                <a href="logIn.html"><li>Log&nbsp;In</li></a>
-			</div>
-			<div class="footer-contact-form">
-			  <form action="contact_response.php">
-			  <label for="email">Email</label>
-			  <input type="text" id="lname" name="email" placeholder="Your email...">
-		  
-			  <label for="subject">Message</label>
-			  <textarea id="text" name="subject" placeholder="Write something.." style="height:100px"></textarea>
-		  
-			  <input type="submit" value="Submit ✈">
-		  
-			</form>
-		  </div>
-			<div class="footer-media">
-				<a href="#"><img src="../img/facebook.png" alt="facebook"></a>
-				<a href="#"><img src="../img/twitter.png" alt="twitter"></a>
-				<a href="#"><img src="../img/instagram.png" alt="instagram"></a>
-				<a href="#"><img src="../img/mail.png" alt="mail"></a>
-			</div>
-		  </footer>
+	<%- include('../partials/footer') %>
 
 		<script src="../js/vendor/bootstrap.min.js"></script>
 	</body>

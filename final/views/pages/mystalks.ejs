@@ -35,35 +35,7 @@
 
   <!-- Add your site or application content here -->
   
-  <nav role='navigation'>
-    <div class="desktop-nav">
-      <img src="../img/Logo.png" class="logo" alt="logo">
-      <ul id="nav-links">
-        <a href="../index.html"><li>Home</li></a>
-        <a href="map.html"><li>Map</li></a>
-        <a href="mystalks.html"><li>My&nbsp;Stalks</li></a>
-				<a href="account.html"><li>Account</li></a>
-				<a href="logIn.html"><li>Login</li></a>
-    </div>
-    <div id="menuToggle">
-    
-      <input type="checkbox"/>
-      
-      <!--To make the hamburger-->
-      <span></span>
-      <span></span>
-      <span></span>
-      
-      <ul id="menu">
-        <a href="../index.html"><li>Home</li></a>
-        <a href="map.html"><li>Map</li></a>
-        <a href="mystalks.html"><li>My&nbsp;Stalks</li></a>
-				<a href="account.html"><li>Account</li></a>
-				<a href="logIn.html"><li>Log&nbsp;In</li></a>
-      
-      </ul>
-    </div>
-  </nav>
+  <%- include('../partials/navApp') %>  
   <h1><i class="material-icons">analytics</i>My Stalks</h1>
   <main>
     <div class="container">
@@ -71,33 +43,7 @@
     </div>
   </main>
 
-  <footer>
-    <div class="footer-content">
-      <a href="../index.html"><li>Home</li></a>
-                <a href="map.html"><li>Map</li></a>
-                <a href="mystalks.html"><li>My&nbsp;Stalks</li></a>
-                <a href="account.html"><li>Account</li></a> 
-                <a href="logIn.html"><li>Log&nbsp;In</li></a>
-    </div>
-    <div class="footer-contact-form">
-      <form action="contact_response.php">
-      <label for="email">Email</label>
-      <input type="text" id="lname" name="email" placeholder="Your email...">
-  
-      <label for="subject">Message</label>
-      <textarea id="text" name="subject" placeholder="Write something.." style="height:100px"></textarea>
-  
-      <input type="submit" value="Submit ✈">
-  
-    </form>
-  </div>
-    <div class="footer-media">
-      <a href="#"><img src="../img/facebook.png" alt="facebook"></a>
-      <a href="#"><img src="../img/twitter.png" alt="twitter"></a>
-      <a href="#"><img src="../img/instagram.png" alt="instagram"></a>
-      <a href="#"><img src="../img/mail.png" alt="mail"></a>
-    </div>
-  </footer>
+  <%- include('../partials/footer') %>
 
   <script src="../js/vendor/bootstrap.min.js"></script>
   <script src="..\js\vendor\modernizr-2.8.3-respond-1.4.2.min.js"></script>

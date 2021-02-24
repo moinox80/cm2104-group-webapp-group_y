@@ -12,6 +12,7 @@
     </head>
 
     <body>
+        <%- include('../partials/navApp') %>  
             <ul>
                 <a href="../index.html"><li>Home</li></a>
                 <a href="mystalks.html"><li>My Stalks</li></a>
@@ -31,33 +32,7 @@
                 <th> Visited </th>
             </tr>
         </table>
-        <footer>
-            <div class="footer-content">
-                <a href="../index.html"><li>Home</li></a>
-                <a href="map.html"><li>Map</li></a>
-                <a href="mystalks.html"><li>My&nbsp;Stalks</li></a>
-                <a href="account.html"><li>Account</li></a> 
-                <a href="logIn.html"><li>Log&nbsp;In</li></a>
-            </div>
-            <div class="footer-contact-form">
-              <form action="contact_response.php">
-              <label for="email">Email</label>
-              <input type="text" id="lname" name="email" placeholder="Your email...">
-          
-              <label for="subject">Message</label>
-              <textarea id="text" name="subject" placeholder="Write something.." style="height:100px"></textarea>
-          
-              <input type="submit" value="Submit ✈">
-          
-            </form>
-          </div>
-            <div class="footer-media">
-                <a href="#"><img src="../img/facebook.png" alt="facebook"></a>
-                <a href="#"><img src="../img/twitter.png" alt="twitter"></a>
-                <a href="#"><img src="../img/instagram.png" alt="instagram"></a>
-                <a href="#"><img src="../img/mail.png" alt="mail"></a>
-            </div>
-          </footer>
+        <%- include('../partials/footer') %>
     </body>
     <!--A Script with a space to fix the 
   chrome transition bug when loading a page-->
