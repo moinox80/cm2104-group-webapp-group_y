@@ -48,7 +48,7 @@ class Marker{
     }
 
     directionsLink(){
-        return "<a href=directions.html?destination=" + this.position + ">Directions by filmstalker</a>";
+        return "<a href=/directions?destination=" + this.position + ">Directions by filmstalker</a>";
     }
 }
 
