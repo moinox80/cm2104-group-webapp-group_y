@@ -10,4 +10,8 @@ app.get('/', (req, res) => {
   res.render("pages/index");
 });
 
+app.get('/about', (req, res) => {
+  res.render("pages/about");
+});
+
 app.listen(8080);
