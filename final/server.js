@@ -70,6 +70,14 @@ app.get('/signup', (req, res) => {
   res.render("pages/signup");
 });
 
+app.get('/logOut', (req, res) => {
+  if(req.session.loggedin){
+    req.session.userid = null;
+    req.session.loggedin = null;
+  }
+  res.redirect('/');
+})
+
 app.post('/adduser', function(req, res) {
   var new_user_info = {
     "email" : req.body.email,
