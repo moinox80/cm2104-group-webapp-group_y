@@ -16,13 +16,13 @@
     <body>
       <%- include('../partials/navApp') %>  
         <div class="container">
-            <form class="form" action="map.html" id="login">
+            <form class="form" action="/dologin" id="login" method="POST">
                 <h1 class="formTitle"><i class="material-icons">login</i>Login</h1>
                 <div class="formInput">
-                    <input type="text" class="form__input" autofocus placeholder="Username or email">
+                    <input type="text" class="form__input" autofocus placeholder="Username" name="username">
                 </div>
                 <div class="formInput">
-                    <input type="password" class="form__input" autofocus placeholder="Password">
+                    <input type="password" class="form__input" autofocus placeholder="Password" name="password">
                 </div> 
                 <button class="formButton" type="submit">Sign in</button>
                 <p class="form__text">
