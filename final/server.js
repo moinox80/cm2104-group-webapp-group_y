@@ -4,9 +4,13 @@ const url = "mongodb://127.0.0.1:27017/filmStalker";
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
-const port = 8080
+const fs = require ("fs");
+const port = 8080;
 
 var db
+
+var logInLink = "<a href='/logIn' <li>Log&nbsp;In</li> </a>"
+var logOutLink = "<a href='/logOut' <li>Log&nbsp;Out</li> </a>"
 
 MongoClient.connect(url, function(err, database) {
   if (err) throw err;
@@ -35,7 +39,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/account', (req, res) => {
-  res.render("pages/account");
+  res.render("pages/account", {loggedIn:req.session.loggedin});
 });
 
 app.get('/contact', (req, res) => {
@@ -43,28 +47,23 @@ app.get('/contact', (req, res) => {
 });
 
 app.get('/directions', (req, res) => {
-  res.render("pages/directions");
-});
-
-app.get('/directions', (req, res) => {
-  res.render("pages/directions");
+  res.render("pages/directions", {loggedIn:req.session.loggedin});
 });
 
 app.get('/login', (req, res) => {
-  res.render("pages/logIn");
+  res.render("pages/logIn", {loggedIn:req.session.loggedin});
 });
 
 app.get('/map', (req, res) => {
-  console.log(req.session.userid )
-  res.render("pages/map");
+  res.render("pages/map", {loggedIn:req.session.loggedin});
 });
 
 app.get('/movie', (req, res) => {
-  res.render("pages/movie");
+  res.render("pages/movie", {loggedIn:req.session.loggedin});
 });
 
 app.get('/mystalks', (req, res) => {
-  res.render("pages/mystalks");
+  res.render("pages/mystalks", {loggedIn:req.session.loggedin});
 });
 
 app.get('/signup', (req, res) => {
@@ -112,4 +111,11 @@ function logInUser(user, req){
   console.log("log user in ", user.username);
   req.session.loggedin = true;
   req.session.userid = user._id;
+}
+
+function getLogInOrOutLink(req){
+  if(!req.session.loggedin){
+    return logOutLink;
+  }
+  return logInLink;
 }
