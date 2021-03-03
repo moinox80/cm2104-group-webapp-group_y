@@ -3,9 +3,14 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 8080
 
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
+
 app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
+
 
 app.get('/', (req, res) => {
   res.render("pages/index");
@@ -49,6 +54,16 @@ app.get('/mystalks', (req, res) => {
 
 app.get('/signup', (req, res) => {
   res.render("pages/signup");
+});
+
+app.post('/adduser', function(req, res) {
+  var new_user_info = {
+    "email" : req.body.email,
+    "username" : req.body.username,
+    "password" : req.body.password
+  }
+
+  console.log(new_user_info)
 });
 
 console.log("listening on port: ", port)
