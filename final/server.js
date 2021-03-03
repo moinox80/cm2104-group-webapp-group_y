@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const port = 8080
 
 app.set('view engine', 'ejs');
 
@@ -31,7 +32,7 @@ app.get('/directions', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render("pages/login");
+  res.render("pages/logIn");
 });
 
 app.get('/map', (req, res) => {
@@ -50,4 +51,5 @@ app.get('/signup', (req, res) => {
   res.render("pages/signup");
 });
 
-app.listen(8080);
+console.log("listening on port: ", port)
+app.listen(port);
