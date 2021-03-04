@@ -113,17 +113,14 @@ app.post('/dologin', function(req, res) {
     res.redirect('/login');
   })
 });
+
+app.post("/addMovieToMyStalks", function(req, res) {
+  console.log(req.body);
+})
   
   
 function logInUser(user, req){
   console.log("log user in ", user.username);
   req.session.loggedin = true;
   req.session.userid = user._id;
-}
-
-function getLogInOrOutLink(req){
-  if(!req.session.loggedin){
-    return logOutLink;
-  }
-  return logInLink;
 }
