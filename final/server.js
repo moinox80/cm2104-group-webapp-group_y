@@ -162,10 +162,44 @@ app.post("/addLocationToVisited", function(req, res) {
         found = true;
       }
     });
-    
+
     if (found){return;}
     userslocations[MovieId].push({"locationName":locationName, "locationByLatLong":location});
 
+    var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
+    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
+      if (err) throw err;
+    })
+  });
+})
+
+app.post("/removeLocationFromVisited", function(req, res) {
+  if(!req.session.loggedin){return;}
+
+  var userid = req.session.userid;
+  var o_id = new ObjectId(userid);
+  db.collection('users').findOne({_id:o_id},function(err, result) {
+    if (err) throw err;
+    if (!result){return;}
+    var locationName = req.body.locationByName;
+    var user = result;
+    var userslocations = user.locationsVisited;
+    var MovieId = req.body.movieId;
+    if(!Object.keys(userslocations).includes(MovieId)){
+      return;
+    };
+
+    var index = null;
+    var i = 0;
+    while (i < userslocations[MovieId].size || index == null){
+      if (userslocations[MovieId][i].locationName == locationName){
+        index = i;
+      }
+      i++;
+    }
+    if (index == null){return;}
+    userslocations[MovieId].splice(index, 1);
+    console.log("removed ", locationName, " from ", MovieId, " on user: ", user.username)
     var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
     db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
       if (err) throw err;

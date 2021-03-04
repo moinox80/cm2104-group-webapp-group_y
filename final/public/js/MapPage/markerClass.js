@@ -60,11 +60,11 @@ function markerToggleVisistedButtonClicked(markerID){//when visited button is cl
     var marker = buttonMap[markerID];
     marker.parent.visited = !marker.parent.visited;
     marker.creatMarkerPopUp();
-    sendLocationVisitedToServer(marker);
+    sendLocationVisitedToServer(marker, marker.parent.visited);
 }
 
 
-function sendLocationVisitedToServer(marker){
+function sendLocationVisitedToServer(marker, visited){
     function requestUtils(method, url, body) {//https://stackoverflow.com/questions/59511205/how-to-send-string-from-client-to-server-via-post
         var xhr = new XMLHttpRequest();
         xhr.open(method, url, true);
@@ -74,5 +74,10 @@ function sendLocationVisitedToServer(marker){
     
     var body = ['movieId=' + marker.movie.imdbID, '&locationLat=' + marker.position[0] + "&locationLong=" + marker.position[1] + "&locationByName=" + marker.label]
 
-    requestUtils('post', '/addLocationToVisited', body);
+    if (visited){
+        requestUtils('post', '/addLocationToVisited', body);
+    }
+    else{
+        requestUtils('post', '/removeLocationFromVisited', body);
+    }
 }
