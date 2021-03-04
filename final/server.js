@@ -1,6 +1,7 @@
 const MongoClient = require('mongodb').MongoClient; //npm install mongodb@2.2.32
 const express = require('express');
 const url = "mongodb://127.0.0.1:27017/filmStalker";
+const ObjectId = require('mongodb').ObjectId; 
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
@@ -83,7 +84,8 @@ app.post('/adduser', function(req, res) {
     "email" : req.body.email,
     "username" : req.body.username,
     "password" : req.body.password,
-    "postcode" : req.body.postcode
+    "postcode" : req.body.postcode,
+    "myStalks" : []
   };
 
   console.log(new_user_info);
@@ -115,7 +117,24 @@ app.post('/dologin', function(req, res) {
 });
 
 app.post("/addMovieToMyStalks", function(req, res) {
-  console.log(req.body);
+  if(!req.session.loggedin){return;}
+  var userid = req.session.userid;
+  var o_id = new ObjectId(userid);
+  db.collection('users').findOne({_id:o_id},function(err, result) {
+    if (err) throw err;
+    var user = result;
+    var usersStalks = user.myStalks;
+    var newMovieId = req.body.movieId;
+
+    if(!newMovieId){return;}
+    if(usersStalks.includes(newMovieId)){return};
+
+    usersStalks.push(newMovieId);
+    var newMyStalks = {$set: {"myStalks": usersStalks}};
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
+      if (err) throw err;
+    })
+  })
 })
   
   
