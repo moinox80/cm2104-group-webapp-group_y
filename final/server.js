@@ -75,6 +75,7 @@ app.get('/logOut', (req, res) => {
   if(req.session.loggedin){
     req.session.userid = null;
     req.session.loggedin = null;
+    console.log("logged out user")
   }
   res.redirect('/');
 })
@@ -93,7 +94,7 @@ app.post('/adduser', function(req, res) {
 
   db.collection('users').save(new_user_info, function(err, result) {
     if (err) throw err;
-    console.log('saved to database');
+    console.log('added user ', new_user_info.username, " to database");
   });
 
   res.redirect('/map');
@@ -135,6 +136,7 @@ app.post("/addMovieToMyStalks", function(req, res) {
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
     })
+    console.log("added ", MovieId, "to myStalks on user: ", user.username)
   })
 })
 
@@ -165,10 +167,10 @@ app.post("/addLocationToVisited", function(req, res) {
 
     if (found){return;}
     userslocations[MovieId].push({"locationName":locationName, "locationByLatLong":location});
-
     var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
     db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
       if (err) throw err;
+      console.log("added ", locationName, " from ", MovieId, " on user: ", user.username)
     })
   });
 })
@@ -199,10 +201,10 @@ app.post("/removeLocationFromVisited", function(req, res) {
     }
     if (index == null){return;}
     userslocations[MovieId].splice(index, 1);
-    console.log("removed ", locationName, " from ", MovieId, " on user: ", user.username)
     var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
     db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
       if (err) throw err;
+      console.log("removed ", locationName, " from ", MovieId, " on user: ", user.username)
     })
   });
 })
