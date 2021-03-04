@@ -153,7 +153,7 @@ class Movie {
             var xhr = new XMLHttpRequest();
             xhr.open(method, url, true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send(body); 
+            xhr.send(body);
         }
         
         requestUtils('post', '/addMovieToMyStalks', 'movieId=' + this.imdbID);

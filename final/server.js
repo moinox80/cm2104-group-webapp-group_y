@@ -85,7 +85,8 @@ app.post('/adduser', function(req, res) {
     "username" : req.body.username,
     "password" : req.body.password,
     "postcode" : req.body.postcode,
-    "myStalks" : []
+    "myStalks" : [],
+    "locationsVisited" : []
   };
 
   console.log(new_user_info);
@@ -136,7 +137,11 @@ app.post("/addMovieToMyStalks", function(req, res) {
     })
   })
 })
-  
+
+app.post("/addLocationToVisited", function(req, res) {
+  console.log(req.body);
+})
+
   
 function logInUser(user, req){
   console.log("log user in ", user.username);
