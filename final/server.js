@@ -86,7 +86,7 @@ app.post('/adduser', function(req, res) {
     "password" : req.body.password,
     "postcode" : req.body.postcode,
     "myStalks" : [],
-    "locationsVisited" : []
+    "locationsVisited" : {} 
   };
 
   console.log(new_user_info);
@@ -139,7 +139,38 @@ app.post("/addMovieToMyStalks", function(req, res) {
 })
 
 app.post("/addLocationToVisited", function(req, res) {
-  console.log(req.body);
+  if(!req.session.loggedin){return;}
+
+  var userid = req.session.userid;
+  var o_id = new ObjectId(userid);
+  db.collection('users').findOne({_id:o_id},function(err, result) {
+    if (err) throw err;
+    if (!result){return;}
+    var locationName = req.body.locationByName;
+    var loactionLat = req.body.locationLat;
+    var locationLong = req.body.locationLong;
+    var location = [loactionLat, locationLong]
+    var user = result;
+    var userslocations = user.locationsVisited;
+    var MovieId = req.body.movieId;
+    if(!Object.keys(userslocations).includes(MovieId)){
+      userslocations[MovieId] = [];
+    };
+    var found = false;
+    userslocations[MovieId].forEach(location => {
+      if (location.locationName == locationName){
+        found = true;
+      }
+    });
+    
+    if (found){return;}
+    userslocations[MovieId].push({"locationName":locationName, "locationByLatLong":location});
+
+    var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
+    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
+      if (err) throw err;
+    })
+  });
 })
 
   
