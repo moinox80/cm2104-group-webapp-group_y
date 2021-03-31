@@ -251,9 +251,8 @@ app.post("/doSetUpResetPassword", function(req, res){
     if (err) throw err;
     if (result){
       user = result;
-      console.log("doSetUpResetPassword found user\n",user)
+      console.log("doSetUpResetPassword found user\n",user.username)
       var resetPasswordKey = await makeResetPasswordKey();
-      console.log("resetPasswordKey:     ",resetPasswordKey)
       var newresetPasswordKey = {$set: {"resetPasswordKey": resetPasswordKey}};
       db.collection('users').updateOne({username:user.username},newresetPasswordKey,function(err, result) {
         if (err) throw err;
@@ -261,12 +260,48 @@ app.post("/doSetUpResetPassword", function(req, res){
       })
       var email = baseResetPassEmail;
       email.to = user.email;
-      email.text = "reset password key for filmstalker: " + resetPasswordKey;
+      email.text = "reset password key for filmstalker: " + resetPasswordKey + "\n http://localhost:" + port + "/resetPassword";
       sendgrid.send(email);
       console.log("sent reset password email")
     }
   })
   res.redirect('/');
+})
+
+app.post("/doResetPassword", function(req, res){
+  console.log("doResetPassword");
+  var username = req.body.username;
+  var newPassword = req.body.newpassword;
+  var resetPasswordKey = req.body.resetkey;
+
+  db.collection('users').findOne({"username":username}, async function(err, result) {
+    if (err) throw err;
+    if (!result){return};
+    var user = result;
+    if (user.resetPasswordKey == resetPasswordKey){
+      const hashedPassword = await bcrypt.hash(newPassword, 10)
+      var newHashed = {$set: {"password": hashedPassword}};
+      var newPass = {$set: {"DELETEplaintextPasswordDELETEME": newPassword}};
+      db.collection('users').updateOne({username:user.username},newHashed,function(err, result) {
+        if (err) throw err;
+        console.log("set  newHashed");
+      })
+      db.collection('users').updateOne({username:user.username},newPass,function(err, result) {
+        if (err) throw err;
+        console.log("set  newPassPlaintext");
+      })
+    }
+
+    var nullResetKey = {$set: {"resetPasswordKey": null}};
+    db.collection('users').updateOne({username:user.username},nullResetKey,function(err, result) {
+      if (err) throw err;
+      console.log("set reset key to null");
+    })
+    if (!(user.resetPasswordKey == resetPasswordKey)){
+      console.log("fake key");
+    }
+  })
+  res.redirect("/");
 })
 
   
@@ -292,6 +327,5 @@ async function makeResetPasswordKey() {//https://stackoverflow.com/questions/134
   for ( var i = 0; i < length; i++ ) {
      result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
-  console.log(result)
   return result;
 }
