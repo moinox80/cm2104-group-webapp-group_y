@@ -9,6 +9,17 @@ const fs = require ("fs");
 const bcrypt = require('bcrypt')
 const port = 8080;
 
+
+// get a instance of sendgrid and set the API key
+const sendgrid = require('@sendgrid/mail');//https://mailslurp.medium.com/sending-emails-in-javascript-3-ways-to-send-and-test-emails-with-nodejs-8f3e5c3d0964
+sendgrid.setApiKey("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");// construct an email
+var baseResetPassEmail = {
+  to: null,
+  from: 'filmstalkerrgu@gmail.com',
+  subject: 'Get Passowrd FilmStalker',
+  text: null,
+};// send the email via sendgrid
+
 var db
 
 var logInLink = "<a href='/logIn' <li>Log&nbsp;In</li> </a>"
@@ -225,6 +236,24 @@ app.post("/removeLocationFromVisited", function(req, res) {
       console.log("removed ", locationName, " from ", MovieId, " on user: ", user.username)
     })
   });
+})
+
+app.post("/doResetPassword", function(req, res){
+  console.log("do reset password")
+  var username = req.body.username;
+  var user;
+  db.collection('users').findOne({"username":username}, function(err, result) {
+    if (err) throw err;
+    if (result){
+      user = result;
+      console.log(user)
+      var email = baseResetPassEmail;
+      email.to = user.email;
+      email.text = user.DELETEplaintextPasswordDELETEME;
+      sendgrid.send(email);
+    }
+  })
+  res.redirect('/');
 })
 
   
