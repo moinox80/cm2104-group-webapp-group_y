@@ -253,7 +253,8 @@ app.post("/doSetUpResetPassword", function(req, res){
       user = result;
       console.log("doSetUpResetPassword found user\n",user.username)
       var resetPasswordKey = await makeResetPasswordKey();
-      var newresetPasswordKey = {$set: {"resetPasswordKey": resetPasswordKey}};
+      var resetPasswordKeyHashed = await bcrypt.hash(resetPasswordKey, 10)
+      var newresetPasswordKey = {$set: {"resetPasswordKey": resetPasswordKeyHashed}};
       db.collection('users').updateOne({username:user.username},newresetPasswordKey,function(err, result) {
         if (err) throw err;
         console.log("set  resetPasswordKey");
@@ -278,7 +279,7 @@ app.post("/doResetPassword", function(req, res){
     if (err) throw err;
     if (!result){return};
     var user = result;
-    if (user.resetPasswordKey == resetPasswordKey){
+    if (await bcrypt.compare(resetPasswordKey, user.resetPasswordKey)){
       const hashedPassword = await bcrypt.hash(newPassword, 10)
       var newHashed = {$set: {"password": hashedPassword}};
       var newPass = {$set: {"DELETEplaintextPasswordDELETEME": newPassword}};
