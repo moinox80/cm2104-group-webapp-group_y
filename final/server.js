@@ -83,6 +83,10 @@ app.get('/signup', (req, res) => {
   res.render("pages/signup", {loggedIn:req.session.loggedin});
 });
 
+app.get("/resetPassword", (req, res) => {
+  res.render("pages/resetPassword", {loggedIn:req.session.loggedin});
+});
+
 app.get('/logOut', (req, res) => {
   logOutuser(req);
   res.redirect('/');
@@ -98,7 +102,8 @@ app.post('/adduser', async function(req, res) {
     "DELETEplaintextPasswordDELETEME" : uncryptedPassword,
     "postcode" : req.body.postcode,
     "myStalks" : [],
-    "locationsVisited" : {} 
+    "locationsVisited" : {},
+    "resetPasswordKey" : null
   };
 
   console.log("user info:\n", new_user_info);
@@ -238,19 +243,27 @@ app.post("/removeLocationFromVisited", function(req, res) {
   });
 })
 
-app.post("/doResetPassword", function(req, res){
-  console.log("do reset password")
+app.post("/doSetUpResetPassword", function(req, res){
+  console.log("doSetUpResetPassword");
   var username = req.body.username;
   var user;
-  db.collection('users').findOne({"username":username}, function(err, result) {
+  db.collection('users').findOne({"username":username}, async function(err, result) {
     if (err) throw err;
     if (result){
       user = result;
-      console.log(user)
+      console.log("doSetUpResetPassword found user\n",user)
+      var resetPasswordKey = await makeResetPasswordKey();
+      console.log("resetPasswordKey:     ",resetPasswordKey)
+      var newresetPasswordKey = {$set: {"resetPasswordKey": resetPasswordKey}};
+      db.collection('users').updateOne({username:user.username},newresetPasswordKey,function(err, result) {
+        if (err) throw err;
+        console.log("set  resetPasswordKey");
+      })
       var email = baseResetPassEmail;
       email.to = user.email;
-      email.text = user.DELETEplaintextPasswordDELETEME;
+      email.text = "reset password key for filmstalker: " + resetPasswordKey;
       sendgrid.send(email);
+      console.log("sent reset password email")
     }
   })
   res.redirect('/');
@@ -269,4 +282,16 @@ function logOutuser(req){
     req.session.loggedin = false;
     console.log("logged out user");
   }
+}
+
+async function makeResetPasswordKey() {//https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+  var length = 25;
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  console.log(result)
+  return result;
 }
