@@ -11,6 +11,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta charset="UTF-8">
+        <script src="../js/account.js"></script>
     </head>
 
     <body>
@@ -31,6 +32,9 @@
                 <button class="formButton" type="submit">Update Details</button>
             </form> 
         </div>
+        <form class="form" action="/removeUser" method="POST">
+            <button type="submit">Delete Account and data</button>
+        </form>
         <%- include('../partials/footer') %>
     </body>
     <!--A Script with a space to fix the 

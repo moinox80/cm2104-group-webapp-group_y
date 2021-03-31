@@ -68,15 +68,11 @@ app.get('/mystalks', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.render("pages/signup");
+  res.render("pages/signup", {loggedIn:req.session.loggedin});
 });
 
 app.get('/logOut', (req, res) => {
-  if(req.session.loggedin){
-    req.session.userid = null;
-    req.session.loggedin = null;
-    console.log("logged out user")
-  }
+  logOutuser(req);
   res.redirect('/');
 })
 
@@ -99,6 +95,23 @@ app.post('/adduser', function(req, res) {
 
   res.redirect('/map');
 });
+
+app.post('/removeUser', function(req, res) {
+  if(!req.session.loggedin){return;}
+  
+  var userid = req.session.userid;
+  var o_id = new ObjectId(userid);
+  db.collection('users').deleteOne({_id:o_id},function(err, result) {
+    if (err) throw err;
+    if (result){
+      console.log("deleted user: ", userid)
+      logOutuser(req);
+      console.log("redirecting");
+      return;
+    }
+  })
+  res.redirect('/');
+})
 
 app.post('/dologin', function(req, res) {
   var username = req.body.username;
@@ -214,4 +227,12 @@ function logInUser(user, req){
   console.log("log user in ", user.username);
   req.session.loggedin = true;
   req.session.userid = user._id;
+}
+
+function logOutuser(req){
+  if(req.session.loggedin){
+    req.session.userid = null;
+    req.session.loggedin = false;
+    console.log("logged out user");
+  }
 }
