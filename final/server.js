@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const app = express();
 const fs = require ("fs");
+const bcrypt = require('bcrypt')
 const port = 8080;
 
 var db
@@ -76,17 +77,20 @@ app.get('/logOut', (req, res) => {
   res.redirect('/');
 })
 
-app.post('/adduser', function(req, res) {
+app.post('/adduser', async function(req, res) {
+  var uncryptedPassword = req.body.password;
+  const hashedPassword = await bcrypt.hash(uncryptedPassword, 10)//https://www.npmjs.com/package/bcrypt
   var new_user_info = {
     "email" : req.body.email,
     "username" : req.body.username,
-    "password" : req.body.password,
+    "password" : hashedPassword,
+    "DELETEplaintextPasswordDELETEME" : uncryptedPassword,
     "postcode" : req.body.postcode,
     "myStalks" : [],
     "locationsVisited" : {} 
   };
 
-  console.log(new_user_info);
+  console.log("user info:\n", new_user_info);
 
   db.collection('users').save(new_user_info, function(err, result) {
     if (err) throw err;
@@ -113,15 +117,16 @@ app.post('/removeUser', function(req, res) {
   res.redirect('/');
 })
 
-app.post('/dologin', function(req, res) {
+app.post('/dologin', async function(req, res) {
   var username = req.body.username;
-  var password = req.body.password;
+  var plainTextPassword = req.body.password;
   var user;
-  db.collection('users').findOne({"username":username},function(err, result) {
+  db.collection('users').findOne({"username":username},async function(err, result) {
     if (err) throw err;
     if (result){
       user = result;
-      if (user.password == password){
+      var isPasswordMatch = await bcrypt.compare(plainTextPassword, user.password);
+      if (isPasswordMatch){
         logInUser(user, req)
         res.redirect('/map');
         return;
