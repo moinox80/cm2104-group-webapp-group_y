@@ -9,6 +9,17 @@ const fs = require ("fs");
 const bcrypt = require('bcrypt')
 const port = 8080;
 
+
+// get a instance of sendgrid and set the API key
+const sendgrid = require('@sendgrid/mail');//https://mailslurp.medium.com/sending-emails-in-javascript-3-ways-to-send-and-test-emails-with-nodejs-8f3e5c3d0964
+sendgrid.setApiKey("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");// construct an email
+var baseResetPassEmail = {
+  to: null,
+  from: 'filmstalkerrgu@gmail.com',
+  subject: 'Get Passowrd FilmStalker',
+  text: null,
+};// send the email via sendgrid
+
 var db
 
 var logInLink = "<a href='/logIn' <li>Log&nbsp;In</li> </a>"
@@ -72,6 +83,10 @@ app.get('/signup', (req, res) => {
   res.render("pages/signup", {loggedIn:req.session.loggedin});
 });
 
+app.get("/resetPassword", (req, res) => {
+  res.render("pages/resetPassword", {loggedIn:req.session.loggedin});
+});
+
 app.get('/logOut', (req, res) => {
   logOutuser(req);
   res.redirect('/');
@@ -87,7 +102,8 @@ app.post('/adduser', async function(req, res) {
     "DELETEplaintextPasswordDELETEME" : uncryptedPassword,
     "postcode" : req.body.postcode,
     "myStalks" : [],
-    "locationsVisited" : {} 
+    "locationsVisited" : {},
+    "resetPasswordKey" : null
   };
 
   console.log("user info:\n", new_user_info);
@@ -227,6 +243,68 @@ app.post("/removeLocationFromVisited", function(req, res) {
   });
 })
 
+app.post("/doSetUpResetPassword", function(req, res){
+  console.log("doSetUpResetPassword");
+  var username = req.body.username;
+  var user;
+  db.collection('users').findOne({"username":username}, async function(err, result) {
+    if (err) throw err;
+    if (result){
+      user = result;
+      console.log("doSetUpResetPassword found user\n",user.username)
+      var resetPasswordKey = await makeResetPasswordKey();
+      var resetPasswordKeyHashed = await bcrypt.hash(resetPasswordKey, 10)
+      var newresetPasswordKey = {$set: {"resetPasswordKey": resetPasswordKeyHashed}};
+      db.collection('users').updateOne({username:user.username},newresetPasswordKey,function(err, result) {
+        if (err) throw err;
+        console.log("set  resetPasswordKey");
+      })
+      var email = baseResetPassEmail;
+      email.to = user.email;
+      email.text = "reset password key for filmstalker: " + resetPasswordKey + "\n http://localhost:" + port + "/resetPassword";
+      sendgrid.send(email);
+      console.log("sent reset password email")
+    }
+  })
+  res.redirect('/');
+})
+
+app.post("/doResetPassword", function(req, res){
+  console.log("doResetPassword");
+  var username = req.body.username;
+  var newPassword = req.body.newpassword;
+  var resetPasswordKey = req.body.resetkey;
+
+  db.collection('users').findOne({"username":username}, async function(err, result) {
+    if (err) throw err;
+    if (!result){return};
+    var user = result;
+    if (await bcrypt.compare(resetPasswordKey, user.resetPasswordKey)){
+      const hashedPassword = await bcrypt.hash(newPassword, 10)
+      var newHashed = {$set: {"password": hashedPassword}};
+      var newPass = {$set: {"DELETEplaintextPasswordDELETEME": newPassword}};
+      db.collection('users').updateOne({username:user.username},newHashed,function(err, result) {
+        if (err) throw err;
+        console.log("set  newHashed");
+      })
+      db.collection('users').updateOne({username:user.username},newPass,function(err, result) {
+        if (err) throw err;
+        console.log("set  newPassPlaintext");
+      })
+    }
+
+    var nullResetKey = {$set: {"resetPasswordKey": null}};
+    db.collection('users').updateOne({username:user.username},nullResetKey,function(err, result) {
+      if (err) throw err;
+      console.log("set reset key to null");
+    })
+    if (!(user.resetPasswordKey == resetPasswordKey)){
+      console.log("fake key");
+    }
+  })
+  res.redirect("/");
+})
+
   
 function logInUser(user, req){
   console.log("log user in ", user.username);
@@ -240,4 +318,15 @@ function logOutuser(req){
     req.session.loggedin = false;
     console.log("logged out user");
   }
+}
+
+async function makeResetPasswordKey() {//https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
+  var length = 25;
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
