@@ -261,7 +261,10 @@ app.post("/doSetUpResetPassword", function(req, res){
       })
       var email = baseResetPassEmail;
       email.to = user.email;
-      email.text = "reset password key for filmstalker: " + resetPasswordKey + "\n http://localhost:" + port + "/resetPassword";
+
+      var fullUrlToReset = req.protocol + '://' + req.get('host') + "/resetPassword";
+      console.log(fullUrlToReset);
+      email.text = "reset password key for filmstalker: " + resetPasswordKey + "\n" + fullUrlToReset;
       sendgrid.send(email);
       console.log("sent reset password email")
     }
