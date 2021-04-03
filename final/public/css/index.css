@@ -1,18 +1,22 @@
-  body a[href="./index.html"] li{
-    color:tomato;
-  }
-  .banner{
-    width:220%;
-  }
-  /*Middle Launch button*/
- .LaunchButton{
-  text-align: center;
-position: absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
+body a[href="./index.html"] li {
+  color: tomato;
 }
-.LaunchApp{
+
+.banner {
+  width: 220%;
+}
+
+/*Middle Launch button*/
+
+.LaunchButton {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.LaunchApp {
   position: relative;
   bottom: 0;
   right: 0;
@@ -23,14 +27,16 @@ transform: translate(-50%, -50%);
   background-color: black;
   color: white;
 }
-.LaunchApp:hover{
-  bottom:-3px;
+
+.LaunchApp:hover {
+  bottom: -3px;
   right: -3px;
-  color:white;
+  color: white;
 }
 
 /*Content page */
-.content img{
+
+.content img {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -41,111 +47,124 @@ transform: translate(-50%, -50%);
   box-shadow: 15px 10px 30px 1px rgba(0, 0, 0, 0.1);
 }
 
-.content p{
+.content p {
   font-size: large;
   margin-left: 10%;
   margin-right: 10%;
 }
 
-.content-container-1{
+.content-container-1 {
   text-align: center;
 }
-  /*Typewritter*/
+
+/*Typewritter*/
+
+#parent {
+  height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 20px;
+  color: black;
+  position: relative;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+#border {
+  border-bottom: solid 3px rgba(0, 255, 0, .75);
+  position: absolute;
+  right: -7px;
+  width: 20px;
+}
+
+/* Animation */
+
+#parent {
+  animation: animated-text 3s steps(30, end) 1s 1 normal both
+}
+
+#border {
+  animation: animated-cursor 600ms steps(30, end) infinite;
+}
+
+/* text animation */
+
+@keyframes animated-text {
+  from {
+    width: 0;
+  }
+  to {
+    width: 435px;
+  }
+}
+
+/* cursor animations */
+
+@keyframes animated-cursor {
+  from {
+    border-bottom-color: rgba(0, 255, 0, .75);
+  }
+  to {
+    border-bottom-color: transparent;
+  }
+}
+
+@media only screen and (min-width: 520px) {
+  .banner {
+    max-width: 190%;
+    height: auto !important;
+  }
   #parent {
-    height: 40px;
-    white-space: nowrap;
-    overflow: hidden; 
-    font-family: 'Source Code Pro', monospace;  
-    font-size: 20px;
-    color: black;
-    position: relative;
-    text-align: center;
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width:100%;
+    font-size: 23px;
   }
-  
-  #border {
-    border-bottom: solid 3px rgba(0,255,0,.75);
-    position: absolute;
-    right: -7px;
-    width: 20px;
-  }
-  
-  /* Animation */
-  
-  #parent {
-    animation: animated-text 3s steps(30,end) 1s 1 normal both
-  }
-  
-
-  #border {
-     animation: animated-cursor 600ms steps(30,end) infinite;
-  }
-  
-  /* text animation */
-  
-  
-  @keyframes animated-text{
-    from{width: 0;}
-    to{width: 435px;}
-  }
-  
-  /* cursor animations */
-  
-  
-  @keyframes animated-cursor{
-    from{border-bottom-color: rgba(0,255,0,.75);}
-    to{border-bottom-color: transparent;}
-  }
-
-  @media only screen and (min-width: 520px) {
-    .banner{
-      max-width: 190%;
-      height: auto !important;
+  @keyframes animated-text {
+    from {
+      width: 0;
     }
-
-    #parent {
-      font-size: 23px;
+    to {
+      width: 490px;
     }
-
-    @keyframes animated-text{
-      from{width: 0;}
-      to{width: 490px;}
-    }   
   }
+}
 
-  @media only screen and (min-width: 768px) {
-  .banner{
+@media only screen and (min-width: 768px) {
+  .banner {
     max-width: 100%;
     height: auto !important;
   }
   #parent {
     font-size: 26px;
   }
-  @keyframes animated-text{
-    from{width: 0;}
-    to{width: 570px;}
+  @keyframes animated-text {
+    from {
+      width: 0;
+    }
+    to {
+      width: 570px;
+    }
   }
   .container {
-    width:768px;
+    width: 768px;
     margin: 0 auto;
     margin-bottom: 50px;
   }
-  .content-container-1{
-    display:flex;
+  .content-container-1 {
+    display: flex;
     margin-top: 10%;
   }
-  .content{
-   margin-left:auto;
-   margin-right:auto;
+  .content {
+    margin-left: auto;
+    margin-right: auto;
   }
-
 }
+
 @media only screen and (min-width: 900px) {
-  .content-container-1{
-    margin-top:0%;
+  .content-container-1 {
+    margin-top: 0%;
   }
 }
