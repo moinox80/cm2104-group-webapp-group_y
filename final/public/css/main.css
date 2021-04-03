@@ -1,165 +1,143 @@
 /*Mobile first*/
- 
- body
- {
-   margin: 0;
-   padding: 0;
-   font-family: "Avenir Next", "Avenir", sans-serif;
-   
-   overflow-x: hidden;/*To hide menu on the right*/
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+  overflow-x: hidden;
+  /*To hide menu on the right*/
   background-color: rgba(0, 0, 0, 0.1);
- }
+}
 
+.logo {
+  width: 60%;
+}
 
- .logo{
-   width:60%;
- }
- .banner{
-   width:220%;
- }
- 
-  a
- {
-   text-decoration: none;
-   color: #000000;
-   
-   transition: color 0.3s ease;
- }
- 
-  a:hover
- {
-   color: tomato;
- }
- /*To not display the nav links*/
- #nav-links{
-   display:none;
- }
- #menuToggle
- {
-   display: block;
-   position: absolute;
-   top: 50px;
-   right: 50px;
-   
-   z-index: 1000;
-   
-   -webkit-user-select: none;
-   user-select: none;
- }
- 
- #menuToggle input
- {
-   display: block;
-   width: 40px;
-   height: 32px;
-   position: absolute;
-   top: -7px;
-   left: -5px;
-   
-   cursor: pointer;
-   
-   opacity: 0; 
-   z-index: 2; 
-   
-   -webkit-touch-callout: none;
- }
- 
- /*Creating the hamburger*/
- #menuToggle span
- {
-   display: block;
-   width: 33px;
-   height: 4px;
-   margin-bottom: 5px;
-   position: relative;
-   
-   background: black;
-   border-radius: 3px;
-   
-   z-index: 1;
-   
-   transform-origin: 4px 0px;
-   
-   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-               background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
-               opacity 0.55s ease;
- }
- 
- #menuToggle span:first-child
- {
-   transform-origin: 0% 0%;
- }
- 
- #menuToggle span:nth-last-child(2)
- {
-   transform-origin: 0% 100%;
- }
- 
- /*Transform the hamburger into a crossmark*/
- #menuToggle input:checked ~ span
- {
-   opacity: 1;
-   transform: rotate(45deg) translate(-2px, -1px);
-   background: #232323;
- }
- 
- /*Hide the middle line*/
- #menuToggle input:checked ~ span:nth-last-child(3)
- {
-   opacity: 0;
-   transform: rotate(0deg) scale(0.2, 0.2);
- }
- 
- #menuToggle input:checked ~ span:nth-last-child(2)
- {
-   opacity: 1;
-   transform: rotate(-45deg) translate(0, -1px);
- }
- 
- /*Position menu on the right*/
- #menu
- {
-   position: absolute;
-   width: 200px;
-   margin: -100px 0 0 0;
-   padding: 50px;
-   padding-top: 125px;
-   right: -100px;
-   box-shadow: -3px 4px 3px 1px rgba(0, 0, 0, 0.1);
-   border-radius: 2%;
-    
-   background: rgba(255, 255, 255, 0.9);
-   list-style-type: none;
-   -webkit-font-smoothing: antialiased;
-   /* to stop flickering of text in safari */
-   
-   transform-origin: 0% 0%;
-   transform: translate(100%, 0);
-   
-   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
-   
- }
- 
- #menu li
- {
+.banner {
+  width: 220%;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: tomato;
+}
+
+/*To not display the nav links*/
+
+#nav-links {
+  display: none;
+}
+
+#menuToggle {
+  display: block;
+  position: absolute;
+  top: 50px;
+  right: 50px;
+  z-index: 1000;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle input {
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 2;
+  -webkit-touch-callout: none;
+}
+
+/*Creating the hamburger*/
+
+#menuToggle span {
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: black;
+  border-radius: 3px;
+  z-index: 1;
+  transform-origin: 4px 0px;
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0), background 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 0.55s ease;
+}
+
+#menuToggle span:first-child {
+  transform-origin: 0% 0%;
+}
+
+#menuToggle span:nth-last-child(2) {
+  transform-origin: 0% 100%;
+}
+
+/*Transform the hamburger into a crossmark*/
+
+#menuToggle input:checked~span {
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/*Hide the middle line*/
+
+#menuToggle input:checked~span:nth-last-child(3) {
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#menuToggle input:checked~span:nth-last-child(2) {
+  opacity: 1;
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+/*Position menu on the right*/
+
+#menu {
+  position: absolute;
+  width: 200px;
+  margin: -100px 0 0 0;
+  padding: 50px;
+  padding-top: 125px;
+  right: -100px;
+  box-shadow: -3px 4px 3px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 2%;
+  background: rgba(255, 255, 255, 0.9);
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  transform-origin: 0% 0%;
+  transform: translate(100%, 0);
+  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+}
+
+#menu li {
   padding: 10px 0;
-   font-size: 22px;
- }
+  font-size: 22px;
+}
 
- 
- 
- /*Fade the menu */
- #menuToggle input:checked ~ ul
- {
-   transform: none;
-   background: rgba(255, 255, 255, 0.9);
- }
- #menu a {
-   opacity:1;
- }
+/*Fade the menu */
 
- /*Menu Launch button*/
-#menu-launchapp li{
+#menuToggle input:checked~ul {
+  transform: none;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+#menu a {
+  opacity: 1;
+}
+
+/*Menu Launch button*/
+
+#menu-launchapp li {
   font-weight: normal;
   color: white;
   border: 1px solid;
@@ -167,184 +145,186 @@
   margin-top: -10px;
   border-radius: 8px;
   background-color: black;
-  border-color:black;
+  border-color: black;
   box-shadow: 1px 10px 30px 1px rgba(0, 0, 0, 0.2);
   transition: bottom ease 0.5s, right ease 0.5s;
   bottom: 0px;
   right: 0px;
   position: relative;
 }
-#menu-launchapp{
-  margin-top:20px;
+
+#menu-launchapp {
+  margin-top: 20px;
   padding-right: 50px;
 }
 
-#menu-launchapp li:hover{
+#menu-launchapp li:hover {
   bottom: -2px;
   right: -2px;
 }
 
-
 /*footer*/
-  footer{ 
-    left: 0;
-    bottom: 0;
-    background-color: rgb(1,1,1,0.1);
-  }
-  .footer-content{
-    text-align: center;
-    list-style-type: none;
 
+footer {
+  left: 0;
+  bottom: 0;
+  background-color: rgb(1, 1, 1, 0.1);
 }
 
-  .footer-content a{
-    margin: 25px;
-  }
-
-  .footer-contact-form{
-    margin: 0 auto;
-    width: 400px;
-    margin-bottom: 20px;
+.footer-content {
+  text-align: center;
+  list-style-type: none;
 }
 
+.footer-content a {
+  margin: 25px;
+}
 
-  .footer-media{
-    display:flex;
-    justify-content: space-around;
-    padding: 20px;
-  }
+.footer-contact-form {
+  margin: 0 auto;
+  width: 400px;
+  margin-bottom: 20px;
+}
 
-  .footer-media img{
-    margin-left:auto;
-    margin-right:auto;
-    border: 1px solid;
-    border-color: black;
-    padding: 5px;
-    border-radius: 30%;
-    width:30px;
-  }
+.footer-media {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.footer-media img {
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid;
+  border-color: black;
+  padding: 5px;
+  border-radius: 30%;
+  width: 30px;
+}
 
 /*Forms from all pages*/
-  input[type=text], select, textarea {
-    width: 100%; 
-    padding: 12px; 
-    border: 1px solid #ccc; 
-    border-radius: 4px; 
-    box-sizing: border-box; 
-    margin-top: 6px; 
-    margin-bottom: 16px; 
-    resize: vertical;
-    font-family: "Avenir Next", "Avenir", sans-serif;
-    outline:none;
-     transition: 0.6s;
-    -webkit-transition:  0.6s;
-  }
-  input[type=text]:focus{
-    border: 1px solid black;
-    box-shadow: 0 0 0 3px rgb(161, 158, 158);
-  }input[type=text]:hover{
-    border-color:black;
-    
 
-  }
-  
-  /* Style the submit button with a specific background color etc */
-  input[type=submit] {
-    background-color: black;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition:  0.5s;
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+  resize: vertical;
+  font-family: "Avenir Next", "Avenir", sans-serif;
+  outline: none;
+  transition: 0.6s;
+  -webkit-transition: 0.6s;
 }
-  
-  /* When moving the mouse over the submit button, add a darker green color */
-  input[type=submit]:hover {
-    background-color: rgb(73, 71, 71);
-  }
-  
-  /* Add a background color and some padding around the form */
-  .container {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  content h1{
-    text-align: center;
-  }
 
+input[type=text]:focus {
+  border: 1px solid black;
+  box-shadow: 0 0 0 3px rgb(161, 158, 158);
+}
+
+input[type=text]:hover {
+  border-color: black;
+}
+
+/* Style the submit button with a specific background color etc */
+
+input[type=submit] {
+  background-color: black;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+/* When moving the mouse over the submit button, add a darker green color */
+
+input[type=submit]:hover {
+  background-color: rgb(73, 71, 71);
+}
+
+/* Add a background color and some padding around the form */
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+content h1 {
+  text-align: center;
+}
 
 /*Tablet view*/
-  @media only screen and (min-width: 520px) {
-    .logo{
-      max-width: 45%;
-      height: auto !important;
-    }
-    .banner{
-      max-width: 190%;
-      height: auto !important;
-    } 
-  }
-/*Tablet/Desktop view*/
-  @media only screen and (min-width: 768px) {
-    .logo{
-      max-width: 30%;
-      height: auto !important;
-    }
-/*Hiding hamburger menu*/
-    #menuToggle{
-      display: none;
-    }
-  /*Desktop Nav bar*/  
-   .desktop-nav{
-     display: flex;
-     margin-bottom: 20px;
-   }
-   #nav-links{
-     display:flex;
-     list-style-type: none;
-     position:fixed;
-     right: 250px;
-     top:10px;
-     z-index:1000;
-   }
 
-   #nav-links a{
+@media only screen and (min-width: 520px) {
+  .logo {
+    max-width: 45%;
+    height: auto !important;
+  }
+  .banner {
+    max-width: 190%;
+    height: auto !important;
+  }
+}
+
+/*Tablet/Desktop view*/
+
+@media only screen and (min-width: 768px) {
+  .logo {
+    max-width: 30%;
+    height: auto !important;
+  }
+  /*Hiding hamburger menu*/
+  #menuToggle {
+    display: none;
+  }
+  /*Desktop Nav bar*/
+  .desktop-nav {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  #nav-links {
+    display: flex;
+    list-style-type: none;
+    position: fixed;
+    right: 250px;
+    top: 10px;
+    z-index: 1000;
+  }
+  #nav-links a {
     margin-left: 20%;
     text-decoration: none;
     font-weight: bold;
-
     color: black;
     position: relative;
     bottom: 0;
-    right:0;
+    right: 0;
     transition: bottom ease 0.5s, right ease 0.5s;
-     
-   }
-
-   #nav-links a:hover{
-     transition: 0.5s;
-    color:  tomato;
+  }
+  #nav-links a:hover {
+    transition: 0.5s;
+    color: tomato;
     bottom: -1px;
     right: -1px;
-   }
-   .container {
-    width:768px;
+  }
+  .container {
+    width: 768px;
     margin: 0 auto;
     margin-bottom: 50px;
   }
-  .content-container-1{
-    display:flex;
+  .content-container-1 {
+    display: flex;
     margin-top: 10%;
   }
-  .content{
-   margin-left:auto;
-   margin-right:auto;
+  .content {
+    margin-left: auto;
+    margin-right: auto;
   }
-  
-
-  #nav-launchapp li{
+  #nav-launchapp li {
     font-weight: normal;
     color: white;
     border: 1px solid;
@@ -352,30 +332,24 @@
     margin-top: -10px;
     border-radius: 8px;
     background-color: black;
-    border-color:black;
+    border-color: black;
     box-shadow: 1px 10px 30px 1px rgba(0, 0, 0, 0.2);
   }
+}
 
-  }
 /*Desktop view fixes*/
-  @media only screen and (min-width: 900px) {
-    .logo{
-      width: 25%;
-    }
-    .content-container-1{
-      margin-top:0%;
-    }
-  }
-  @media only screen and (min-width: 1200px) {
-    .logo{
-      width: 19%;
-    }
-  }
 
-  
- 
-  
- 
- 
+@media only screen and (min-width: 900px) {
+  .logo {
+    width: 25%;
+  }
+  .content-container-1 {
+    margin-top: 0%;
+  }
+}
 
- 
+@media only screen and (min-width: 1200px) {
+  .logo {
+    width: 19%;
+  }
+}
