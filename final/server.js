@@ -95,6 +95,22 @@ app.get('/logOut', (req, res) => {
 app.post('/adduser', async function(req, res) {
   var uncryptedPassword = req.body.password;
   const hashedPassword = await bcrypt.hash(uncryptedPassword, 10)//https://www.npmjs.com/package/bcrypt
+  var oldUserWithName = await db.collection('users').findOne({"username":req.body.username});
+
+  var oldUserWithEmail = await db.collection('users').findOne({"email":req.body.email});
+
+  if (oldUserWithName){
+    console.log("Username exists");
+    res.render("pages/signup", {"usernameExists":true, loggedIn:req.session.loggedin});
+    return;
+  }
+
+  if (oldUserWithEmail){
+    console.log("Username exists");
+    res.render("pages/signup", {"emailExists":true, loggedIn:req.session.loggedin});
+    return;
+  }
+
   if (await containsXSS([req.body.email, req.body.username, req.body.postcode])){
     console.log("XSS");
     res.render("pages/signup", {"xssFound":true, loggedIn:req.session.loggedin});
