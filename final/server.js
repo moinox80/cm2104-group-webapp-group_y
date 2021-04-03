@@ -7,8 +7,8 @@ const session = require('express-session');
 const app = express();
 const fs = require ("fs");
 const bcrypt = require('bcrypt')
+var xssSanitizer = require("xss");
 const port = 8080;
-
 
 // get a instance of sendgrid and set the API key
 const sendgrid = require('@sendgrid/mail');//https://mailslurp.medium.com/sending-emails-in-javascript-3-ways-to-send-and-test-emails-with-nodejs-8f3e5c3d0964
@@ -95,12 +95,17 @@ app.get('/logOut', (req, res) => {
 app.post('/adduser', async function(req, res) {
   var uncryptedPassword = req.body.password;
   const hashedPassword = await bcrypt.hash(uncryptedPassword, 10)//https://www.npmjs.com/package/bcrypt
+  if (await containsXSS([req.body.email, req.body.username, req.body.postcode])){
+    console.log("XSS");
+    res.send("XSS in input");
+    return;
+  }
   var new_user_info = {
-    "email" : req.body.email,
-    "username" : req.body.username,
+    "email" : xssSanitizer(req.body.email),
+    "username" : xssSanitizer(req.body.username),
     "password" : hashedPassword,
     "DELETEplaintextPasswordDELETEME" : uncryptedPassword,
-    "postcode" : req.body.postcode,
+    "postcode" : xssSanitizer(req.body.postcode),
     "myStalks" : [],
     "locationsVisited" : {},
     "resetPasswordKey" : null
@@ -333,4 +338,15 @@ async function makeResetPasswordKey() {//https://stackoverflow.com/questions/134
      result += characters.charAt(Math.floor(Math.random() * charactersLength));
   }
   return result;
+}
+
+async function containsXSS(list){
+  var foundXSS = false;
+  list.forEach(element => {
+    if (element != xssSanitizer(element)){
+      console.log("XSS in " + element);
+      foundXSS = true;
+    }
+  })
+  return foundXSS;
 }
