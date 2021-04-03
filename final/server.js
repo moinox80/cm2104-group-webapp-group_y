@@ -97,7 +97,7 @@ app.post('/adduser', async function(req, res) {
   const hashedPassword = await bcrypt.hash(uncryptedPassword, 10)//https://www.npmjs.com/package/bcrypt
   if (await containsXSS([req.body.email, req.body.username, req.body.postcode])){
     console.log("XSS");
-    res.send("XSS in input");
+    res.render("pages/signup", {"xssFound":true, loggedIn:req.session.loggedin});
     return;
   }
   var new_user_info = {
