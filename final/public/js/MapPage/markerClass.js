@@ -48,7 +48,7 @@ class Marker{
     }
 
     directionsLink(){
-        return "<a href=directions.html?destination=" + this.position + ">Directions by filmstalker</a>";
+        return "<a href=/directions?destination=" + this.position + ">Directions by filmstalker</a>";
     }
 }
 
@@ -60,4 +60,24 @@ function markerToggleVisistedButtonClicked(markerID){//when visited button is cl
     var marker = buttonMap[markerID];
     marker.parent.visited = !marker.parent.visited;
     marker.creatMarkerPopUp();
+    sendLocationVisitedToServer(marker, marker.parent.visited);
+}
+
+
+function sendLocationVisitedToServer(marker, visited){
+    function requestUtils(method, url, body) {//https://stackoverflow.com/questions/59511205/how-to-send-string-from-client-to-server-via-post
+        var xhr = new XMLHttpRequest();
+        xhr.open(method, url, true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send(body);
+    }
+    
+    var body = ['movieId=' + marker.movie.imdbID, '&locationLat=' + marker.position[0] + "&locationLong=" + marker.position[1] + "&locationByName=" + marker.label]
+
+    if (visited){
+        requestUtils('post', '/addLocationToVisited', body);
+    }
+    else{
+        requestUtils('post', '/removeLocationFromVisited', body);
+    }
 }

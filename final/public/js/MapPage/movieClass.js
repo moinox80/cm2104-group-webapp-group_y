@@ -122,9 +122,15 @@ class Movie {
         `).appendTo("#my-movies");
 
         $movieTemplate.find(".form-check-input").click(this.changeVisibilityStateOnMap.bind(this));
-        $movieTemplate.find(".mystalksbutton").click(this.storeMovieInSession.bind(this));
+        $movieTemplate.find(".mystalksbutton").click(this.addToMyStalks.bind(this));
     }
 
+    addToMyStalks(){
+        this.storeMovieInSession();
+        this.sendMovieIdToServerAddToMyStalks();
+        
+    }
+    
     storeMovieInSession() {//store movie in session
         const getCircularReplacer = () => {//from https://docs.w3cub.com/javascript/errors/cyclic_object_value/
             const seen = new WeakSet();
@@ -140,6 +146,17 @@ class Movie {
         };
         sessionStorage.setItem(this.imdbID, JSON.stringify(this, getCircularReplacer()));
         alert("Added " + this.name + " to MyStalks");
+    }
+    
+    sendMovieIdToServerAddToMyStalks(){
+        function requestUtils(method, url, body) {//https://stackoverflow.com/questions/59511205/how-to-send-string-from-client-to-server-via-post
+            var xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send(body);
+        }
+        
+        requestUtils('post', '/addMovieToMyStalks', 'movieId=' + this.imdbID);
     }
 }
 

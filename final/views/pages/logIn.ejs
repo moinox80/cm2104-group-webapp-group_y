@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>FilmStalker - Log in</title>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/logIn.css">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="styleshet" href="../css/normalize.min.css">
+        <link rel='icon' href='../favicon.ico' type='image/x-icon'>	
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+    </head>
+
+    <body>
+      <%- include('../partials/navApp') %>  
+        <div class="container">
+            <form class="form" action="/dologin" id="login" method="POST">
+                <h1 class="formTitle"><i class="material-icons">login</i>Login</h1>
+                <div class="formInput">
+                    <input type="text" class="form__input" autofocus placeholder="Username" name="username">
+                </div>
+                <div class="formInput">
+                    <input type="password" class="form__input" autofocus placeholder="Password" name="password">
+                </div> 
+                <button class="formButton" type="submit">Sign in</button>
+                <p class="form__text">
+                    <a class="form__link" href="signup" id="linkCreateAccount" >Sign up here</a>
+                    <button type="submit" formaction="/doSetUpResetPassword">forgot password</button>
+                </p>
+            </form> 
+        </div>
+
+        <%- include('../partials/footer') %>
+        <script src="../js/login_action.js "></script>
+    </body>
+    <!--A Script with a space to fix the 
+  chrome transition bug when loading a page-->
+<script> </script>
+</html> 

@@ -1,0 +1,63 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title>FilmStalker - My Stalks</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/mystalks.css">
+  <link rel="manifest" href="site.webmanifest">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/normalize.min.css">
+  <meta name="theme-color" content="#fafafa">
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
+
+  <script src="../js/MapPage/omdb.js"></script>
+  <script src="../js/MapPage/openCageAPI.js"></script>
+  <script src="../js/MapPage/markerClass.js"></script>
+  <script src="../js/MapPage/getFilmingLocations.js"></script>
+  <script src="../js/MyStalksPage/myStalksPage.js"></script>
+</head>
+
+<body>
+  <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+
+  <!-- Add your site or application content here -->
+  
+  <%- include('../partials/navApp') %>  
+  <h1><i class="material-icons">analytics</i>My Stalks</h1>
+  <main>
+    <div class="container">
+
+    </div>
+  </main>
+
+  <%- include('../partials/footer') %>
+
+  <script src="../js/vendor/bootstrap.min.js"></script>
+  <script src="..\js\vendor\modernizr-2.8.3-respond-1.4.2.min.js"></script>
+  <script src="..\js\main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+<!--A Script with a space to fix the 
+  chrome transition bug when loading a page-->
+  <script> </script>
+
+</html>

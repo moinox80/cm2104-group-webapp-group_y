@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>FilmStalker - Account details</title>
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="styleshet" href="../css/normalize.min.css">
+        <link rel='icon' href='../favicon.ico' type='image/x-icon'>	
+        <link rel="stylesheet" href="../css/account.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <script src="../js/account.js"></script>
+    </head>
+
+    <body>
+      <%- include('../partials/navApp') %>  
+        <br>
+        <div class="container">
+            <form class="form" id="account">
+                <h1 class="formTitle"><i class="material-icons">account_circle</i>Account Details</h1>
+                <div class="formInput">
+                    <input type="text" class="form__input" autofocus placeholder="Change email">
+                </div>
+                <div class="formInput">
+                    <input type="text" class="form__input" autofocus placeholder="Change Username">
+                </div>
+                <div class="formInput">
+                    <input type="password" class="form__input" autofocus placeholder="Change Password">
+                </div> 
+                <button class="formButton" type="submit">Update Details</button>
+            </form> 
+        </div>
+        <form class="form" action="/removeUser" method="POST">
+            <button type="submit">Delete Account and data</button>
+        </form>
+        <%- include('../partials/footer') %>
+    </body>
+    <!--A Script with a space to fix the 
+  chrome transition bug when loading a page-->
+<script> </script>
+</html> 

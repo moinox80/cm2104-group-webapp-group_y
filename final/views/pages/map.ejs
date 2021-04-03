@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<link rel='icon' href='../favicon.ico' type='image/x-icon'>
+	<title>FilmStalker - Map</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+	<link rel="stylesheet" href="../css/main.css">
+	<link rel="stylesheet" href="../css/normalize.min.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin="" />
+	<link rel="stylesheet" href="../css/mappage.css">
+
+	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="../js/MapPage/markerClass.js"></script>
+	<script src="../js/MapPage/movieClass.js"></script>
+	<script src="../js/MapPage/filmingLocationsClass.js"></script>
+	<script src="../js/MapPage/getFilmingLocations.js"></script>
+	<script src="../js/MapPage/omdb.js"></script>
+	<script src="../js/MapPage/confirmMovie.js"></script>
+	<script src="../js/MapPage/map.js"></script>
+	<script src="../js/MapPage/openCageAPI.js"></script>
+	<script src="../js/vendor/bootstrap.min.js"></script>
+	<meta charset="UTF-8" />
+</head>
+
+<body>
+	<%- include('../partials/navApp') %>  
+
+	<main>
+		<div class="general-wrapper">
+			<div class="map-and-content-container">
+				<div class="map-container">
+					<h1><i class="material-icons">&#xe55b;</i>Map</h1>
+					<div id="mapid">
+					</div>
+				</div>
+				<div class="movie-content">
+					<div id="my-movies" class="container" style="display:none">
+							<h1>Movies</h1>
+
+						<a href="movie.html?tt0087332," +="" id="tt0087332-my-movies-link"></a>
+					</div>
+				</div>
+				</div>
+					<div id="add-movie-div">
+						<form id="add-movie">
+							<input type="text" id="new-movie-input-by-imdb-number" placeholder="Enter a movie by IMDB number">
+							<input type="text" id="new-movie-input-by-name" placeholder="Enter a movie by name">
+							<input type="submit" value="Search">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>	
+	</main>
+
+	<%- include('../partials/footer') %>
+
+		<script src="../js/vendor/bootstrap.min.js"></script>
+	</body>
+	<!--A Script with a space to fix the 
+  chrome transition bug when loading a page-->
+<script> </script>
+</html>

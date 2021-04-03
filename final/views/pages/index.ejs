@@ -1,0 +1,56 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FilmStalker - Home</title>
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/normalize.css">
+    <link rel="styleshet" href="./css/normalize.min.css">
+    <link rel='icon' href='favicon.ico' type='image/x-icon'>	
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <%- include('../partials/navHome') %>
+  <div class="banner-container">
+    <img class="banner" src="./img/mapBackground.png" alt="Map">
+    <!--Typewritter by: https://codepen.io/aakhya/pen/zMBbog-->
+    <div id="parent">Click below&#x2193; to begin your adventure<div id="border"></div></div>
+  <div class="LaunchButton">
+      <a  class="LaunchApp" href='/map'>Launch App</a>
+    </div>
+  </div>
+
+  <content>
+    <div class="content-container-1">
+      <div class="content">
+        <img src="./img/location.png" alt="location">
+        <h3>Track</h3>
+      </div>
+      <div class="content">
+        <img src="./img/compass.png" alt="location">
+        <h3>Explore</h3>
+      </div>
+      <div class="content">
+        <img src="./img/tick.png" alt="location">
+        <h3>Mark</h3>
+      </div>
+      <div class="content">
+        <img src="./img/repeat.png" alt="location">
+        <h3>Repeat</h3>
+      </div>
+    </div>
+    <div class="content-container-2">
+
+    </div>
+  </content>
+  <%- include('../partials/footer') %>
+</body> 
+
+<!--A Script with a space to fix the 
+  chrome transition bug when loading a page-->
+<script> </script>
+
+</html>

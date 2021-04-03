@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>FilmStalker - Contact</title>
+    <link rel="stylesheet" href="../css/contact.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="styleshet" href="../css/normalize.min.css">
+    <link rel='icon' href='../favicon.ico' type='image/x-icon'>	
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+  </head>
+
+  <body>
+    <%- include('../partials/navHome') %>
+  <body>
+
+  </body>
+    <content> 
+      <h1><i class="material-icons">call</i>Contact Us</h1>
+      <div class="container">
+      
+          <form action="contact_response.php">
+        
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="firstname" placeholder="Your name...">
+        
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lastname" placeholder="Your last name...">
+        
+            <label for="email">Email</label>
+            <input type="text" id="lname" name="email" placeholder="Your email...">
+        
+            <label for="subject">Message</label>
+            <textarea id="text" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+        
+            <input type="submit" value="Submit ✈">
+        
+          </form>
+      </div>
+
+    </content>
+    <%- include('../partials/footer') %>
+  </body>
+  <!--A Script with a space to fix the 
+  chrome transition bug when loading a page-->
+<script> </script>
+</html>
+

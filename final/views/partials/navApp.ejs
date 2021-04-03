@@ -1,0 +1,55 @@
+<nav role='navigation'>
+  <div class="desktop-nav">
+    <img src="../img/Logo.png" class="logo" alt="logo">
+    <ul id="nav-links">
+      <a href="/">
+        <li>Home</li>
+      </a>
+      <a href="/map">
+        <li>Map</li>
+      </a>
+      <a href="/mystalks" id="MyStalks-link">
+        <li>My&nbsp;Stalks</li>
+      </a>
+      <a href="/account">
+        <li>Account</li>
+      </a>
+      <% if(loggedIn){ %>
+        <a href="/logOut">
+          <li>Log&nbsp;Out</li>
+        </a>
+      <% }else{ %>
+        <a href="/logIn">
+          <li>Log&nbsp;In</li>
+        </a>
+        <% } %>
+    </ul>
+  </div>
+  <div id="menuToggle">
+
+    <input type="checkbox" />
+
+    <!--To make the hamburger-->
+    <span></span>
+    <span></span>
+    <span></span>
+
+    <ul id="menu">
+      <a href="/index">
+        <li>Home</li>
+      </a>
+      <a href="/map">
+        <li>Map</li>
+      </a>
+      <a href="/account">
+        <li>Account</li>
+      </a>
+      <a href="/mystalks" id="MyStalks-link">
+        <li>My&nbsp;Stalks</li>
+      </a>
+      <a href="/logIn">
+        <li>Log&nbsp;In</li>
+      </a>
+    </ul>
+  </div>
+</nav>
