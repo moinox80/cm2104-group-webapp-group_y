@@ -29,3 +29,8 @@
 -To Do
 --update add to my stalkes button if movie is already in my stalkes of database
 --get and display mystalks and locations from databse
+--404 page
+
+
+-Possible stuff to add
+--check that JS is enabled
