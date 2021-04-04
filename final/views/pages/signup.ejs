@@ -28,6 +28,9 @@
             <% if(!(typeof incompleteFields == 'undefined') && incompleteFields == true){ %>
             <h2>Incomplete fields</h2>
             <% } %>
+            <% if(!(typeof falseEmail == 'undefined') && falseEmail == true){ %>
+                <h2>False email</h2>
+                <% } %>
             <form class="form" action="/adduser" id="login" method="POST">
                 <h1 class="formTitle"><i class="material-icons">how_to_reg</i>Sign Up</h1>
                 <div class="formInput">

@@ -8,6 +8,7 @@ const app = express();
 const fs = require ("fs");
 const bcrypt = require('bcrypt')
 var xssSanitizer = require("xss");
+var emailValidator = require("email-validator");
 const port = 8080;
 
 // get a instance of sendgrid and set the API key
@@ -98,6 +99,11 @@ app.post('/adduser', async function(req, res) {
   var username = req.body.username;
   var postCode = req.body.postcode;
 
+  if(!(emailValidator.validate(email))){
+    res.render("pages/signup", {"falseEmail":true, loggedIn:req.session.loggedin});
+    return;
+  }
+
   if (!(email && username && postCode && uncryptedPassword)){
     res.render("pages/signup", {"incompleteFields":true, loggedIn:req.session.loggedin});
     return;
@@ -115,7 +121,7 @@ app.post('/adduser', async function(req, res) {
   }
 
   if (oldUserWithEmail){
-    console.log("Username exists");
+    console.log("email exists");
     res.render("pages/signup", {"emailExists":true, loggedIn:req.session.loggedin});
     return;
   }
