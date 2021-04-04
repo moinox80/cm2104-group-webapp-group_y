@@ -157,6 +157,11 @@ app.post('/removeUser', function(req, res) {
 app.post('/dologin', async function(req, res) {
   var username = req.body.username;
   var plainTextPassword = req.body.password;
+  if (!(username && plainTextPassword)){
+    console.log("no password or username");
+    res.render("pages/logIn", {loggedIn:req.session.loggedin, "wrongUsernameOrPass":true});
+    return;
+  }
   var user;
   db.collection('users').findOne({"username":username},async function(err, result) {
     if (err) throw err;
@@ -175,6 +180,7 @@ app.post('/dologin', async function(req, res) {
 
 app.post("/addMovieToMyStalks", function(req, res) {
   if(!req.session.loggedin){return;}
+  if (!(req.body.movieId)){return;}
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
   db.collection('users').findOne({_id:o_id},function(err, result) {
