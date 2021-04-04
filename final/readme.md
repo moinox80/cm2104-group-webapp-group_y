@@ -23,6 +23,7 @@
 --express-session to store loged in information
 --xss to validate user iput before storing
 --email-validator to validate user email is in correct formate
+--web3-to allow the connection between the ethereum mainnet and metamask
 
 
 -To Do
