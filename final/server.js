@@ -294,7 +294,7 @@ app.post("/doSetUpResetPassword", function(req, res){
   res.redirect('/');
 })
 
-app.post("/doResetPassword", function(req, res){
+app.post("/doResetPassword", async function(req, res){
   console.log("doResetPassword");
   var username = req.body.username;
   var newPassword = req.body.newpassword;
@@ -302,8 +302,14 @@ app.post("/doResetPassword", function(req, res){
 
   db.collection('users').findOne({"username":username}, async function(err, result) {
     if (err) throw err;
-    if (!result){return};
+    if (!result){
+      res.render("pages/resetPassword", {wrongUserName: true, loggedIn: req.session.loggedin});
+      return;};
     var user = result;
+    if (!user.resetPasswordKey){
+      res.render("pages/resetPassword", {wasFakeKey: true, loggedIn: req.session.loggedin});
+      return;
+    }
     if (await bcrypt.compare(resetPasswordKey, user.resetPasswordKey)){
       const hashedPassword = await bcrypt.hash(newPassword, 10)
       var newHashed = {$set: {"password": hashedPassword}};
@@ -316,19 +322,26 @@ app.post("/doResetPassword", function(req, res){
         if (err) throw err;
         console.log("set  newPassPlaintext");
       })
+      removeResetPasswordKey(user);
+      res.redirect("/");
+      return;
     }
-
-    var nullResetKey = {$set: {"resetPasswordKey": null}};
-    db.collection('users').updateOne({username:user.username},nullResetKey,function(err, result) {
-      if (err) throw err;
-      console.log("set reset key to null");
-    })
+    removeResetPasswordKey(user);
+    
     if (!(user.resetPasswordKey == resetPasswordKey)){
       console.log("fake key");
+      res.render("pages/resetPassword", {wasFakeKey: true, loggedIn: req.session.loggedin});
     }
   })
-  res.redirect("/");
 })
+
+function removeResetPasswordKey(user){
+  var nullResetKey = {$set: {"resetPasswordKey": null}};
+  db.collection('users').updateOne({username:user.username},nullResetKey,function(err, result) {
+    if (err) throw err;
+    console.log("set reset key to null");
+  })
+}
 
   
 function logInUser(user, req){
