@@ -169,7 +169,7 @@ app.post('/dologin', async function(req, res) {
         return;
       }
     }
-    res.redirect('/login');
+    res.render("pages/logIn", {loggedIn:req.session.loggedin, "wrongUsernameOrPass":true});
   })
 });
 

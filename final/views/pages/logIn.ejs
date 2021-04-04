@@ -14,8 +14,11 @@
     </head>
 
     <body>
-      <%- include('../partials/navApp') %>  
+      <%- include('../partials/navApp') %>
         <div class="container">
+            <% if(!(typeof wrongUsernameOrPass == 'undefined') && wrongUsernameOrPass == true){ %>
+                <h2>Wrong username or password</h2>
+                <% } %>
             <form class="form" action="/dologin" id="login" method="POST">
                 <h1 class="formTitle"><i class="material-icons">login</i>Login</h1>
                 <div class="formInput">
