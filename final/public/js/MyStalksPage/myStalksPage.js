@@ -90,7 +90,7 @@ class Card {
               });
               
               openCageAPIConvertToLatLong(locationText, function (position) {
-                filmingLocation.geoCoord = position;
+                  filmingLocation.geoCoord = position;
                   this.waitForCurrentLocation(filmingLocation);
               }.bind(this));
             })
@@ -165,7 +165,7 @@ class Card {
 }
 
 $(function () {
-    getMoviesFromSession();
+    //getMoviesFromSession();
     /*
     Note: This script can only display a select set of movies.
     The final product would store movies of interest for a user in a backend database.
