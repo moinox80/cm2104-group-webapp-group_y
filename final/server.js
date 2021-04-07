@@ -177,14 +177,14 @@ app.post("/addMovieToMyStalks", function(req, res) {
     var newMovieId = req.body.movieId;
 
     if(!newMovieId){return;}
-    if(usersStalks.includes(newMovieId)){return};
+    if(usersStalks.includes(newMovieId)){return;}
 
     usersStalks.push(newMovieId);
     var newMyStalks = {$set: {"myStalks": usersStalks}};
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
-    })
-    console.log("added ", MovieId, "to myStalks on user: ", user.username)
+    });
+    console.log("added ", newMovieId, "to myStalks on user: ", user.username);
   })
 })
 
