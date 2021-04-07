@@ -1,6 +1,8 @@
 var movies = [];
 class Card {
   constructor(movie) {
+    console.log("Adding card for movie " + movie);
+
     this.imdbID = movie;
 
     this.currentLocation;
