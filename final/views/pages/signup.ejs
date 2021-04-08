@@ -14,8 +14,23 @@
     </head>
 
     <body>
-      <%- include('../partials/navApp') %>  
+      <%- include('../partials/navApp') %>
         <div class="container">
+            <% if(!(typeof xssFound == 'undefined') && xssFound == true){ %>
+                <h2>XSS Found</h2>
+            <% } %>
+            <% if(!(typeof usernameExists == 'undefined') && usernameExists == true){ %>
+                <h2>username taken</h2>
+            <% } %>
+            <% if(!(typeof emailExists == 'undefined') && emailExists == true){ %>
+                <h2>email taken</h2>
+            <% } %>
+            <% if(!(typeof incompleteFields == 'undefined') && incompleteFields == true){ %>
+            <h2>Incomplete fields</h2>
+            <% } %>
+            <% if(!(typeof falseEmail == 'undefined') && falseEmail == true){ %>
+                <h2>False email</h2>
+                <% } %>
             <form class="form" action="/adduser" id="login" method="POST">
                 <h1 class="formTitle"><i class="material-icons">how_to_reg</i>Sign Up</h1>
                 <div class="formInput">

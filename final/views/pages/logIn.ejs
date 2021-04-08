@@ -14,8 +14,11 @@
     </head>
 
     <body>
-      <%- include('../partials/navApp') %>  
+      <%- include('../partials/navApp') %>
         <div class="container">
+            <% if(!(typeof wrongUsernameOrPass == 'undefined') && wrongUsernameOrPass == true){ %>
+                <h2>Wrong username or password</h2>
+                <% } %>
             <form class="form" action="/dologin" id="login" method="POST">
                 <h1 class="formTitle"><i class="material-icons">login</i>Login</h1>
                 <div class="formInput">
@@ -27,9 +30,11 @@
                 <button class="formButton" type="submit">Sign in</button>
                 <p class="form__text">
                     <a class="form__link" href="signup" id="linkCreateAccount" >Sign up here</a>
+                    <button type="submit" formaction="/doSetUpResetPassword">forgot password</button>
                 </p>
             </form> 
         </div>
+
         <%- include('../partials/footer') %>
         <script src="../js/login_action.js "></script>
     </body>

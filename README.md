@@ -65,6 +65,7 @@ Basic description : A site to track and mark movie filming locations, by display
 #Server stuff
 
 ##Database
+- Database is on filmStalker
 
 - Process pages to be sent
 
@@ -83,3 +84,6 @@ Basic description : A site to track and mark movie filming locations, by display
 
 #Possible features to add
 - web3.js
+- Increased password security (Bcrypt)
+- Reset password through email
+- Prevent XSS (i can only think of the user information as being susceptible to XSS)

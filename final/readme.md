@@ -1,3 +1,36 @@
-# Prototype
-This is the code for your interface prototype should sit. I have created a suggested structure for you using HTML5 boiler plate. Do not feel that you have to use this, but any structure you do use should use appropriate directory names. If you want to use Initilizer to set up a quick structure like this go ahead it will help you set up default Bootstrap profiles as well. http://www.initializr.com/
-Be warned though do non submit a non-customised css template or framework as you will not get many marks for it.
+# Final
+
+-Code features
+--XSS validation
+--Email validation
+--Ensures there cant be multiple users with same name/email
+--stores password as hashed and salted
+--can reset password using reset key and email(sendgrid)
+
+
+-Site Usage
+--Users can see where their favorite movies where filmed by searching with imdbid or movie name
+--Users can add movies to their myStalks
+--Users can toggle visited on the movie locations (click on marker)
+--Users can get directions to location, either by google or by filmStalker (click on marker)
+--Users can toggle if a film is visible on the map (useful for when there are many films)
+
+
+-NPM node modules
+--bcrypt to hash and salt passwords
+--mongodb to store information about the user
+--express to help with the server
+--express-session to store loged in information
+--xss to validate user iput before storing
+--email-validator to validate user email is in correct formate
+--web3-to allow the connection between the ethereum mainnet and metamask
+
+
+-To Do
+--update add to my stalkes button if movie is already in my stalkes of database
+--get and display mystalks and locations from databse
+--404 page
+
+
+-Possible stuff to add
+--check that JS is enabled
