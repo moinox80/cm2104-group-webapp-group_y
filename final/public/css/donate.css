@@ -1,8 +1,60 @@
-
-div #Metamask-Donate-Box{
-    width: 100px;
-    height: 50px;
-    border: 5px orange;
-    background-color: orange;
+#Metamask-button-box{
+    height: 45px;
+    width: 175px;
+    border:1px orange;
+    background-image: linear-gradient(to right, orange, pink);
+    border-radius: 50px;
+    position: relative;
+    outline: none; 
+    transition:1s;
+    position:absolute;
+    margin:auto;
+    
 }
- 
+#Metamask-button-box:hover{
+    cursor: pointer;
+    opacity: 0.5;
+    transition:1s;
+}
+
+p {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size: 13px;
+    color:white;
+    margin-left:10%;
+    font-family: 'Dela Gothic One', cursive;
+      
+    
+}
+
+img {
+    float:right;
+    height: 43px;
+    margin-right:10%;
+}
+.Form-container{
+    text-align:center;
+}
+#ethInput{
+    height: 35px;
+    margin: auto;
+    font-size:20px;
+    width:60px;
+    outline: none;
+    
+       
+    
+}
+#ethInput:focus{
+     border-image-source: linear-gradient(to right, pink, orange);
+     border-width: 2px;
+     border-image-slice: 1;
+}
+
+html {
+    background-color: lightgray;
+}
