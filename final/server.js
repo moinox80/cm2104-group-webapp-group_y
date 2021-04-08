@@ -48,6 +48,10 @@ app.get('/', (req, res) => {
   res.render("pages/index");
 });
 
+app.get('/donate', (req, res) => {
+  res.render("pages/donate");
+});
+
 app.get('/about', (req, res) => {
   res.render("pages/about");
 });
