@@ -53,7 +53,14 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/account', (req, res) => {
-  res.render("pages/account", {loggedIn:req.session.loggedin});
+  if(!req.session.loggedin){return;}
+
+  var userid = req.session.userid;
+  var o_id = new ObjectId(userid);
+  db.collection('users').findOne({_id:o_id},function(err, user) {
+    if (!user) return;
+    res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode});
+  })
 });
 
 app.get('/contact', (req, res) => {
@@ -355,6 +362,87 @@ app.post("/doResetPassword", async function(req, res){
     }
   })
 })
+
+app.post("/updateUserInfo", async function(req, res){
+  if(!req.session.loggedin){return;}
+
+  var uncryptedPassword = req.body.password;
+
+  var newEmail = req.body.email;
+  var newUsername = req.body.username;
+  var newPostCode = req.body.postcode;
+
+
+  var userid = req.session.userid;
+  var o_id = new ObjectId(userid);
+  db.collection('users').findOne({_id:o_id}, async function(err, user) {
+    if (!user) return;
+    if (!uncryptedPassword){
+      console.log("no pass")
+      res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, falsePass:true});
+      return;
+    }
+    var isPasswordMatch = await bcrypt.compare(uncryptedPassword, user.password);
+    if (!isPasswordMatch){
+      console.log("no match")
+      res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, falsePass:true});
+      return;
+    }
+
+    if (await containsXSS([newEmail, newUsername, newPostCode])){
+      console.log("XSS");
+      res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, xssFound:true});
+      return;
+    }
+
+    var oldUserWithName = await db.collection('users').findOne({"username":newUsername});
+
+    var oldUserWithEmail = await db.collection('users').findOne({"email":newEmail});
+
+
+    if (oldUserWithName && !(newUsername == user.username)){
+      console.log("Username exists");
+      res.render("pages/account",{loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, usernameExists:true});
+      return;
+    }
+  
+    if (oldUserWithEmail && !(newEmail == user.email)){
+      console.log("email exists");
+      res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, emailExists:true});
+      return;
+    }
+
+    if( newEmail && !(emailValidator.validate(newEmail))){
+      res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, falseEmail:true});
+      return;
+    }
+
+    var newUserInfo = {};
+
+    if (newEmail){
+      newUserInfo["email"] = newEmail;
+    }
+
+    if (newUsername){
+      newUserInfo["username"] = newUsername;
+    }
+
+    if (newPostCode){
+      newUserInfo["postcode"] = newPostCode;
+    }
+
+    var toUpdate = {$set: newUserInfo};
+    
+    db.collection('users').updateOne({_id:o_id},toUpdate,function(err, result) {
+    if (err) throw err;
+    console.log("updated user info");
+    res.redirect("/");
+    return;
+  })
+
+  })
+})
+
 
 function removeResetPasswordKey(user){
   var nullResetKey = {$set: {"resetPasswordKey": null}};

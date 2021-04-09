@@ -16,18 +16,35 @@
 
     <body>
       <%- include('../partials/navApp') %>  
+
         <br>
         <div class="container">
-            <form class="form" id="account">
+            <% if(!(typeof falsePass == 'undefined') && falsePass == true){ %>
+                <h2>False password</h2>
+                <% } %>
+            <% if(!(typeof xssFound == 'undefined') && xssFound == true){ %>
+                <h2>xssFound</h2>
+                <% } %>
+            <% if(!(typeof usernameExists == 'undefined') && usernameExists == true){ %>
+                <h2>username taken</h2>
+            <% } %>
+            <% if(!(typeof emailExists == 'undefined') && emailExists == true){ %>
+                <h2>email taken</h2>
+            <% } %>
+            <form class="form"  action="/updateUserInfo" id="account" method="POST">
                 <h1 class="formTitle"><i class="material-icons">account_circle</i>Account Details</h1>
                 <div class="formInput">
-                    <input type="text" class="form__input" autofocus placeholder="Change email">
+                    <input type="text" name="email" class="form__input" placeholder="email" autofocus value= <%=email %>>
                 </div>
                 <div class="formInput">
-                    <input type="text" class="form__input" autofocus placeholder="Change Username">
+                    <input type="text" name="username" class="form__input" placeholder="username" autofocus value= <%=username %>>
                 </div>
                 <div class="formInput">
-                    <input type="password" class="form__input" autofocus placeholder="Change Password">
+                    <input type="text" name="postcode" class="form__input" placeholder="postalCode" autofocus value= <%=postalCode %>>
+                </div> 
+                <br>
+                <div class="formInput">
+                    <input type="password" name="password" class="form__input" placeholder="old password"" autofocus placeholder="old password">
                 </div> 
                 <button class="formButton" type="submit">Update Details</button>
             </form> 
