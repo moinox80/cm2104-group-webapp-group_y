@@ -371,6 +371,7 @@ app.post("/updateUserInfo", async function(req, res){
   var newEmail = req.body.email;
   var newUsername = req.body.username;
   var newPostCode = req.body.postcode;
+  var newPass = req.body.newPassword;
 
 
   var userid = req.session.userid;
@@ -431,12 +432,22 @@ app.post("/updateUserInfo", async function(req, res){
       newUserInfo["postcode"] = newPostCode;
     }
 
+    if (newPass){
+      var newPassMatchOld = await bcrypt.compare(newPass, user.password);
+      console.log("match: ", newPassMatchOld)
+      if (!newPassMatchOld){
+        newHashed = await bcrypt.hash(newPass, 10);
+        newUserInfo["password"] = newHashed;
+        newUserInfo["DELETEplaintextPasswordDELETEME"] = newPass;
+      }
+    }
+
     var toUpdate = {$set: newUserInfo};
     
     db.collection('users').updateOne({_id:o_id},toUpdate,function(err, result) {
     if (err) throw err;
     console.log("updated user info");
-    res.redirect("/");
+    res.redirect("/map");
     return;
   })
 

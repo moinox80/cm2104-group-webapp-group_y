@@ -33,6 +33,7 @@
             <% } %>
             <form class="form"  action="/updateUserInfo" id="account" method="POST">
                 <h1 class="formTitle"><i class="material-icons">account_circle</i>Account Details</h1>
+                <p>You can view and edit your account info here. To update click the Update Details button and we will update all applicable info. leave any fileds you do no want to update empty or as they are</p>
                 <div class="formInput">
                     <input type="text" name="email" class="form__input" placeholder="email" autofocus value= <%=email %>>
                 </div>
@@ -42,7 +43,12 @@
                 <div class="formInput">
                     <input type="text" name="postcode" class="form__input" placeholder="postalCode" autofocus value= <%=postalCode %>>
                 </div> 
-                <br>
+                <div class="formInput">
+                    <p>New Password</p>
+                    <input type="password" name="newPassword" class="form__input" placeholder="new password"" autofocus placeholder="new password">
+                </div> 
+                <br><br>
+                <p>confirm old password</p>
                 <div class="formInput">
                     <input type="password" name="password" class="form__input" placeholder="old password"" autofocus placeholder="old password">
                 </div> 
