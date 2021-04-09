@@ -20,12 +20,11 @@
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script>window.jQuery || document.write('<script src="js/vendor/jquery-3.4.1.min.js"><\/script>')</script>
-  
+
   <script src="../js/MapPage/omdb.js"></script>
   <script src="../js/MapPage/openCageAPI.js"></script>
   <script src="../js/MapPage/markerClass.js"></script>
   <script src="../js/MapPage/getFilmingLocations.js"></script>
-  <script src="../js/MyStalksPage/myStalksPage.js"></script>
 </head>
 
 <body>
@@ -39,7 +38,9 @@
   <h1><i class="material-icons">analytics</i>My Stalks</h1>
   <main>
     <div class="container">
-
+      <% movies.forEach(movie => { %>
+        <%- include('partials/stalk', {movie: movie}) %>
+      <% }) %>
     </div>
   </main>
 
