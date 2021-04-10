@@ -55,6 +55,11 @@ img {
      border-image-slice: 1;
 }
 
-html {
-    background-color: lightgray;
+#connected-circle{
+    height: 10px;
+  width: 10px;
+  background-color: red;
+  border: 1px solid black;
+  border-radius: 50%;
+  display: inline-block;
 }

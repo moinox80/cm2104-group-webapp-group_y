@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>FilmStalker - About</title>
+    <title>FilmStalker - Donate</title>
     <link rel="stylesheet" href="../css/donate.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/normalize.css">
@@ -16,14 +16,23 @@
    <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
 </head>
   
-<body> 
+<body>
+    <div id="Title">
+       <h1>Help us sustain the platform with a kindful donation</h1> 
+    </div>
+    
     <div class="Form-container">
-        <h1>Help us sustain the platform with a kindful donation</h1>
+        <div id="account-status">
+           <h3>Account:  <span class="showAccount">None</span></h3><span id=connected-circle></span> 
+        </div>
+        
     
 
-<button class="enableEthereumButton btn">Enable Ethereum</button>
+<button class="connectMetamask btn">Connect Metamask</button>
     <div id="Donate-wrapper">
-        <input type="text" id="ethInput">
+        
+        <input type="text" id="ethInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+        
          <button id="Metamask-button-box">
         <p>Donate us </p>
         <img src="../img/metamaskpng.png">
@@ -35,21 +44,32 @@
   <script type="text/javascript"> 
     var web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
  
-    const ethereumButton = document.querySelector('.enableEthereumButton');
+    const connectButton = document.querySelector('.connectMetamask');
     const sendEthButton = document.querySelector('#Metamask-button-box');
+    const showAccount = document.querySelector('.showAccount');
     let ethAmount = '';
     let accounts = [];
-
+    let account = "";
+      
+connectButton.addEventListener('click', () => {
+  getAccount();
+});
 
 //Sending Ethereum to an address
 sendEthButton.addEventListener('click', () => {
-  ethereum
+    getValue();
+    sendTx(); 
+});
+
+
+async function sendTx(){
+    ethereum
     .request({
       
       method: 'eth_sendTransaction',
       params: [
         {
-          from: accounts[0],
+          from: account,
           to: '0x78b5Be40d3E247037dBB61f9c2A0b8aa0A676547',
           value: ethAmount,
           gasPrice: '0x09184e72a000',
@@ -59,16 +79,13 @@ sendEthButton.addEventListener('click', () => {
     })
     .then((txHash) => console.log(txHash))
     .catch((error) => console.error);
-});
-
-ethereumButton.addEventListener('click', () => {
-  getAccount();
-  getValue();
-});
-
+}
 //Get account from metamask
 async function getAccount() {
   accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  account = accounts[0];
+  showAccount.innerHTML = account;
+  changeCircle();
 }
 //Gets the user input value
 async function getValue() {
@@ -88,11 +105,15 @@ sendEthButton.addEventListener('click', function() {
       var a = window.open('https://metamask.io/','_blank');
     }
   } else {
-    console.log('web3 is not found, please do npm install Web3')
+    console.log('web3 is not found, please do npm install web3')
   }
 })
+   
+function changeCircle(){
+    if(accounts.length > 0){
+       document.getElementById('connected-circle').style.backgroundColor='rgb(51, 204, 51)';
+          }
+}
       
-  </script>
-</body>
-
-</body>
+  </script>    
+</html>
