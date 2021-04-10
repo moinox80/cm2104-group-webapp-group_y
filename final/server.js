@@ -8,7 +8,7 @@ const app = express();
 const fs = require ("fs");
 const bcrypt = require('bcrypt')
 const port = 8080;
-
+const axios = require("axios").default;
 
 // get a instance of sendgrid and set the API key
 const sendgrid = require('@sendgrid/mail');//https://mailslurp.medium.com/sending-emails-in-javascript-3-ways-to-send-and-test-emails-with-nodejs-8f3e5c3d0964
@@ -84,7 +84,7 @@ app.get('/mystalks', (req, res) => {
       console.log(result)
       var userStalks = result.myStalks;
       console.log(userStalks);
-      res.render("pages/mystalks", {loggedIn:req.session.loggedin, movies:userStalks});
+      res.render("pages/mystalks", {loggedIn:req.session.loggedin, movies:userStalks, axios:axios});
     });
   }
 });
