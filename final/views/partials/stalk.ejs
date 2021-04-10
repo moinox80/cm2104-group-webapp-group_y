@@ -23,7 +23,7 @@
       </div>
     </div>
   </div>
-  <% } %>
+  <% }); %>
 
   <div class="card-body">
     <button data-toggle="collapse" data-target="#demo">
@@ -31,7 +31,7 @@
     </button>
     <div id="demo" class="collapse">
       <%
-      var axios = require("axios").default;
+      var axios = require("axios").default;-
 
       var options = {
         method: 'GET',
@@ -44,7 +44,7 @@
       };
 
       axios.request(options).then(function (response) {
-        response.data.locations.forEach(location => {
+        response.data.locations.forEach(location => { %>
           <%-
           <div>
             <div>
@@ -53,15 +53,12 @@
                 <%= location %>
               <%- </label>
             </div>
-            <!--<div class="proximity">
-                
-            </div>-->
             <div>
               <a class="see-on-map" href="../html/map.html?l=true">See on map</a>
             </div>
           </div>
           %>
-        });
+        <% })
       }).catch(function (error) {
         console.error(error);
       });
@@ -72,12 +69,12 @@
 
 <%
 function getResultsFromOMDBByID(movieID, callback){
-    var url = baseURL + "i=" + movieID;
-    
-    $.getJSON(url, function(jsondata){
-        if(jsondata && jsondata.imdbID){
-            callback(jsondata);
-        };
-    });
-};
+  axios.get(
+    "https://www.omdbapi.com/?apikey=7c3f362c&" + "movieID"
+  ).then(response => {
+    callback(JSON.parse(response));
+  }).catch(error => {
+    throw error;
+  });
+}
 %>

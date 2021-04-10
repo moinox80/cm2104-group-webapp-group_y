@@ -76,21 +76,17 @@ app.get('/movie', (req, res) => {
 });
 
 app.get('/mystalks', (req, res) => {
-  var usersStalks;
-
   if (req.session.loggedin) {
     var userid = req.session.userid;
     var o_id = new ObjectId(userid);
     db.collection('users').findOne({_id:o_id},function(err, result) {
       if (err) throw err;
-      var user = result;
-      usersStalks = user.myStalks;
+      console.log(result)
+      var userStalks = result.myStalks;
+      console.log(userStalks);
+      res.render("pages/mystalks", {loggedIn:req.session.loggedin, movies:userStalks});
     });
-
-    db.collection
   }
-  
-  res.render("pages/mystalks", {loggedIn:req.session.loggedin, movies:usersStalks});
 });
 
 app.get('/signup', (req, res) => {
