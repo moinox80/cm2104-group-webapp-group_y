@@ -82,9 +82,10 @@ app.get('/mystalks', async (req, res) => {
     db.collection('users').findOne({_id:o_id}, async function(err, result) {
       if (err) throw err;
       var userStalks = result.myStalks;
+      var locationsVisited = result.locationsVisited;
       var html = await ejs.renderFile(
         "views/pages/mystalks.ejs",
-        {loggedIn:req.session.loggedin, movies:userStalks, axios:axios},
+        {loggedIn:req.session.loggedin, movies:userStalks, "locationsVisited": locationsVisited, axios:axios},
         {async:true}
       );
       res.send(html);
@@ -202,6 +203,7 @@ app.post("/addLocationToVisited", function(req, res) {
     var user = result;
     var userslocations = user.locationsVisited;
     var MovieId = req.body.movieId;
+    console.log(MovieId)
     if(!Object.keys(userslocations).includes(MovieId)){
       userslocations[MovieId] = [];
     };

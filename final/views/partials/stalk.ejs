@@ -49,16 +49,24 @@ async function getResultsFromOMDBByID(movieID) {
 
       var locationsResponse = await axios.request(options); %>
 
-      <% for (location of locationsResponse.data.locations){ %>
+      <% for (location of locationsResponse.data.locations){ 
+        var newLocationVisited = false;
+        for (locationVisited of locationsVisitedOfMovie){
+          if (location.location === locationVisited.locationName){
+            newLocationVisited = true;
+          }
+        }
+        
+        %>
           <div>
             <div>
               <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" value="">
+                <input type="checkbox" class="form-check-input" disabled value="" <% if(newLocationVisited){ %> checked <%}%>>
                 <%= location.location %>
               </label>
             </div>
             <div>
-              <a class="see-on-map" href="../html/map.html?l=true">See on map</a>
+              <a class="see-on-map" href="map?l=true">See on map</a>
             </div>
           </div>
         <% } %>
