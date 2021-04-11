@@ -104,160 +104,163 @@ app.get('/logOut', (req, res) => {
   res.redirect('/');
 })
 
-app.post('/adduser', async function(req, res) {
-  var uncryptedPassword = req.body.password;
-  var email = req.body.email;
-  var username = req.body.username;
-  var postCode = req.body.postcode;
+app.post('/adduser', async function(req, res) {//add a user
+  var uncryptedPassword = req.body.password;//gets the uncryptedPassword
+  var email = req.body.email;//gets email
+  var username = req.body.username;//gets username
+  var postCode = req.body.postcode;//gets postcode
 
-  if(!(emailValidator.validate(email))){
+  if(!(emailValidator.validate(email))){//checks if user name is valide in guard clause. if not render the signup page with the error message
     res.render("pages/signup", {"falseEmail":true, loggedIn:req.session.loggedin});
     return;
   }
 
-  if (!(email && username && postCode && uncryptedPassword)){
+  if (!(email && username && postCode && uncryptedPassword)){//ensures all fields are inputed in guard clause. if not, render signup with error message
     res.render("pages/signup", {"incompleteFields":true, loggedIn:req.session.loggedin});
     return;
   }
 
-  const hashedPassword = await bcrypt.hash(uncryptedPassword, 10)//https://www.npmjs.com/package/bcrypt
-  var oldUserWithName = await db.collection('users').findOne({"username":username});
+  const hashedPassword = await bcrypt.hash(uncryptedPassword, 10)//https://www.npmjs.com/package/bcrypt //hash password
+  var oldUserWithName = await db.collection('users').findOne({"username":username});// gets a user with the same name, if any
 
-  var oldUserWithEmail = await db.collection('users').findOne({"email":email});
+  var oldUserWithEmail = await db.collection('users').findOne({"email":email});// gets a user with the same email, if any
 
-  if (oldUserWithName){
+  if (oldUserWithName){//if another user has the same name, render with error message
     console.log("Username exists");
     res.render("pages/signup", {"usernameExists":true, loggedIn:req.session.loggedin});
     return;
   }
 
-  if (oldUserWithEmail){
+  if (oldUserWithEmail){//if user exists with same email. render with error message
     console.log("email exists");
     res.render("pages/signup", {"emailExists":true, loggedIn:req.session.loggedin});
     return;
   }
 
-  if (await containsXSS([email, username, postCode])){
+  if (await containsXSS([email, username, postCode])){//if email, username, postCode contain XSS render signup with warning
     console.log("XSS");
     res.render("pages/signup", {"xssFound":true, loggedIn:req.session.loggedin});
     return;
   }
-  var new_user_info = {
+
+  var new_user_info = {//gets the user info. xssSanitizer is probably unecesery
     "email" : xssSanitizer(email),
     "username" : xssSanitizer(username),
     "password" : hashedPassword,
-    "DELETEplaintextPasswordDELETEME" : uncryptedPassword,
+    "DELETEplaintextPasswordDELETEME" : uncryptedPassword,//only user for testing. ie i am not saving fake user info in my password manager
     "postcode" : xssSanitizer(postCode),
     "myStalks" : [],
     "locationsVisited" : {},
     "resetPasswordKey" : null
   };
 
-  console.log("user info:\n", new_user_info);
+  console.log("user info:\n", new_user_info);//log the new user info for debuging
 
-  db.collection('users').save(new_user_info, function(err, result) {
+  db.collection('users').save(new_user_info, function(err, result) {//save the user to mongo
     if (err) throw err;
     console.log('added user ', new_user_info.username, " to database");
   });
 
-  res.redirect('/map');
+  res.redirect('/map');//send user to map
 });
 
-app.post('/removeUser', function(req, res) {
-  if(!req.session.loggedin){return;}
+app.post('/removeUser', function(req, res) {//remove a user from the databse
+  if(!req.session.loggedin){return;}//guard clause for if user is not logged in
   
-  var userid = req.session.userid;
-  var o_id = new ObjectId(userid);
-  db.collection('users').deleteOne({_id:o_id},function(err, result) {
+  var userid = req.session.userid;//get user id
+  var o_id = new ObjectId(userid);//convert to object id
+  db.collection('users').deleteOne({_id:o_id},function(err, result) {//delete
     if (err) throw err;
     if (result){
       console.log("deleted user: ", userid)
-      logOutuser(req);
-      console.log("redirecting");
-      return;
+      logOutuser(req);//log out
     }
   })
-  res.redirect('/');
+  res.redirect('/');//send to index
 })
 
-app.post('/dologin', async function(req, res) {
-  var username = req.body.username;
-  var plainTextPassword = req.body.password;
-  if (!(username && plainTextPassword)){
+app.post('/dologin', async function(req, res) {//to log in user
+  var username = req.body.username;//gets the name
+  var plainTextPassword = req.body.password;//gets the password
+  if (!(username && plainTextPassword)){//guard clause to check if there is a password and user name, if not redirect with warning
     console.log("no password or username");
     res.render("pages/logIn", {loggedIn:req.session.loggedin, "wrongUsernameOrPass":true});
     return;
   }
-  var user;
-  db.collection('users').findOne({"username":username},async function(err, result) {
+
+  db.collection('users').findOne({"username":username},async function(err, user) {//find a user with name
     if (err) throw err;
-    if (result){
-      user = result;
-      var isPasswordMatch = await bcrypt.compare(plainTextPassword, user.password);
+    if (user){
+      var isPasswordMatch = await bcrypt.compare(plainTextPassword, user.password);//do passwords match
       if (isPasswordMatch){
-        logInUser(user, req)
+        logInUser(user, req)//log in
         res.redirect('/map');
         return;
       }
     }
-    res.render("pages/logIn", {loggedIn:req.session.loggedin, "wrongUsernameOrPass":true});
+    res.render("pages/logIn", {loggedIn:req.session.loggedin, "wrongUsernameOrPass":true});//if passwords dont match, complain
   })
 });
 
-app.post("/addMovieToMyStalks", function(req, res) {
-  if(!req.session.loggedin){return;}
-  if (!(req.body.movieId)){return;}
+app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to myStalks
+  if(!req.session.loggedin){return;}//return if the user is not logged in
+  if (!(req.body.movieId)){return;}//return if there is no movie id
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
-  db.collection('users').findOne({_id:o_id},function(err, result) {
+  db.collection('users').findOne({_id:o_id},function(err, result) {//find user
     if (err) throw err;
     var user = result;
-    var usersStalks = user.myStalks;
+    var usersStalks = user.myStalks;//get old stalks
     var newMovieId = req.body.movieId;
 
     if(!newMovieId){return;}
-    if(usersStalks.includes(newMovieId)){return};
+    if(usersStalks.includes(newMovieId)){return};//if the new movie exist. (should be possible. but why not be sure)
 
-    usersStalks.push(newMovieId);
-    var newMyStalks = {$set: {"myStalks": usersStalks}};
-    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
+    usersStalks.push(newMovieId);//add to list
+    var newMyStalks = {$set: {"myStalks": usersStalks}};//mongo format
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {//save
       if (err) throw err;
     })
-    console.log("added ", MovieId, "to myStalks on user: ", user.username)
+    console.log("added ", MovieId, "to myStalks on user: ", user.username);//log for testing
   })
 })
 
-app.post("/addLocationToVisited", function(req, res) {
-  if(!req.session.loggedin){return;}
+app.post("/addLocationToVisited", function(req, res) {//add a location to the user databse
+  if(!req.session.loggedin){return;}//return if they are not signed in
 
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
-  db.collection('users').findOne({_id:o_id},function(err, result) {
+  db.collection('users').findOne({_id:o_id},function(err, result) {//find the usr
     if (err) throw err;
     if (!result){return;}
+
+    //get location info
     var locationName = req.body.locationByName;
     var loactionLat = req.body.locationLat;
     var locationLong = req.body.locationLong;
     var location = [loactionLat, locationLong]
+    var MovieId = req.body.movieId;
+
     var user = result;
     var userslocations = user.locationsVisited;
-    var MovieId = req.body.movieId;
-    if(!Object.keys(userslocations).includes(MovieId)){
+    if(!Object.keys(userslocations).includes(MovieId)){//if the user hasnt visited any locations of the movie, initialize a array
       userslocations[MovieId] = [];
     };
-    var found = false;
+
+    var found = false;//check to see if it exists, should not be possible, but best to check
     userslocations[MovieId].forEach(location => {
       if (location.locationName == locationName){
+        console.log("location exist");
         found = true;
       }
     });
 
-    if (found){return;}
-    userslocations[MovieId].push({"locationName":locationName, "locationByLatLong":location});
-    var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
-    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
+    if (found){return;}//if it is found, return
+    userslocations[MovieId].push({"locationName":locationName, "locationByLatLong":location});//add it to the array
+    var newLocationsVisited = {$set: {"locationsVisited": userslocations}};//format to mongo 
+    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {//update
       if (err) throw err;
-      console.log("added ", locationName, " from ", MovieId, " on user: ", user.username)
+      console.log("added ", locationName, " from ", MovieId, " on user: ", user.username)//log for testing...... logs are very usefull
     })
   });
 })
