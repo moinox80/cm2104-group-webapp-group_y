@@ -124,6 +124,9 @@ class Movie {
 
         this.$movieTemplate.find(".form-check-input").click(this.changeVisibilityStateOnMap.bind(this));
         this.$movieTemplate.find(".mystalksbutton").click(this.toggleMyStalks.bind(this));
+        if (this.stalking){
+            this.$movieTemplate.find(".mystalksbutton").text("Remove from my stalks")
+        }
     }
 
     toggleMyStalks(){
