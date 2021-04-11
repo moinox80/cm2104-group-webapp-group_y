@@ -68,6 +68,18 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/map', (req, res) => {
+  if (req.session.loggedin){
+    var userid = req.session.userid;
+    var o_id = new ObjectId(userid);
+    db.collection('users').findOne({_id:o_id}, async function(err, result) {
+      if (err) throw err;
+      var userStalks = result.myStalks;
+      var locationsVisited = result.locationsVisited;
+      res.render("pages/map", {loggedIn:req.session.loggedin, movieIDsFromServer: userStalks});
+
+    })
+    return;
+  }
   res.render("pages/map", {loggedIn:req.session.loggedin});
 });
 
