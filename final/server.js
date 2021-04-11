@@ -265,116 +265,126 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
   });
 })
 
-app.post("/removeLocationFromVisited", function(req, res) {
-  if(!req.session.loggedin){return;}
+app.post("/removeLocationFromVisited", function(req, res) {//remove location from visited
+  if(!req.session.loggedin){return;}//return if user is not logged in
 
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
-  db.collection('users').findOne({_id:o_id},function(err, result) {
+  db.collection('users').findOne({_id:o_id},function(err, result) {//find user
     if (err) throw err;
     if (!result){return;}
+
     var locationName = req.body.locationByName;
+    var MovieId = req.body.movieId;
+
     var user = result;
     var userslocations = user.locationsVisited;
-    var MovieId = req.body.movieId;
-    if(!Object.keys(userslocations).includes(MovieId)){
+
+    if(!Object.keys(userslocations).includes(MovieId)){//if the user doesnt store any locations for the movie, return
       return;
     };
 
     var index = null;
     var i = 0;
-    while (i < userslocations[MovieId].size || index == null){
+    while (i < userslocations[MovieId].size || index == null){//find the index
       if (userslocations[MovieId][i].locationName == locationName){
         index = i;
       }
       i++;
     }
-    if (index == null){return;}
-    userslocations[MovieId].splice(index, 1);
+
+    if (index == null){return;}// guard clause if the index is null
+
+    userslocations[MovieId].splice(index, 1);//remove the location
     var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
-    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
+
+    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {//update
       if (err) throw err;
-      console.log("removed ", locationName, " from ", MovieId, " on user: ", user.username)
+      console.log("removed ", locationName, " from ", MovieId, " on user: ", user.username);//log
     })
   });
 })
 
-app.post("/doSetUpResetPassword", function(req, res){
-  console.log("doSetUpResetPassword");
+app.post("/doSetUpResetPassword", function(req, res){//sets up the reset password if the user clicks reset password. so store key and email key to user
+  console.log("doSetUpResetPassword");//log
+
   var username = req.body.username;
-  var user;
-  db.collection('users').findOne({"username":username}, async function(err, result) {
+
+  db.collection('users').findOne({"username":username}, async function(err, user) {//find user
     if (err) throw err;
-    if (result){
-      user = result;
-      console.log("doSetUpResetPassword found user\n",user.username)
-      var resetPasswordKey = await makeResetPasswordKey();
-      var resetPasswordKeyHashed = await bcrypt.hash(resetPasswordKey, 10)
+    if (user){//if user
+      console.log("doSetUpResetPassword found user\n",user.username);//log that it found the user
+      var resetPasswordKey = await makeResetPasswordKey();//generate random key
+      var resetPasswordKeyHashed = await bcrypt.hash(resetPasswordKey, 10);//hash the key
       var newresetPasswordKey = {$set: {"resetPasswordKey": resetPasswordKeyHashed}};
-      db.collection('users').updateOne({username:user.username},newresetPasswordKey,function(err, result) {
+      db.collection('users').updateOne({username:user.username},newresetPasswordKey,function(err, result) {//store the key
         if (err) throw err;
         console.log("set  resetPasswordKey");
       })
+      //set up email
       var email = baseResetPassEmail;
       email.to = user.email;
 
-      var fullUrlToReset = req.protocol + '://' + req.get('host') + "/resetPassword";
-      console.log(fullUrlToReset);
-      var params = "?username=" + user.username + "&resetkey=" + resetPasswordKey;
+      var fullUrlToReset = req.protocol + '://' + req.get('host') + "/resetPassword";//get the url to reset
+      console.log(fullUrlToReset);//log the url for testing
+      var params = "?username=" + user.username + "&resetkey=" + resetPasswordKey;//set the params for auto fill
       email.text = "reset password key for filmstalker: " + resetPasswordKey + "\n" + fullUrlToReset + params;
-      sendgrid.send(email);
-      console.log("sent reset password email")
+      sendgrid.send(email);//send
+      console.log("sent reset password email");
     }
   })
   res.redirect('/');
 })
 
-app.post("/doResetPassword", async function(req, res){
+app.post("/doResetPassword", async function(req, res){//do the password reset from email
   console.log("doResetPassword");
-  var username = req.body.username;
-  var newPassword = req.body.newpassword;
-  var resetPasswordKey = req.body.resetkey;
+  var username = req.body.username;//get the username
+  var newPassword = req.body.newpassword;//get the new pass
+  var resetPasswordKey = req.body.resetkey;// get the reset key
 
-  db.collection('users').findOne({"username":username}, async function(err, result) {
+  db.collection('users').findOne({"username":username}, async function(err, result) {//find the user
     if (err) throw err;
     if (!result){
-      res.render("pages/resetPassword", {wrongUserName: true, loggedIn: req.session.loggedin});
+      res.render("pages/resetPassword", {wrongUserName: true, loggedIn: req.session.loggedin});//if there is no user by name, render the page complaining
       return;};
+
     var user = result;
     if (!user.resetPasswordKey){
-      res.render("pages/resetPassword", {wasFakeKey: true, loggedIn: req.session.loggedin});
+      res.render("pages/resetPassword", {wasFakeKey: true, loggedIn: req.session.loggedin});//if the user has not requested a reset. complain
       return;
     }
-    if (await bcrypt.compare(resetPasswordKey, user.resetPasswordKey)){
-      const hashedPassword = await bcrypt.hash(newPassword, 10)
+    if (await bcrypt.compare(resetPasswordKey, user.resetPasswordKey)){//if the key is correct
+      const hashedPassword = await bcrypt.hash(newPassword, 10)//hash the new password
       var newHashed = {$set: {"password": hashedPassword}};
       var newPass = {$set: {"DELETEplaintextPasswordDELETEME": newPassword}};
-      db.collection('users').updateOne({username:user.username},newHashed,function(err, result) {
+      db.collection('users').updateOne({username:user.username},newHashed,function(err, result) {//store the new hashed password
         if (err) throw err;
         console.log("set  newHashed");
       })
-      db.collection('users').updateOne({username:user.username},newPass,function(err, result) {
+      db.collection('users').updateOne({username:user.username},newPass,function(err, result) {//store the plain text one
         if (err) throw err;
         console.log("set  newPassPlaintext");
       })
-      removeResetPasswordKey(user);
-      res.redirect("/");
+      removeResetPasswordKey(user);//remove the key
+      res.redirect("/");//redirect
       return;
     }
-    removeResetPasswordKey(user);
+
+    removeResetPasswordKey(user);//reset key even if it was wrong. i could also store a tracket and reset after 10 failed attempts. but......
     
     if (!(user.resetPasswordKey == resetPasswordKey)){
       console.log("fake key");
-      res.render("pages/resetPassword", {wasFakeKey: true, loggedIn: req.session.loggedin});
+      res.render("pages/resetPassword", {wasFakeKey: true, loggedIn: req.session.loggedin});//if the key is fake tell the user they are a lier.... in nice words....
     }
   })
 })
 
-app.post("/updateUserInfo", async function(req, res){
+app.post("/updateUserInfo", async function(req, res){//update user info.....sorry this func is long....but i only got used to the async stuff at the end
   if(!req.session.loggedin){return;}
 
-  var uncryptedPassword = req.body.password;
+  var uncryptedPassword = req.body.password;//get the plain text pass
 
+  //get new user info
   var newEmail = req.body.email;
   var newUsername = req.body.username;
   var newPostCode = req.body.postcode;
@@ -383,26 +393,28 @@ app.post("/updateUserInfo", async function(req, res){
 
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
-  db.collection('users').findOne({_id:o_id}, async function(err, user) {
+  db.collection('users').findOne({_id:o_id}, async function(err, user) {//find the user
     if (!user) return;
-    if (!uncryptedPassword){
-      console.log("no pass")
+    if (!uncryptedPassword){//if user did not enter pass complain
+      console.log("no pass");
       res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, falsePass:true});
       return;
     }
     var isPasswordMatch = await bcrypt.compare(uncryptedPassword, user.password);
-    if (!isPasswordMatch){
-      console.log("no match")
+    if (!isPasswordMatch){//if pass was fake complain
+      console.log("no match");
       res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, falsePass:true});
       return;
     }
 
-    if (await containsXSS([newEmail, newUsername, newPostCode])){
+    if (await containsXSS([newEmail, newUsername, newPostCode])){//checks for XSS
       console.log("XSS");
       res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, xssFound:true});
       return;
     }
 
+
+    //check if other users have same name of email
     var oldUserWithName = await db.collection('users').findOne({"username":newUsername});
 
     var oldUserWithEmail = await db.collection('users').findOne({"email":newEmail});
@@ -420,11 +432,13 @@ app.post("/updateUserInfo", async function(req, res){
       return;
     }
 
+    //check if email is valide
     if( newEmail && !(emailValidator.validate(newEmail))){
       res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode, falseEmail:true});
       return;
     }
 
+    //create the user info to update. if something was blank, dont update
     var newUserInfo = {};
 
     if (newEmail){
@@ -439,7 +453,7 @@ app.post("/updateUserInfo", async function(req, res){
       newUserInfo["postcode"] = newPostCode;
     }
 
-    if (newPass){
+    if (newPass){//set up new password.... hash and stuff
       var newPassMatchOld = await bcrypt.compare(newPass, user.password);
       console.log("match: ", newPassMatchOld)
       if (!newPassMatchOld){
@@ -449,9 +463,9 @@ app.post("/updateUserInfo", async function(req, res){
       }
     }
 
-    var toUpdate = {$set: newUserInfo};
+    var toUpdate = {$set: newUserInfo};//mongo format
     
-    db.collection('users').updateOne({_id:o_id},toUpdate,function(err, result) {
+    db.collection('users').updateOne({_id:o_id},toUpdate,function(err, result) {//and finally update
     if (err) throw err;
     console.log("updated user info");
     res.redirect("/map");
@@ -461,8 +475,9 @@ app.post("/updateUserInfo", async function(req, res){
   })
 })
 
+//usefull functions
 
-function removeResetPasswordKey(user){
+function removeResetPasswordKey(user){//removes the reset password key from a user
   var nullResetKey = {$set: {"resetPasswordKey": null}};
   db.collection('users').updateOne({username:user.username},nullResetKey,function(err, result) {
     if (err) throw err;
@@ -471,13 +486,13 @@ function removeResetPasswordKey(user){
 }
 
   
-function logInUser(user, req){
+function logInUser(user, req){//logs in user
   console.log("log user in ", user.username);
-  req.session.loggedin = true;
-  req.session.userid = user._id;
+  req.session.loggedin = true;//store logged in as true
+  req.session.userid = user._id;//store id
 }
 
-function logOutuser(req){
+function logOutuser(req){//log out user
   if(req.session.loggedin){
     req.session.userid = null;
     req.session.loggedin = false;
@@ -485,24 +500,28 @@ function logOutuser(req){
   }
 }
 
+//generate a random key
 async function makeResetPasswordKey() {//https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
-  var length = 25;
-  var result           = '';
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  var charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
-     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  var length = 25;//set length
+  var result           = '';//initialize
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';//available chars
+  var charactersLength = characters.length;//sets the available chars length
+  for ( var i = 0; i < length; i++ ) {// as many times as the length
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));//add a char
   }
-  return result;
+  return result;//return
 }
 
+//checks if array constains items with XSS
 async function containsXSS(list){
-  var foundXSS = false;
-  list.forEach(element => {
-    if (element != xssSanitizer(element)){
+  var foundXSS = false;//initialize as false
+  list.forEach(element => {//for every element
+    if (element != xssSanitizer(element)){//check if it is diferent to the when sanitized
       console.log("XSS in " + element);
       foundXSS = true;
     }
   })
   return foundXSS;
 }
+
+//thank you for reading
