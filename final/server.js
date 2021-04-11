@@ -49,7 +49,15 @@ app.get('/', (req, res) => {//render the index page
   res.render("pages/index");
 });
 
+<<<<<<< HEAD
 app.get('/about', (req, res) => {//render the about page
+=======
+app.get('/donate', (req, res) => {
+  res.render("pages/donate");
+});
+
+app.get('/about', (req, res) => {
+>>>>>>> Web3Testing
   res.render("pages/about");
 });
 
