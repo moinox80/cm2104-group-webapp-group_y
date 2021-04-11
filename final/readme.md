@@ -5,7 +5,7 @@
 --Email validation
 --Ensures there cant be multiple users with same name/email
 --stores password as hashed and salted
---can reset password using reset key and email(sendgrid)
+--can reset password using reset key and email(sendgrid) email usually goes to trach, and sometimes the handler ignores it completely so you might have to resend. in other words, no one trusts my email.
 
 
 -Site Usage
@@ -30,6 +30,7 @@
 --update add to my stalkes button if movie is already in my stalkes of database
 --get and display mystalks and locations from databse
 --404 page
+--make movies in myStalks colapsable
 
 
 -Possible stuff to add
