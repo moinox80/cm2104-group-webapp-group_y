@@ -91,6 +91,9 @@ app.get('/mystalks', async (req, res) => {
       res.send(html);
     });
   }
+  else{
+    res.render("pages/map", {loggedIn:req.session.loggedin});
+  }
 });
 
 app.get('/signup', (req, res) => {
