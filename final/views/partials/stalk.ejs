@@ -1,24 +1,22 @@
 <%
-function getResultsFromOMDBByID(movieID, callback) {
-  var url = "https://www.omdbapi.com/?apikey=7c3f362c&" + movieID;
-  axios.get(url).then(function (response) {
-    callback(JSON.parse(response.data));
-  }).catch(function (error) {
-    console.error(error);
-  });
+async function getResultsFromOMDBByID(movieID) {
+  var url = "https://www.omdbapi.com/?apikey=7c3f362c&i=" + movieID;
+  var response = await axios.get(url)
+  return(response.data)
 }
 %>
 
 <div class="movie-box">
-  <% getResultsFromOMDBByID(movie, function (movieRes) { %>
+
+  <%var movieRes =  await getResultsFromOMDBByID(movie); %>
   <div class="card-header">
     <div class="row movie-info">
       <div>
-        <h2 class="movie-title"><%= movieRes.name %></h2>
+        <h2 class="movie-title"><%= movieRes.Title %></h2>
       </div>
       <div>
         <ul class="movie-facts">
-          <li>Release year: <%= movieRes.year %></li>
+          <li>Release year: <%= movieRes.Year %></li>
           <li>Genres: <%= movieRes.Genre %></li>
           <li>Rating: <%= movieRes.Rated %></li>
         </ul>
@@ -32,7 +30,6 @@ function getResultsFromOMDBByID(movieID, callback) {
       </div>
     </div>
   </div>
-  <% }); %>
 
   <div class="card-body">
     <button data-toggle="collapse" data-target="#demo">
@@ -50,24 +47,22 @@ function getResultsFromOMDBByID(movieID, callback) {
         }
       };
 
-      axios.request(options).then(function (response) {
-        response.data.locations.forEach(function (location) { %>
+      var locationsResponse = await axios.request(options); %>
+
+      <% for (location of locationsResponse.data.locations){ %>
           <div>
             <div>
               <label class="form-check-label">
                 <input type="checkbox" class="form-check-input" value="">
-                <%= location %>
+                <%= location.location %>
               </label>
             </div>
             <div>
               <a class="see-on-map" href="../html/map.html?l=true">See on map</a>
             </div>
           </div>
-        <% })
-      }).catch(function (error) {
-        console.error(error);
-      });
-      %>
+        <% } %>
     </div> 
   </div>
+
 </div>

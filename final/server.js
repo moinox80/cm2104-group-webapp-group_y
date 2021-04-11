@@ -81,9 +81,7 @@ app.get('/mystalks', async (req, res) => {
     var o_id = new ObjectId(userid);
     db.collection('users').findOne({_id:o_id}, async function(err, result) {
       if (err) throw err;
-      console.log(result)
       var userStalks = result.myStalks;
-      console.log(userStalks);
       var html = await ejs.renderFile(
         "views/pages/mystalks.ejs",
         {loggedIn:req.session.loggedin, movies:userStalks, axios:axios},

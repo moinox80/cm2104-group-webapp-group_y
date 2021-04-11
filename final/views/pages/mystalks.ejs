@@ -38,9 +38,9 @@
   <h1><i class="material-icons">analytics</i>My Stalks</h1>
   <main>
     <div class="container">
-      <% movies.forEach(function(movie) { %>
-        <%- await include('../partials/stalk', {movie: movie}) %>
-      <% }) %>
+      <% for (var movie of movies){ %>
+        <%- await include('../partials/stalk', {movie: movie}, {async: true}) %>
+      <% } %>
     </div>
   </main>
 
