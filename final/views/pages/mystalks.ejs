@@ -34,17 +34,17 @@
 
   <!-- Add your site or application content here -->
 
-  <%- include('../partials/navApp') %>
+  <%- await include('../partials/navApp') %>
   <h1><i class="material-icons">analytics</i>My Stalks</h1>
   <main>
     <div class="container">
-      <% movies.forEach(movie => { %>
-        <%- include('../partials/stalk', {movie: movie}) %>
+      <% movies.forEach(function(movie) { %>
+        <%- await include('../partials/stalk', {movie: movie}) %>
       <% }) %>
     </div>
   </main>
 
-  <%- include('../partials/footer') %>
+  <%- await include('../partials/footer') %>
 
   <script src="../js/vendor/bootstrap.min.js"></script>
   <script src="..\js\vendor\modernizr-2.8.3-respond-1.4.2.min.js"></script>

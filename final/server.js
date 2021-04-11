@@ -8,7 +8,8 @@ const app = express();
 const fs = require ("fs");
 const bcrypt = require('bcrypt')
 const port = 8080;
-const axios = require("axios").default;
+const ejs = require('ejs');
+const axios = require('axios').default;
 
 // get a instance of sendgrid and set the API key
 const sendgrid = require('@sendgrid/mail');//https://mailslurp.medium.com/sending-emails-in-javascript-3-ways-to-send-and-test-emails-with-nodejs-8f3e5c3d0964
@@ -42,7 +43,6 @@ app.set('view engine', 'ejs');
 
 app.use(express.static('public'));
 
-
 app.get('/', (req, res) => {
   res.render("pages/index");
 });
@@ -75,16 +75,21 @@ app.get('/movie', (req, res) => {
   res.render("pages/movie", {loggedIn:req.session.loggedin});
 });
 
-app.get('/mystalks', (req, res) => {
+app.get('/mystalks', async (req, res) => {
   if (req.session.loggedin) {
     var userid = req.session.userid;
     var o_id = new ObjectId(userid);
-    db.collection('users').findOne({_id:o_id},function(err, result) {
+    db.collection('users').findOne({_id:o_id}, async function(err, result) {
       if (err) throw err;
       console.log(result)
       var userStalks = result.myStalks;
       console.log(userStalks);
-      res.render("pages/mystalks", {loggedIn:req.session.loggedin, movies:userStalks, axios:axios});
+      var html = await ejs.renderFile(
+        "views/pages/mystalks.ejs",
+        {loggedIn:req.session.loggedin, movies:userStalks, axios:axios},
+        {async:true}
+      );
+      res.send(html);
     });
   }
 });

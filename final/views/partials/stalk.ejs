@@ -1,3 +1,14 @@
+<%
+function getResultsFromOMDBByID(movieID, callback) {
+  var url = "https://www.omdbapi.com/?apikey=7c3f362c&" + movieID;
+  axios.get(url).then(function (response) {
+    callback(JSON.parse(response.data));
+  }).catch(function (error) {
+    console.error(error);
+  });
+}
+%>
+
 <div class="movie-box">
   <% getResultsFromOMDBByID(movie, function (movieRes) { %>
   <div class="card-header">
@@ -40,7 +51,7 @@
       };
 
       axios.request(options).then(function (response) {
-        response.data.locations.forEach(location => { %>
+        response.data.locations.forEach(function (location) { %>
           <div>
             <div>
               <label class="form-check-label">
@@ -60,15 +71,3 @@
     </div> 
   </div>
 </div>
-
-<%
-function getResultsFromOMDBByID(movieID, callback){
-  axios.get(
-    "https://www.omdbapi.com/?apikey=7c3f362c&" + "movieID"
-  ).then(response => {
-    callback(JSON.parse(response.data));
-  }).catch(error => {
-    //console.error(error);
-  });
-}
-%>
