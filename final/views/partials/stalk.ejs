@@ -51,10 +51,11 @@ async function getResultsFromOMDBByID(movieID) {
 
       <% for (location of locationsResponse.data.locations){ 
         var newLocationVisited = false;
-        for (locationVisited of locationsVisitedOfMovie){
-          if (location.location === locationVisited.locationName){
-            newLocationVisited = true;
-          }
+        if (locationsVisitedOfMovie && locationsVisitedOfMovie.length > 0)
+          for (locationVisited of locationsVisitedOfMovie){
+            if (location.location === locationVisited.locationName){
+              newLocationVisited = true;
+            }
         }
         
         %>
