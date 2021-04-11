@@ -4,11 +4,11 @@
     border:1px orange;
     background-image: linear-gradient(to right, orange, pink);
     border-radius: 50px;
-    position: relative;
+    position:relative;
     outline: none; 
     transition:1s;
-    position:absolute;
-    margin:auto;
+    margin-top: px;
+    
     
 }
 #Metamask-button-box:hover{
@@ -31,20 +31,18 @@ p {
     
 }
 
-img {
+#Metamask-button-box img {
     float:right;
     height: 43px;
     margin-right:10%;
 }
-.Form-container{
-    text-align:center;
-}
+
 #ethInput{
-    height: 35px;
-    margin: auto;
+    height: 50px;
     font-size:20px;
-    width:60px;
+    width: 250px;
     outline: none;
+    text-align:center;
     
        
     
@@ -53,6 +51,7 @@ img {
      border-image-source: linear-gradient(to right, pink, orange);
      border-width: 2px;
      border-image-slice: 1;
+    
 }
 
 #connected-circle{
@@ -63,3 +62,46 @@ img {
   border-radius: 50%;
   display: inline-block;
 }
+.connectMetamask{
+    height: 45px;
+    width: 175px;
+    color: black;
+    border:1px solid black;
+    background-color: rgb(179, 176, 176) ;
+    border-radius: 50px;
+    outline:none;
+    
+}
+
+#Title{
+    text-align:center;
+}
+#Donate-wrapper {
+    margin-top: 10px;
+    text-align:center;
+}
+.Form-container{
+  text-align:center;  
+}
+#input-container{
+  text-align:center;
+  margin-top: 80px;
+}
+.showAccount{
+    padding: 10px;
+    border: 1px solid black;
+    font-weight:normal;
+    border-radius: 20px;
+    margin-top:20px;
+}
+main{
+    position: relative;
+    margin: 0 auto;
+    bottom: 60%;
+    margin-bottom: 100px;
+    
+    
+}
+
+
+

@@ -12,11 +12,15 @@
     <meta charset="UTF-8">
   <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js@1.0.0-beta.36/dist/web3.min.js" integrity="sha256-nWBTbvxhJgjslRyuAKJHK+XcZPlCnmIAAMixz6EefVk=" crossorigin="anonymous"></script>
-</head>
-  
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+   
+    </head>
+ 
 <body>
+    <%- include('../partials/navHome') %> 
+    <main>
+        
     <div id="Title">
        <h1>Help us sustain the platform with a kindful donation</h1> 
     </div>
@@ -24,96 +28,24 @@
     <div class="Form-container">
         <div id="account-status">
            <h3>Account:  <span class="showAccount">None</span></h3><span id=connected-circle></span> 
+           <button class="connectMetamask btn">Connect Metamask</button>
         </div>
+    </div>
         
     
+<div id="input-container">
+    <input type="text" id="ethInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+    </div>
 
-<button class="connectMetamask btn">Connect Metamask</button>
     <div id="Donate-wrapper">
-        
-        <input type="text" id="ethInput" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
-        
+            
          <button id="Metamask-button-box">
-        <p>Donate us </p>
+            <p>Donate us </p>
         <img src="../img/metamaskpng.png">
         </button>
      </div>
-   
- </div>
+   </main>
+    <%- include('../partials/footer') %> 
 </body>
-  <script type="text/javascript"> 
-    var web3 = new Web3(Web3.givenProvider || "ws://localhost:8545");
- 
-    const connectButton = document.querySelector('.connectMetamask');
-    const sendEthButton = document.querySelector('#Metamask-button-box');
-    const showAccount = document.querySelector('.showAccount');
-    let ethAmount = '';
-    let accounts = [];
-    let account = "";
-      
-connectButton.addEventListener('click', () => {
-  getAccount();
-});
-
-//Sending Ethereum to an address
-sendEthButton.addEventListener('click', () => {
-    getValue();
-    sendTx(); 
-});
-
-
-async function sendTx(){
-    ethereum
-    .request({
-      
-      method: 'eth_sendTransaction',
-      params: [
-        {
-          from: account,
-          to: '0x78b5Be40d3E247037dBB61f9c2A0b8aa0A676547',
-          value: ethAmount,
-          gasPrice: '0x09184e72a000',
-          gas: '0x2710',
-        },
-      ],
-    })
-    .then((txHash) => console.log(txHash))
-    .catch((error) => console.error);
-}
-//Get account from metamask
-async function getAccount() {
-  accounts = await ethereum.request({ method: 'eth_requestAccounts' });
-  account = accounts[0];
-  showAccount.innerHTML = account;
-  changeCircle();
-}
-//Gets the user input value
-async function getValue() {
-    let userInput = String(document.getElementById('ethInput').value);
-    ethAmount ='0x' + parseInt(web3.utils.toWei( userInput, 'ether')).toString(16);
-    console.log(userInput);
-    console.log(ethAmount);
-}
-//Check if web3 and metamask are installed    
-sendEthButton.addEventListener('click', function() {
-  if (typeof web3 !== 'undefined') {
-    console.log('web3 is enabled')
-    if (web3.currentProvider.isMetaMask === true) {
-      console.log('MetaMask is active')
-    } else {
-      console.log('MetaMask is not available')
-      var a = window.open('https://metamask.io/','_blank');
-    }
-  } else {
-    console.log('web3 is not found, please do npm install web3')
-  }
-})
-   
-function changeCircle(){
-    if(accounts.length > 0){
-       document.getElementById('connected-circle').style.backgroundColor='rgb(51, 204, 51)';
-          }
-}
-      
-  </script>    
+ <script src="../js/DonatePage/donate.js"></script>
 </html>
