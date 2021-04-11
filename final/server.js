@@ -1,16 +1,20 @@
-const MongoClient = require('mongodb').MongoClient; //npm install mongodb@2.2.32
 const express = require('express');
-const url = "mongodb://127.0.0.1:27017/filmStalker";
-const ObjectId = require('mongodb').ObjectId; 
-const bodyParser = require('body-parser');
-const session = require('express-session');
 const app = express();
-const fs = require ("fs");
-const bcrypt = require('bcrypt')
-var xssSanitizer = require("xss");
-var emailValidator = require("email-validator");
+
+const MongoClient = require('mongodb').MongoClient; //npm install mongodb@2.2.32 //mongo db is for the databse managment
+const url = "mongodb://127.0.0.1:27017/filmStalker";//url to the databse
+const ObjectId = require('mongodb').ObjectId;//used to get the object id from mongo
+
+const bodyParser = require('body-parser');
+const session = require('express-session');//used to store information in the session such as logged in and user id
+
+const bcrypt = require('bcrypt');//used for password hashing and salting
+var xssSanitizer = require("xss");//used to ensure no xss is in user input (email, name and postcode)
+var emailValidator = require("email-validator");//used to ensure user email is correct
+
 const port = 8080;
 
+//send grid is used to send an email to the user, standard email is used to send the user a key that can be used to reset their passowrd if they forgot
 // get a instance of sendgrid and set the API key
 const sendgrid = require('@sendgrid/mail');//https://mailslurp.medium.com/sending-emails-in-javascript-3-ways-to-send-and-test-emails-with-nodejs-8f3e5c3d0964
 sendgrid.setApiKey("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");// construct an email
@@ -21,45 +25,45 @@ var baseResetPassEmail = {
   text: null,
 };// send the email via sendgrid
 
-var db
+var db; //initalize the database variable
 
-var logInLink = "<a href='/logIn' <li>Log&nbsp;In</li> </a>"
-var logOutLink = "<a href='/logOut' <li>Log&nbsp;Out</li> </a>"
-
-MongoClient.connect(url, function(err, database) {
+MongoClient.connect(url, function(err, database) {//start the server
   if (err) throw err;
-  db = database;
-  app.listen(port);
-  console.log('listening on: ', port);
+  db = database;//set database
+  app.listen(port);//listen
+  console.log('listening on: ', port);//log
 });
 
-app.use(session({ secret: 'example' }));
+app.use(session({ secret: 'example' }));//enables session storage
 
 app.use(bodyParser.urlencoded({
   extended: true
 }))
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs');//use ejs
 
-app.use(express.static('public'));
+app.use(express.static('public'));//use public
 
 
-app.get('/', (req, res) => {
+app.get('/', (req, res) => {//render the index page
   res.render("pages/index");
 });
 
-app.get('/about', (req, res) => {
+app.get('/about', (req, res) => {//render the about page
   res.render("pages/about");
 });
 
-app.get('/account', (req, res) => {
-  if(!req.session.loggedin){return;}
+app.get('/account', (req, res) => {//render the account page
+  if(!req.session.loggedin){//redirect to the signup page if the user is not logged in
+    res.redirect('signup');
+    return;
+  }
 
-  var userid = req.session.userid;
-  var o_id = new ObjectId(userid);
-  db.collection('users').findOne({_id:o_id},function(err, user) {
-    if (!user) return;
-    res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode});
+  var userid = req.session.userid;//get user id
+  var o_id = new ObjectId(userid);//turn user id into mongo id
+  db.collection('users').findOne({_id:o_id},function(err, user) {//find the user
+    if (!user) return;//if there is an error return
+    res.render("pages/account", {loggedIn:req.session.loggedin, email: user.email, username: user.username, postalCode: user.postcode});//send the acount page
   })
 });
 
