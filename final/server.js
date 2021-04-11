@@ -200,6 +200,31 @@ app.post("/addMovieToMyStalks", function(req, res) {
   })
 })
 
+app.post("/removeMovieToMyStalks", function(req, res) {
+  if(!req.session.loggedin){return;}
+  var userid = req.session.userid;
+  var o_id = new ObjectId(userid);
+  db.collection('users').findOne({_id:o_id},function(err, result) {
+    if (err) throw err;
+    var user = result;
+    var usersStalks = user.myStalks;
+    var movieIdToRemove = req.body.movieId;
+
+    if(!movieIdToRemove){return;}
+    if(!(usersStalks.includes(movieIdToRemove))){return;}
+
+    console.log(usersStalks)
+    var index = usersStalks.indexOf(movieIdToRemove)
+    usersStalks.splice(index, 1);
+    console.log(usersStalks)
+    var newMyStalks = {$set: {"myStalks": usersStalks}};
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
+      if (err) throw err;
+    });
+    console.log("removed ", movieIdToRemove, "to myStalks on user: ", user.username);
+  })
+})
+
 app.post("/addLocationToVisited", function(req, res) {
   if(!req.session.loggedin){return;}
 
