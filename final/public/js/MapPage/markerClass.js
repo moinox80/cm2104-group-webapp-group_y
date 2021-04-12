@@ -7,7 +7,7 @@ var numberOfMarkers = 0;
 var  buttonMap = {};
 
 class Marker{
-    constructor(position, label, icon, movie, parent){
+    constructor(position, label, icon, movie, parent, seenFromServer = false){
         this.markerID = makeMarkerID();
         buttonMap[this.markerID] = this;
         this.position = position;
@@ -17,6 +17,9 @@ class Marker{
         this.icon = icon;
         this.createMarker();
         this.addToMap();
+        if (seenFromServer){
+            markerToggleVisistedButtonClicked(this.markerID, true);
+        }
     }
     
     createMarker(){
@@ -56,11 +59,13 @@ function makeMarkerID(){
     return ++numberOfMarkers;
 }
 
-function markerToggleVisistedButtonClicked(markerID){//when visited button is clicked, change visited status to the opposite of the current.
+function markerToggleVisistedButtonClicked(markerID, isFromServer = false){//when visited button is clicked, change visited status to the opposite of the current.
     var marker = buttonMap[markerID];
     marker.parent.visited = !marker.parent.visited;
     marker.creatMarkerPopUp();
-    sendLocationVisitedToServer(marker, marker.parent.visited);
+    if (!isFromServer){
+        sendLocationVisitedToServer(marker, marker.parent.visited);
+    }
 }
 
 

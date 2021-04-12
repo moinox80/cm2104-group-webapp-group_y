@@ -6,7 +6,7 @@
 var movies = [];
 
 class Movie {
-    constructor(movieDeatilsOMDB, alreadyStalking, locationsSeen) {
+    constructor(movieDeatilsOMDB, alreadyStalking, locationsSeenFromServer = null) {
         this.OMDBData = movieDeatilsOMDB;
         this.name = this.OMDBData.Title;
         this.imdbID = this.OMDBData.imdbID;
@@ -15,6 +15,7 @@ class Movie {
         this.filmingLocationsMarkers = [];
         this.filmingLocationsByNameAndLatLong = [];
         this.stalking = alreadyStalking;
+        this.locationsSeenFromServer = locationsSeenFromServer;
         getFilmingLocationsOf(this.setUpFilmingLocationsForTheFirstTime.bind(this), this.imdbID, this); //uses imdb which has max 500 call requests per month
         // this.testFakeAddress();// acts as getFilmingLocationsOf
         this.visibleOnMap = true;
@@ -41,7 +42,11 @@ class Movie {
 
     setUpFilmingLocations(locationsByName) {
         locationsByName.forEach(locationByName => {
-            new FilmingLocation(this, locationByName);
+            var seen = false;
+            if (!(typeof this.locationsSeenFromServer == 'undefined' || this.locationsSeenFromServer == null || this.locationsSeenFromServer.length == 0)){
+                seen = this.locationsSeenFromServer.includes(locationByName)
+            }
+            new FilmingLocation(this, locationByName, seen);
         });
     }
 
