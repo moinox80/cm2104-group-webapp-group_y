@@ -283,6 +283,7 @@ app.post("/addLocationToVisited", function(req, res) {
 })
 
 app.post("/removeLocationFromVisited", function(req, res) {
+  console.log("checking to remove location")
   if(!req.session.loggedin){return;}
 
   var userid = req.session.userid;
@@ -295,18 +296,24 @@ app.post("/removeLocationFromVisited", function(req, res) {
     var userStalks = user.myStalks;
     var imdbID = req.body.movieId;
 
-    if(!Object.keys(userLocations).includes(imdbID)){
-      return;
-    };
-
-    userStalks.forEach(stalk => {
-      if (stalk.imdbID === imdbID) {
-        var locationIndex = stalk.locationsVisited.indexOf(locationName);
-        stalk.locationsVisited.splice(locationIndex);
-        stalk.locationsVisitedLatLong.splice(locationIndex);
+    var locationIndex = -1;
+    var stalk;
+    var stalkIndex;
+    var index = 0;
+    
+    while (index < userStalks.length && locationIndex  == -1){
+      var stalk = userStalks[index];
+      if (stalk.imdbID === imdbID){
+        stalkIndex = index;
+        locationIndex = stalk.locationsVisited.indexOf(locationName);
       }
-    });
+      index++;
+    }
 
+    if (locationIndex == -1) return;
+
+    stalk.locationsVisited.splice(locationIndex);
+    userStalks[stalkIndex] = stalk
     /*
     var index = null;
     var i = 0;
