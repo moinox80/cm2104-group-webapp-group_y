@@ -85,7 +85,7 @@ app.get('/mystalks', async (req, res) => {
       var locationsVisited = result.locationsVisited;
       var html = await ejs.renderFile(
         "views/pages/mystalks.ejs",
-        {loggedIn:req.session.loggedin, movies:userStalks, "locationsVisited": locationsVisited, axios:axios},
+        {loggedIn:req.session.loggedin, userStalks:userStalks, locationsVisited: locationsVisited, axios:axios},
         {async:true}
       );
       res.send(html);
@@ -176,14 +176,14 @@ app.post("/addMovieToMyStalks", function(req, res) {
   db.collection('users').findOne({_id:o_id},function(err, result) {
     if (err) throw err;
     var user = result;
-    var usersStalks = user.myStalks;
-    var newMovieId = req.body.movieId;
+    var userStalks = user.myStalks;
+    var newMovieId = {"imdbID": req.body.movieId, "locationsVisited": []};
 
     if(!newMovieId){return;}
-    if(usersStalks.includes(newMovieId)){return;}
+    if(userStalks.includes(newMovieId)){return;}
 
-    usersStalks.push(newMovieId);
-    var newMyStalks = {$set: {"myStalks": usersStalks}};
+    userStalks.push(newMovieId);
+    var newMyStalks = {$set: {"myStalks": userStalks}};
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
     });

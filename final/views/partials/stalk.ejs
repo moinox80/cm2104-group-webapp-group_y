@@ -8,7 +8,7 @@ async function getResultsFromOMDBByID(movieID) {
 
 <div class="movie-box">
 
-  <%var movieRes =  await getResultsFromOMDBByID(movie); %>
+  <%var movieRes = await getResultsFromOMDBByID(movie.imdbID); %>
   <div class="card-header">
     <div class="row movie-info">
       <div>
@@ -40,7 +40,7 @@ async function getResultsFromOMDBByID(movieID) {
       var options = {
         method: 'GET',
         url: 'https://imdb8.p.rapidapi.com/title/get-filming-locations',
-        params: {tconst: movie},
+        params: {tconst: movie.imdbID},
         headers: {
           'x-rapidapi-key': 'a9eb244cd4msh1023a1ad25868ebp174b04jsn1fa8197ee780',
           'x-rapidapi-host': 'imdb8.p.rapidapi.com'
@@ -49,28 +49,28 @@ async function getResultsFromOMDBByID(movieID) {
 
       var locationsResponse = await axios.request(options); %>
 
-      <% for (location of locationsResponse.data.locations){ 
+      <% for (location of locationsResponse.data.locations) {
         var newLocationVisited = false;
-        if (locationsVisitedOfMovie && locationsVisitedOfMovie.length > 0)
-          for (locationVisited of locationsVisitedOfMovie){
-            if (location.location === locationVisited.locationName){
+        if (stalk.locationsVisited && stalk.locationsVisited.length > 0) {
+          for (locationVisited of stalk.locationsVisited) {
+            if (location.location === locationVisited) {
               newLocationVisited = true;
             }
+          }
         }
-        
         %>
+        <div>
           <div>
-            <div>
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" disabled value="" <% if(newLocationVisited){ %> checked <%}%>>
-                <%= location.location %>
-              </label>
-            </div>
-            <div>
-              <a class="see-on-map" href="map?l=true">See on map</a>
-            </div>
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" disabled value="" <% if (newLocationVisited) { %> checked <%}%>>
+              <%= location.location %>
+            </label>
           </div>
-        <% } %>
+          <div>
+            <a class="see-on-map" href="map?l=true">See on map</a>
+          </div>
+        </div>
+      <% } %>
     </div> 
   </div>
 
