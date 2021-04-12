@@ -237,7 +237,7 @@ app.post('/dologin', async function(req, res) {//to log in user
 });
 
 app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to myStalks
-  if(!req.session.loggedin){return console.log("not logged in");}//return if the user is not logged in
+  if(!req.session.loggedin){console.log("not logged in"); return;}//return if the user is not logged in
   if (!(req.body.movieId)){return;}//return if there is no movie id
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
@@ -276,7 +276,10 @@ app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to my
 })
 
 app.post("/removeMovieFromMyStalks", function(req, res) {
-  if(!req.session.loggedin) return;
+  if(!req.session.loggedin){
+    console.log("user not logged in")
+    return;
+  }
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
   db.collection('users').findOne({_id:o_id},function(err, result) {
@@ -305,7 +308,7 @@ app.post("/removeMovieFromMyStalks", function(req, res) {
 })
 
 app.post("/addLocationToVisited", function(req, res) {//add a location to the user databse
-  if(!req.session.loggedin){return;}//return if they are not signed in
+  if(!req.session.loggedin){console.log("user no logged in"); return;}//return if they are not signed in
 
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
@@ -321,7 +324,10 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
 
     userStalks.forEach(stalk => {
       if (stalk.imdbID === imdbID) {
-        if (stalk.locationsVisited.includes(locationName)) return;
+        if (stalk.locationsVisited.includes(locationName)) {
+          console.log("locations has been saved");
+          return;
+        }
         stalk.locationsVisited.push(locationName);
       }
     });
@@ -337,7 +343,7 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
 
 app.post("/removeLocationFromVisited", function(req, res) {//remove location from visited
   console.log("checking to remove location")
-  if(!req.session.loggedin){return;}//return if user is not logged in
+  if(!req.session.loggedin){console.log("user not logged in"); return;}//return if user is not logged in
 
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);

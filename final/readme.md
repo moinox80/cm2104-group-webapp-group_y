@@ -95,6 +95,7 @@ Basic description : A site to track and mark movie filming locations, by display
 
 -Possible stuff to add
 --check that JS is enabled
+--save map and movie state when you log in (so dont remove all the movies when a user logs in and maybe send the ones they have added to the server)
 
 
 -Extra info
