@@ -610,8 +610,8 @@ async function containsXSS(list){
 
 
 //404
-app.get('/error', function(req, res){
-  res.send('pages/error', 404);
+app.get('*', function(req, res){
+  res.status(404).render('pages/error');
 });
 
 //thank you for reading
