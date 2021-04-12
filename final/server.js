@@ -247,20 +247,14 @@ app.post("/addLocationToVisited", function(req, res) {
     if (err) throw err;
     if (!result){return;}
     var locationName = req.body.locationByName;
-    var loactionLat = req.body.locationLat;
-    var locationLong = req.body.locationLong;
-    var location = [loactionLat, locationLong];
     var user = result;
     var userStalks = user.myStalks;
-    var userLocations = user.myStalks.locationsVisited;
     var imdbID = req.body.movieId;
 
     userStalks.forEach(stalk => {
       if (stalk.imdbID === imdbID) {
-        if (stalk.locationsVisited.includes(locationName))
-        {return;}
+        if (stalk.locationsVisited.includes(locationName)) return;
         stalk.locationsVisited.push(locationName);
-        stalk.locationsVisitedLatLong.push(location);
       }
     });
     
