@@ -38,7 +38,7 @@
   <h1><i class="material-icons">analytics</i>My Stalks</h1>
   <main>
     <div class="container">
-      <% for (var stalk of userStalks){  %>
+      <% for (var stalk of userStalks){ %>
         <%- await include('../partials/stalk', {stalk: stalk}, {async: true}) %>
       <% } %>
     </div>
