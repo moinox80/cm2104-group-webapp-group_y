@@ -75,7 +75,7 @@ app.get('/map', (req, res) => {
       if (err) throw err;
       var userStalks = result.myStalks;
       var locationsVisited = result.locationsVisited;
-      res.render("pages/map", {loggedIn:req.session.loggedin, movieIDsFromServer: userStalks});
+      res.render("pages/map", {loggedIn:req.session.loggedin, stalksFromServer: userStalks});
 
     })
     return;
@@ -204,23 +204,27 @@ app.post("/addMovieToMyStalks", function(req, res) {
 })
 
 app.post("/removeMovieToMyStalks", function(req, res) {
-  if(!req.session.loggedin){return;}
+  if (!req.session.loggedin) return;
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
   db.collection('users').findOne({_id:o_id},function(err, result) {
     if (err) throw err;
     var user = result;
-    var usersStalks = user.myStalks;
+    var userStalks = user.myStalks;
     var movieIdToRemove = req.body.movieId;
 
-    if(!movieIdToRemove){return;}
-    if(!(usersStalks.includes(movieIdToRemove))){return;}
+    if (!movieIdToRemove) return;
 
-    console.log(usersStalks)
-    var index = usersStalks.indexOf(movieIdToRemove)
-    usersStalks.splice(index, 1);
-    console.log(usersStalks)
-    var newMyStalks = {$set: {"myStalks": usersStalks}};
+    var index = -1;
+    userStalks.forEach((stalk, stalkIndex) => {
+      if (stalk.imdbID === movieIDToRemove) {
+        index = stalkIndex;
+      }
+    });
+    if (index === -1) return;
+
+    userStalks.splice(index, 1);
+    var newMyStalks = {$set: {"myStalks": userStalks}};
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
     });
