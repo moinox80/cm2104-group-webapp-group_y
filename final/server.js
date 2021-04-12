@@ -131,7 +131,6 @@ app.post('/adduser', async function(req, res) {
     "DELETEplaintextPasswordDELETEME" : uncryptedPassword,
     "postcode" : req.body.postcode,
     "myStalks" : [],
-    "locationsVisited" : {},
     "resetPasswordKey" : null
   };
 
@@ -300,7 +299,7 @@ app.post("/removeLocationFromVisited", function(req, res) {
     var stalk;
     var stalkIndex;
     var index = 0;
-    
+
     while (index < userStalks.length && locationIndex  == -1){
       var stalk = userStalks[index];
       if (stalk.imdbID === imdbID){
