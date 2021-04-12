@@ -19,7 +19,7 @@
     margin:0;
 }
 #computer-wrapper {
-    background-image: url(./img/computer.png);
+    background-image: url(../img/computer.png);
     position: relative;
     background-position: center;
     background-size: 195px;
