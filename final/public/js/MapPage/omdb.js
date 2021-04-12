@@ -15,12 +15,12 @@ function getResultsFromOMDBByName(movieName, callback){
     });
 };
 
-function getResultsFromOMDBByID(movieID, callback){
+function getResultsFromOMDBByID(movieID, callback, alreadyStalking = false, locationsSeen = null){
     var url = baseURL + "i=" + movieID;
     
     $.getJSON(url, function(jsondata){
         if(jsondata && jsondata.imdbID){
-            callback(jsondata);
+            callback(jsondata, alreadyStalking, locationsSeen);
         };
     });
 };
