@@ -1,0 +1,44 @@
+
+#wrapper-404{
+   margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+    
+}
+#wrapper-404-title {
+    text-align:center;
+    font-family: 'Dela Gothic One', cursive;
+    font-size: 120px;
+    margin:0;
+}
+
+#wrapper-404-message{
+    font-family: 'Dela Gothic One', cursive;
+    margin:0;
+}
+#wrapper-404 img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+}
+
+#error-button-wrappers a{
+  bottom: 0;
+  right: 0;
+  transition: 1s;
+  border: 1px solid;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+}
+#error-button-wrappers a:hover {
+   opacity:0.5;
+}
+#error-button-wrappers{
+    margin-top:12px;
+}
