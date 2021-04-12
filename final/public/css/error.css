@@ -1,4 +1,3 @@
-
 #wrapper-404{
    margin: 0;
   position: absolute;
@@ -19,12 +18,48 @@
     font-family: 'Dela Gothic One', cursive;
     margin:0;
 }
-#wrapper-404 img{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 40%;
+#computer-wrapper {
+    background-image: url(computer.png);
+    position: relative;
+    background-position: center;
+    background-size: 195px;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 200px;
 }
+@-webkit-keyframes faceAnimation {
+     0% {opacity: 0;}
+   8.33% {opacity: 1;}
+  16.66% {opacity: 0;}
+
+     25% {opacity: 0;}
+  33.32% {opacity: 1;}
+  41.65% {opacity: 0;}
+
+     50% {opacity: 0;}
+  58.31% {opacity: 1;}
+  66.64% {opacity: 0;}
+
+     75% {opacity: 0;}
+   83.3% {opacity: 1;}
+  91.63% {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+#computer-wrapper #computer-face-img{
+    position:absolute;
+    display:block;
+    top: 20%;
+    margin:auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    -webkit-animation: faceAnimation 3.5s  infinite;
+    -moz-animation: faceAnimation 3.5s  infinite;
+    -o-animation: faceAnimation 3.5s  infinite;
+    
+}
+
 
 #error-button-wrappers a{
   bottom: 0;
