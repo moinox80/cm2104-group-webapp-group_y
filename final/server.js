@@ -189,21 +189,27 @@ app.post("/addMovieToMyStalks", function(req, res) {
     if (err) throw err;
     var user = result;
     var userStalks = user.myStalks;
-    var newMovieId = {"imdbID": req.body.movieId, "locationsVisited": []};
+    var newMovieID = req.body.movieId;
+    var newMovieObject = {"imdbID": req.body.movieId, "locationsVisited": []};
 
-    if(!newMovieId){return;}
-    if(userStalks.includes(newMovieId)){return;}
+    if(!newMovieID){return;}
+    for (movieObject of userStalks){
+      if (movieObject.imdbID == newMovieID){
+        console.log("movie already exists");
+        return;
+      }
+    }
 
-    userStalks.push(newMovieId);
+    userStalks.push(newMovieObject);
     var newMyStalks = {$set: {"myStalks": userStalks}};
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
     });
-    console.log("added ", newMovieId, "to myStalks on user: ", user.username);
+    console.log("added ", newMovieID, "to myStalks on user: ", user.username);
   })
 })
 
-app.post("/removeMovieToMyStalks", function(req, res) {
+app.post("/removeMovieFromMyStalks", function(req, res) {
   if(!req.session.loggedin) return;
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
@@ -212,12 +218,14 @@ app.post("/removeMovieToMyStalks", function(req, res) {
     var user = result;
     var userStalks = user.myStalks;
     var movieIdToRemove = req.body.movieId;
+    console.log(req.body)
+    console.log(movieIdToRemove)
 
     if (!movieIdToRemove) return;
 
     var index = -1;
     userStalks.forEach((stalk, stalkIndex) => {
-      if (stalk.imdbID === movieIDToRemove) {
+      if (stalk.imdbID === movieIdToRemove) {
         index = stalkIndex;
       }
     });

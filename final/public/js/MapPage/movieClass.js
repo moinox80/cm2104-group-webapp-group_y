@@ -178,7 +178,7 @@ class Movie {
             xhr.send(body);
         }
         
-        requestUtils('post', '/removeMovieToMyStalks', 'movieId=' + this.imdbID);
+        requestUtils('post', '/removeMovieFromMyStalks', 'movieId=' + this.imdbID);
     }
 }
 
