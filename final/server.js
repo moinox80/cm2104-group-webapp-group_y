@@ -51,11 +51,15 @@ app.get('/', (req, res) => {//render the index page
   res.render("pages/index");
 });
 
+app.get('/error', (req, res) => {//render error page
+  res.render("pages/error");
+});
+
 app.get('/about', (req, res) => {//render the about page
   res.render("pages/about");
   });
 
-app.get('/donate', (req, res) => {
+app.get('/donate', (req, res) => {//render donate page
   res.render("pages/donate");
 });
 
