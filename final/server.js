@@ -61,7 +61,7 @@ app.get('/donate', (req, res) => {
 
 app.get('/account', (req, res) => {//render the account page
   if(!req.session.loggedin){//redirect to the signup page if the user is not logged in
-    res.redirect('signup');
+    res.redirect('login');
     return;
   }
 
