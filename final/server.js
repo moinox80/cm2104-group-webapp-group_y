@@ -218,8 +218,6 @@ app.post("/removeMovieFromMyStalks", function(req, res) {
     var user = result;
     var userStalks = user.myStalks;
     var movieIdToRemove = req.body.movieId;
-    console.log(req.body)
-    console.log(movieIdToRemove)
 
     if (!movieIdToRemove) return;
 
