@@ -251,19 +251,18 @@ app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to my
     var userStalks = user.myStalks;
     var newMovieID = req.body.movieId;
     var filmingLocations = req.body.locationsVisited
-    console.log(filmingLocations)
     if (filmingLocations){
-      filmingLocations = filmingLocations.split("//,");
+      filmingLocations = filmingLocations.split("//,");//split the locations into an array
       var lastIndex = filmingLocations.length - 1;
-      filmingLocations[lastIndex] = filmingLocations[lastIndex].substring(0, filmingLocations[lastIndex].length - 2);
+      filmingLocations[lastIndex] = filmingLocations[lastIndex].substring(0, filmingLocations[lastIndex].length - 2);//remove the last //
     }
     else{
       filmingLocations = [];
     }
-    var newMovieObject = {"imdbID": req.body.movieId, "locationsVisited": filmingLocations};
+    var newMovieObject = {"imdbID": req.body.movieId, "locationsVisited": filmingLocations};//set the new object
 
-    if(!newMovieID){return;}
-    for (movieObject of userStalks){
+    if(!newMovieID){return;}//return if there is not a movie id
+    for (movieObject of userStalks){//check if movie already exists
       if (movieObject.imdbID == newMovieID){
         console.log("movie already exists");
         return;
@@ -271,7 +270,7 @@ app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to my
     }
 
     userStalks.push(newMovieObject);
-    var newMyStalks = {$set: {"myStalks": userStalks}};
+    var newMyStalks = {$set: {"myStalks": userStalks}};//add the movie
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
     });
@@ -279,31 +278,31 @@ app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to my
   })
 })
 
-app.post("/removeMovieFromMyStalks", function(req, res) {
-  if(!req.session.loggedin){
+app.post("/removeMovieFromMyStalks", function(req, res) {//removes movie from myStalks
+  if(!req.session.loggedin){//user needs to be signed in
     console.log("user not logged in")
     return;
   }
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
-  db.collection('users').findOne({_id:o_id},function(err, result) {
+  db.collection('users').findOne({_id:o_id},function(err, result) {//find the user
     if (err) throw err;
     var user = result;
     var userStalks = user.myStalks;
     var movieIdToRemove = req.body.movieId;
 
-    if (!movieIdToRemove) return;
+    if (!movieIdToRemove) return;//there needs to be a movie id
 
     var index = -1;
-    userStalks.forEach((stalk, stalkIndex) => {
+    userStalks.forEach((stalk, stalkIndex) => {//get the index of the stalk with the movie
       if (stalk.imdbID === movieIdToRemove) {
         index = stalkIndex;
       }
     });
-    if (index === -1) return;
+    if (index === -1) return;//return if there is not movie
 
     userStalks.splice(index, 1);
-    var newMyStalks = {$set: {"myStalks": userStalks}};
+    var newMyStalks = {$set: {"myStalks": userStalks}};//remove it
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
     });
@@ -326,7 +325,7 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
     var userStalks = user.myStalks;
     var imdbID = req.body.movieId;
 
-    userStalks.forEach(stalk => {
+    userStalks.forEach(stalk => {//find the stalk
       if (stalk.imdbID === imdbID) {
         if (stalk.locationsVisited.includes(locationName)) {
           console.log("locations has been saved");
@@ -355,6 +354,7 @@ app.post("/removeLocationFromVisited", function(req, res) {//remove location fro
     if (err) throw err;
     if (!result){return;}
 
+    //get all the info
     var locationName = req.body.locationByName;
     var MovieId = req.body.movieId;
 
@@ -367,6 +367,7 @@ app.post("/removeLocationFromVisited", function(req, res) {//remove location fro
     var stalkIndex;
     var index = 0;
 
+    //find the location of the movie
     while (index < userStalks.length && locationIndex  == -1){
       var stalk = userStalks[index];
       if (stalk.imdbID === imdbID){
@@ -381,7 +382,7 @@ app.post("/removeLocationFromVisited", function(req, res) {//remove location fro
     stalk.locationsVisited.splice(locationIndex);
     userStalks[stalkIndex] = stalk
 
-    var newMyStalks = {$set: {"myStalks": userStalks}};
+    var newMyStalks = {$set: {"myStalks": userStalks}};//update the databse
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
       console.log("removed ", locationName, " from ", imdbID, " on user: ", user.username)
@@ -458,7 +459,7 @@ app.post("/doResetPassword", async function(req, res){//do the password reset fr
     
     if (!(user.resetPasswordKey == resetPasswordKey)){
       console.log("fake key");
-      res.render("pages/resetPassword", {wasFakeKey: true, loggedIn: req.session.loggedin});//if the key is fake tell the user they are a lier.... in nice words....
+      res.render("pages/resetPassword", {wasFakeKey: true, loggedIn: req.session.loggedin});//if the key is fake tell the user they are a liar.... in nice words....
     }
   })
 })
