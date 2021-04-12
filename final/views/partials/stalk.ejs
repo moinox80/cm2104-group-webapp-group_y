@@ -1,0 +1,77 @@
+<%
+async function getResultsFromOMDBByID(movieID) {
+  var url = "https://www.omdbapi.com/?apikey=7c3f362c&i=" + movieID;
+  var response = await axios.get(url)
+  return(response.data)
+}
+%>
+
+<div class="movie-box">
+
+  <%var movieRes = await getResultsFromOMDBByID(stalk.imdbID); %>
+  <div class="card-header">
+    <div class="row movie-info">
+      <div>
+        <h2 class="movie-title"><%= movieRes.Title %></h2>
+      </div>
+      <div>
+        <ul class="movie-facts">
+          <li>Release year: <%= movieRes.Year %></li>
+          <li>Genres: <%= movieRes.Genre %></li>
+          <li>Rating: <%= movieRes.Rated %></li>
+        </ul>
+      </div>
+      <div>
+        <ul class="movie-facts">
+          <li>Director: <%= movieRes.Director %></li>
+          <li>Writer: <%= movieRes.Writer %></li>
+          <li>Actors: <%= movieRes.Actors %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <button data-toggle="collapse" data-target="#demo">
+      <h5>Locations</h5>
+    </button>
+    <div id="demo" class="collapse">
+      <%
+      var options = {
+        method: 'GET',
+        url: 'https://imdb8.p.rapidapi.com/title/get-filming-locations',
+        params: {tconst: stalk.imdbID},
+        headers: {
+          'x-rapidapi-key': 'a9eb244cd4msh1023a1ad25868ebp174b04jsn1fa8197ee780',
+          'x-rapidapi-host': 'imdb8.p.rapidapi.com'
+        }
+      };
+
+      var locationsResponse = await axios.request(options); %>
+
+      <% for (location of locationsResponse.data.locations) {
+        var newLocationVisited = false;
+        if (stalk.locationsVisited && stalk.locationsVisited.length > 0) {
+          for (locationVisited of stalk.locationsVisited) {
+            if (location.location === locationVisited) {
+              newLocationVisited = true;
+            }
+          }
+        }
+        %>
+        <div>
+          <div>
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="<%= stalk.imdbID %>" value="" <% if (newLocationVisited) { %> checked <%}%>>
+              <%= location.location %>
+            </label>
+          </div>
+          <div>
+            <a class="see-on-map" href="map?l=true">See on map</a>
+          </div>
+        </div>
+      <% } %>
+    </div> 
+  </div>
+
+</div>

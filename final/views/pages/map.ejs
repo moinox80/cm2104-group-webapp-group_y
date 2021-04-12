@@ -3,6 +3,17 @@
 <html>
 
 <head>
+	<script>
+		var stalksFromServer = [];
+	</script>
+	<% if(!(typeof stalksFromServer == 'undefined')){
+		for (stalk of stalksFromServer){ %>
+			<script>
+				var stalk = {imdbID:"<%- stalk.imdbID %>", locationsVisited: "<%- stalk.locationsVisited %>"}
+				stalksFromServer.push(stalk)
+			</script>
+		<% } %>
+	<% } %>
 	<link rel='icon' href='../favicon.ico' type='image/x-icon'>
 	<title>FilmStalker - Map</title>
 
@@ -29,6 +40,7 @@
 	<script src="../js/MapPage/omdb.js"></script>
 	<script src="../js/MapPage/confirmMovie.js"></script>
 	<script src="../js/MapPage/map.js"></script>
+	<script defer src="../js/MapPage/addMoviesFromServer.js"></script>
 	<script src="../js/MapPage/openCageAPI.js"></script>
 	<script src="../js/vendor/bootstrap.min.js"></script>
 	<meta charset="UTF-8" />

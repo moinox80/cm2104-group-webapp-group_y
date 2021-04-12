@@ -3,8 +3,9 @@
  * the individual filming locations of each movie
  */
 class FilmingLocation {
-    constructor(movie, locationByName) {
+    constructor(movie, locationByName, seen = false) {
         this.movie = movie;
+        this.seenFromServer = seen;
         this.location = openCageAPIConvertToLatLong(locationByName, this.setMarker.bind(this));
         this.name = locationByName;
         this.visited = false;
@@ -14,7 +15,7 @@ class FilmingLocation {
     setMarker(coordinates) {
         this.movie.setUpFilmingLocationByNameAndLatLong(this.name, coordinates);
         this.location = coordinates;
-        this.marker = new Marker(this.location, this.name, this.createIcon(), this.movie, this);
+        this.marker = new Marker(this.location, this.name, this.createIcon(), this.movie, this, this.seenFromServer);
     }
 
     createIcon() {

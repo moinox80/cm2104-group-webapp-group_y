@@ -6,7 +6,7 @@
 var movies = [];
 
 class Movie {
-    constructor(movieDeatilsOMDB) {
+    constructor(movieDeatilsOMDB, alreadyStalking, locationsSeenFromServer = null) {
         this.OMDBData = movieDeatilsOMDB;
         this.name = this.OMDBData.Title;
         this.imdbID = this.OMDBData.imdbID;
@@ -14,6 +14,8 @@ class Movie {
         this.poster = this.OMDBData.Poster;
         this.filmingLocationsMarkers = [];
         this.filmingLocationsByNameAndLatLong = [];
+        this.stalking = alreadyStalking;
+        this.locationsSeenFromServer = locationsSeenFromServer;
         getFilmingLocationsOf(this.setUpFilmingLocationsForTheFirstTime.bind(this), this.imdbID, this); //uses imdb which has max 500 call requests per month
         // this.testFakeAddress();// acts as getFilmingLocationsOf
         this.visibleOnMap = true;
@@ -40,7 +42,11 @@ class Movie {
 
     setUpFilmingLocations(locationsByName) {
         locationsByName.forEach(locationByName => {
-            new FilmingLocation(this, locationByName);
+            var seen = false;
+            if (!(typeof this.locationsSeenFromServer == 'undefined' || this.locationsSeenFromServer == null || this.locationsSeenFromServer.length == 0)){
+                seen = this.locationsSeenFromServer.includes(locationByName)
+            }
+            new FilmingLocation(this, locationByName, seen);
         });
     }
 
@@ -107,7 +113,7 @@ class Movie {
         var id = "id=" + this.imdbID + "-my-movies-link";
         var text = this.name + "-" + this.year;
 
-        var $movieTemplate = $(`
+        this.$movieTemplate = $(`
             <div class="row mt-2">
                 <div class="col-md-3 d-flex align-items-center">
                     <h5>${this.name}</h5>
@@ -121,14 +127,25 @@ class Movie {
             </div>
         `).appendTo("#my-movies");
 
-        $movieTemplate.find(".form-check-input").click(this.changeVisibilityStateOnMap.bind(this));
-        $movieTemplate.find(".mystalksbutton").click(this.addToMyStalks.bind(this));
+        this.$movieTemplate.find(".form-check-input").click(this.changeVisibilityStateOnMap.bind(this));
+        this.$movieTemplate.find(".mystalksbutton").click(this.toggleMyStalks.bind(this));
+        if (this.stalking){
+            this.$movieTemplate.find(".mystalksbutton").text("Remove from my stalks")
+        }
     }
 
-    addToMyStalks(){
-        this.storeMovieInSession();
-        this.sendMovieIdToServerAddToMyStalks();
-        
+    toggleMyStalks(){
+        if (this.stalking){
+            this.$movieTemplate.find(".mystalksbutton").text("Add to myStalks");
+            this.sendMovieIdToServerRemoveFromMyStalks();
+            this.stalking = false;
+        }
+        else{
+            this.storeMovieInSession();
+            this.sendMovieIdToServerAddToMyStalks();
+            this.$movieTemplate.find(".mystalksbutton").text("Remove from my stalks")
+            this.stalking = true;
+        }
     }
     
     storeMovieInSession() {//store movie in session
@@ -145,7 +162,6 @@ class Movie {
             };
         };
         sessionStorage.setItem(this.imdbID, JSON.stringify(this, getCircularReplacer()));
-        alert("Added " + this.name + " to MyStalks");
     }
     
     sendMovieIdToServerAddToMyStalks(){
@@ -157,6 +173,17 @@ class Movie {
         }
         
         requestUtils('post', '/addMovieToMyStalks', 'movieId=' + this.imdbID);
+    }
+
+    sendMovieIdToServerRemoveFromMyStalks(){
+        function requestUtils(method, url, body) {//https://stackoverflow.com/questions/59511205/how-to-send-string-from-client-to-server-via-post
+            var xhr = new XMLHttpRequest();
+            xhr.open(method, url, true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send(body);
+        }
+        
+        requestUtils('post', '/removeMovieFromMyStalks', 'movieId=' + this.imdbID);
     }
 }
 
@@ -187,9 +214,9 @@ function removeMovieFromMyMoviesLinkSection(movie) {
 }
 
 
-function makeMovie(movieDeatilsOMDB) {
+function makeMovie(movieDeatilsOMDB, alreadyStalking = false, locationsSeen = []) {
     if (!checkIfMovieExists(movieDeatilsOMDB.imdbID)) {
-        new Movie(movieDeatilsOMDB);
+        new Movie(movieDeatilsOMDB, alreadyStalking, locationsSeen);
     }
     else {
         alert(movieDeatilsOMDB.Title + " already exists");

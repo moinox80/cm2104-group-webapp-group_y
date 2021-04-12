@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const ejs = require('ejs');
 
 const MongoClient = require('mongodb').MongoClient; //npm install mongodb@2.2.32 //mongo db is for the databse managment
 const url = "mongodb://127.0.0.1:27017/filmStalker";//url to the databse
@@ -13,6 +14,8 @@ var xssSanitizer = require("xss");//used to ensure no xss is in user input (emai
 var emailValidator = require("email-validator");//used to ensure user email is correct
 
 const port = 8080;
+
+const axios = require('axios').default;
 
 //send grid is used to send an email to the user, standard email is used to send the user a key that can be used to reset their passowrd if they forgot
 // get a instance of sendgrid and set the API key
@@ -43,7 +46,6 @@ app.use(bodyParser.urlencoded({
 app.set('view engine', 'ejs');//use ejs
 
 app.use(express.static('public'));//use public
-
 
 app.get('/', (req, res) => {//render the index page
   res.render("pages/index");
@@ -84,6 +86,18 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/map', (req, res) => {
+  if (req.session.loggedin){
+    var userid = req.session.userid;
+    var o_id = new ObjectId(userid);
+    db.collection('users').findOne({_id:o_id}, async function(err, result) {
+      if (err) throw err;
+      var userStalks = result.myStalks;
+      var locationsVisited = result.locationsVisited;
+      res.render("pages/map", {loggedIn:req.session.loggedin, stalksFromServer: userStalks});
+
+    })
+    return;
+  }
   res.render("pages/map", {loggedIn:req.session.loggedin});
 });
 
@@ -91,8 +105,25 @@ app.get('/movie', (req, res) => {
   res.render("pages/movie", {loggedIn:req.session.loggedin});
 });
 
-app.get('/mystalks', (req, res) => {
-  res.render("pages/mystalks", {loggedIn:req.session.loggedin});
+app.get('/mystalks', async (req, res) => {
+  if (req.session.loggedin) {
+    var userid = req.session.userid;
+    var o_id = new ObjectId(userid);
+    db.collection('users').findOne({_id:o_id}, async function(err, result) {
+      if (err) throw err;
+      var userStalks = result.myStalks;
+      var locationsVisited = result.locationsVisited;
+      var html = await ejs.renderFile(
+        "views/pages/mystalks.ejs",
+        {loggedIn:req.session.loggedin, userStalks:userStalks, locationsVisited: locationsVisited, axios:axios},
+        {async:true}
+      );
+      res.send(html);
+    });
+  }
+  else{
+    res.render("pages/map", {loggedIn:req.session.loggedin});
+  }
 });
 
 app.get('/signup', (req, res) => {
@@ -154,7 +185,6 @@ app.post('/adduser', async function(req, res) {//add a user
     "DELETEplaintextPasswordDELETEME" : uncryptedPassword,//only user for testing. ie i am not saving fake user info in my password manager
     "postcode" : xssSanitizer(postCode),
     "myStalks" : [],
-    "locationsVisited" : {},
     "resetPasswordKey" : null
   };
 
@@ -214,18 +244,53 @@ app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to my
   db.collection('users').findOne({_id:o_id},function(err, result) {//find user
     if (err) throw err;
     var user = result;
-    var usersStalks = user.myStalks;//get old stalks
-    var newMovieId = req.body.movieId;
+    var userStalks = user.myStalks;
+    var newMovieID = req.body.movieId;
+    var newMovieObject = {"imdbID": req.body.movieId, "locationsVisited": []};
 
-    if(!newMovieId){return;}
-    if(usersStalks.includes(newMovieId)){return};//if the new movie exist. (should be possible. but why not be sure)
+    if(!newMovieID){return;}
+    for (movieObject of userStalks){
+      if (movieObject.imdbID == newMovieID){
+        console.log("movie already exists");
+        return;
+      }
+    }
 
-    usersStalks.push(newMovieId);//add to list
-    var newMyStalks = {$set: {"myStalks": usersStalks}};//mongo format
-    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {//save
+    userStalks.push(newMovieObject);
+    var newMyStalks = {$set: {"myStalks": userStalks}};
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
-    })
-    console.log("added ", MovieId, "to myStalks on user: ", user.username);//log for testing
+    });
+    console.log("added ", newMovieID, "to myStalks on user: ", user.username);
+  })
+})
+
+app.post("/removeMovieFromMyStalks", function(req, res) {
+  if(!req.session.loggedin) return;
+  var userid = req.session.userid;
+  var o_id = new ObjectId(userid);
+  db.collection('users').findOne({_id:o_id},function(err, result) {
+    if (err) throw err;
+    var user = result;
+    var userStalks = user.myStalks;
+    var movieIdToRemove = req.body.movieId;
+
+    if (!movieIdToRemove) return;
+
+    var index = -1;
+    userStalks.forEach((stalk, stalkIndex) => {
+      if (stalk.imdbID === movieIdToRemove) {
+        index = stalkIndex;
+      }
+    });
+    if (index === -1) return;
+
+    userStalks.splice(index, 1);
+    var newMyStalks = {$set: {"myStalks": userStalks}};
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
+      if (err) throw err;
+    });
+    console.log("removed ", movieIdToRemove, "to myStalks on user: ", user.username);
   })
 })
 
@@ -240,36 +305,28 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
 
     //get location info
     var locationName = req.body.locationByName;
-    var loactionLat = req.body.locationLat;
-    var locationLong = req.body.locationLong;
-    var location = [loactionLat, locationLong]
-    var MovieId = req.body.movieId;
-
     var user = result;
-    var userslocations = user.locationsVisited;
-    if(!Object.keys(userslocations).includes(MovieId)){//if the user hasnt visited any locations of the movie, initialize a array
-      userslocations[MovieId] = [];
-    };
+    var userStalks = user.myStalks;
+    var imdbID = req.body.movieId;
 
-    var found = false;//check to see if it exists, should not be possible, but best to check
-    userslocations[MovieId].forEach(location => {
-      if (location.locationName == locationName){
-        console.log("location exist");
-        found = true;
+    userStalks.forEach(stalk => {
+      if (stalk.imdbID === imdbID) {
+        if (stalk.locationsVisited.includes(locationName)) return;
+        stalk.locationsVisited.push(locationName);
       }
     });
 
-    if (found){return;}//if it is found, return
-    userslocations[MovieId].push({"locationName":locationName, "locationByLatLong":location});//add it to the array
-    var newLocationsVisited = {$set: {"locationsVisited": userslocations}};//format to mongo 
-    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {//update
+    var newMyStalks = {$set: {"myStalks": userStalks}};
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
-      console.log("added ", locationName, " from ", MovieId, " on user: ", user.username)//log for testing...... logs are very usefull
+      console.log("added ", locationName, " from ", imdbID, " on user: ", user.username)
     })
   });
 })
 
+
 app.post("/removeLocationFromVisited", function(req, res) {//remove location from visited
+  console.log("checking to remove location")
   if(!req.session.loggedin){return;}//return if user is not logged in
 
   var userid = req.session.userid;
@@ -282,29 +339,32 @@ app.post("/removeLocationFromVisited", function(req, res) {//remove location fro
     var MovieId = req.body.movieId;
 
     var user = result;
-    var userslocations = user.locationsVisited;
+    var userStalks = user.myStalks;
+    var imdbID = req.body.movieId;
 
-    if(!Object.keys(userslocations).includes(MovieId)){//if the user doesnt store any locations for the movie, return
-      return;
-    };
+    var locationIndex = -1;
+    var stalk;
+    var stalkIndex;
+    var index = 0;
 
-    var index = null;
-    var i = 0;
-    while (i < userslocations[MovieId].size || index == null){//find the index
-      if (userslocations[MovieId][i].locationName == locationName){
-        index = i;
+    while (index < userStalks.length && locationIndex  == -1){
+      var stalk = userStalks[index];
+      if (stalk.imdbID === imdbID){
+        stalkIndex = index;
+        locationIndex = stalk.locationsVisited.indexOf(locationName);
       }
-      i++;
+      index++;
     }
 
-    if (index == null){return;}// guard clause if the index is null
+    if (locationIndex == -1) return;
 
-    userslocations[MovieId].splice(index, 1);//remove the location
-    var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
+    stalk.locationsVisited.splice(locationIndex);
+    userStalks[stalkIndex] = stalk
 
-    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {//update
+    var newMyStalks = {$set: {"myStalks": userStalks}};
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
-      console.log("removed ", locationName, " from ", MovieId, " on user: ", user.username);//log
+      console.log("removed ", locationName, " from ", imdbID, " on user: ", user.username)
     })
   });
 })
