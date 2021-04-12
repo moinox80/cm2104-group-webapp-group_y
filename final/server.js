@@ -237,7 +237,7 @@ app.post('/dologin', async function(req, res) {//to log in user
 });
 
 app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to myStalks
-  if(!req.session.loggedin){return;}//return if the user is not logged in
+  if(!req.session.loggedin){return console.log("not logged in");}//return if the user is not logged in
   if (!(req.body.movieId)){return;}//return if there is no movie id
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
@@ -246,7 +246,17 @@ app.post("/addMovieToMyStalks", function(req, res) {//used to save a movie to my
     var user = result;
     var userStalks = user.myStalks;
     var newMovieID = req.body.movieId;
-    var newMovieObject = {"imdbID": req.body.movieId, "locationsVisited": []};
+    var filmingLocations = req.body.locationsVisited
+    console.log(filmingLocations)
+    if (filmingLocations){
+      filmingLocations = filmingLocations.split("//,");
+      var lastIndex = filmingLocations.length - 1;
+      filmingLocations[lastIndex] = filmingLocations[lastIndex].substring(0, filmingLocations[lastIndex].length - 2);
+    }
+    else{
+      filmingLocations = [];
+    }
+    var newMovieObject = {"imdbID": req.body.movieId, "locationsVisited": filmingLocations};
 
     if(!newMovieID){return;}
     for (movieObject of userStalks){

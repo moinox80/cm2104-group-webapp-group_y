@@ -171,8 +171,18 @@ class Movie {
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send(body);
         }
+        var body = 'movieId=' + this.imdbID;
+        var visitedLocations = []
         
-        requestUtils('post', '/addMovieToMyStalks', 'movieId=' + this.imdbID);
+        for (var filmingLocation of this.filmingLocationsMarkers){
+            if (filmingLocation.visited){
+                visitedLocations.push(filmingLocation.name + "//")
+            }
+        }
+
+        body += "&locationsVisited=" + visitedLocations;
+
+        requestUtils('post', '/addMovieToMyStalks', body);
     }
 
     sendMovieIdToServerRemoveFromMyStalks(){
