@@ -3,12 +3,17 @@
 <html>
 
 <head>
-	<% if(!(typeof stalksFromServer == 'undefined')){%>
-		<script>
-			var stalksFromServer = "<%= stalksFromServer %>"
-			stalksFromServer = stalksFromServer.split(",")
-		</script>
-	<% } var stalksFromServer = null %>
+	<script>
+		var stalksFromServer = [];
+	</script>
+	<% if(!(typeof stalksFromServer == 'undefined')){
+		for (stalk of stalksFromServer){ %>
+			<script>
+				var stalk = {imdbID:"<%- stalk.imdbID %>", locationsVisited: "<%- stalk.locationsVisited %>"}
+				stalksFromServer.push(stalk)
+			</script>
+		<% } %>
+	<% } %>
 	<link rel='icon' href='../favicon.ico' type='image/x-icon'>
 	<title>FilmStalker - Map</title>
 
