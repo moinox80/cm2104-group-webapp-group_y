@@ -598,4 +598,10 @@ async function containsXSS(list){
   return foundXSS;
 }
 
+
+//404
+app.get('*', function(req, res){
+  res.send('what???', 404);
+});
+
 //thank you for reading
