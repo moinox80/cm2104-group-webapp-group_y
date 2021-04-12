@@ -91,7 +91,7 @@ Basic description : A site to track and mark movie filming locations, by display
 
 -To Do
 --make movies in myStalks colapsable
-
+--implement suggestion form
 
 -Possible stuff to add
 --check that JS is enabled
