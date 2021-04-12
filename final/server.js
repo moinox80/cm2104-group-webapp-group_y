@@ -204,7 +204,7 @@ app.post("/addMovieToMyStalks", function(req, res) {
 })
 
 app.post("/removeMovieToMyStalks", function(req, res) {
-  if (!req.session.loggedin) return;
+  if(!req.session.loggedin) return;
   var userid = req.session.userid;
   var o_id = new ObjectId(userid);
   db.collection('users').findOne({_id:o_id},function(err, result) {
@@ -243,27 +243,41 @@ app.post("/addLocationToVisited", function(req, res) {
     var locationName = req.body.locationByName;
     var loactionLat = req.body.locationLat;
     var locationLong = req.body.locationLong;
-    var location = [loactionLat, locationLong]
+    var location = [loactionLat, locationLong];
     var user = result;
-    var userslocations = user.locationsVisited;
-    var MovieId = req.body.movieId;
-    console.log(MovieId)
-    if(!Object.keys(userslocations).includes(MovieId)){
-      userslocations[MovieId] = [];
+    var userStalks = user.myStalks;
+    var userLocations = user.myStalks.locationsVisited;
+    var imdbID = req.body.movieId;
+
+    userStalks.forEach(stalk => {
+      if (stalk.imdbID === imdbID) {
+        if (stalk.locationsVisited.includes(locationName))
+        {return;}
+        stalk.locationsVisited.push(locationName);
+        stalk.locationsVisitedLatLong.push(location);
+      }
+    });
+    
+    /*
+    console.log(imdbID)
+    if(!Object.keys(userLocations).includes(imdbID)){
+      userLocations[imdbID] = [];
     };
     var found = false;
-    userslocations[MovieId].forEach(location => {
+    userLocations[imdbID].forEach(location => {
       if (location.locationName == locationName){
         found = true;
       }
     });
 
     if (found){return;}
-    userslocations[MovieId].push({"locationName":locationName, "locationByLatLong":location});
-    var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
-    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
+    userLocations[imdbID].push({"locationName":locationName, "locationByLatLong":location});
+    */
+
+    var newMyStalks = {$set: {"myStalks": userStalks}};
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
-      console.log("added ", locationName, " from ", MovieId, " on user: ", user.username)
+      console.log("added ", locationName, " from ", imdbID, " on user: ", user.username)
     })
   });
 })
@@ -278,26 +292,38 @@ app.post("/removeLocationFromVisited", function(req, res) {
     if (!result){return;}
     var locationName = req.body.locationByName;
     var user = result;
-    var userslocations = user.locationsVisited;
-    var MovieId = req.body.movieId;
-    if(!Object.keys(userslocations).includes(MovieId)){
+    var userStalks = user.myStalks;
+    var imdbID = req.body.movieId;
+
+    if(!Object.keys(userLocations).includes(imdbID)){
       return;
     };
 
+    userStalks.forEach(stalk => {
+      if (stalk.imdbID === imdbID) {
+        var locationIndex = stalk.locationsVisited.indexOf(locationName);
+        stalk.locationsVisited.splice(locationIndex);
+        stalk.locationsVisitedLatLong.splice(locationIndex);
+      }
+    });
+
+    /*
     var index = null;
     var i = 0;
-    while (i < userslocations[MovieId].size || index == null){
-      if (userslocations[MovieId][i].locationName == locationName){
+    while (i < userLocations[imdbID].size || index == null){
+      if (userLocations[imdbID][i].locationName == locationName){
         index = i;
       }
       i++;
     }
     if (index == null){return;}
-    userslocations[MovieId].splice(index, 1);
-    var newLocationsVisited = {$set: {"locationsVisited": userslocations}};
-    db.collection('users').updateOne({_id:o_id},newLocationsVisited,function(err, result) {
+    userLocations[imdbID].splice(index, 1);
+    */
+
+    var newMyStalks = {$set: {"myStalks": userStalks}};
+    db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
-      console.log("removed ", locationName, " from ", MovieId, " on user: ", user.username)
+      console.log("removed ", locationName, " from ", imdbID, " on user: ", user.username)
     })
   });
 })

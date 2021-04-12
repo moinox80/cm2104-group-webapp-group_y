@@ -40,7 +40,7 @@ async function getResultsFromOMDBByID(movieID) {
       var options = {
         method: 'GET',
         url: 'https://imdb8.p.rapidapi.com/title/get-filming-locations',
-        params: {tconst: movie.imdbID},
+        params: {tconst: stalk.imdbID},
         headers: {
           'x-rapidapi-key': 'a9eb244cd4msh1023a1ad25868ebp174b04jsn1fa8197ee780',
           'x-rapidapi-host': 'imdb8.p.rapidapi.com'
