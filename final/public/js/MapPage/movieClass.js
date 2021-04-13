@@ -171,7 +171,7 @@ class Movie {
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send(body);
         }
-        var body = 'imdbID=' + this.imdbID;
+        var body = 'movieId=' + this.imdbID;
         var visitedLocations = []
         
         for (var filmingLocation of this.filmingLocationsMarkers){
@@ -194,7 +194,7 @@ class Movie {
             xhr.send(body);
         }
         
-        var body = 'imdbID=' + this.imdbID; 
+        var body = 'movieId=' + this.imdbID; 
 
         requestUtils('post', '/removeMovieFromMyStalks', body);
     }
