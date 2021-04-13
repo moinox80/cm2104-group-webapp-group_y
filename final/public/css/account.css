@@ -43,3 +43,8 @@ button[type=submit]:hover {
 #nav-links {
   right: 300px;
 }
+
+.form{
+    margin-bottom: 30px;
+    text-align:center;
+}
