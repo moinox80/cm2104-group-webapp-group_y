@@ -32,10 +32,10 @@ async function getResultsFromOMDBByID(movieID) {
   </div>
 
   <div class="card-body">
-    <button data-toggle="collapse" data-target="#demo">
+    <button data-toggle="collapse" href="#<%= stalk.imdbID %>">
       <h5>Locations</h5>
     </button>
-    <div id="demo" class="collapse">
+    <div id="<%= stalk.imdbID %>">
       <%
       var options = {
         method: 'GET',

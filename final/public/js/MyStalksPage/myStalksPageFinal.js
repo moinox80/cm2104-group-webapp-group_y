@@ -28,7 +28,7 @@ function sendMovieIdToServerAddToMyStalks(imdbID, locationByName) {
 function sendMovieIdToServerRemoveFromMyStalks(imdbID, locationByName) {
   //https://stackoverflow.com/questions/59511205/how-to-send-string-from-client-to-server-via-post
   var url = '/removeLocationFromVisited';
-  var body = 'imdbID=' + imdbID + '&locationByName=' + locationByName;
+  var body = 'imdbID=' + encodeURIComponent(imdbID) + '&locationByName=' + encodeURIComponent(locationByName);
   var xhr = new XMLHttpRequest();
   xhr.open('post', url, true);
   xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

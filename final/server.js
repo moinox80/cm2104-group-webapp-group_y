@@ -325,7 +325,6 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
     var user = result;
     var userStalks = user.myStalks;
   
-    console.log("Original myStalks: " + userStalks.toString());
     userStalks.forEach(stalk => {//find the stalk
       if (stalk.imdbID === imdbID) {
         if (stalk.locationsVisited.includes(locationName)) {
@@ -335,9 +334,8 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
         stalk.locationsVisited.push(locationName);
       }
     });
-    console.log("New myStalks: " + userStalks);
     
-    var newMyStalks = {$set: {"myStalks": userStalks.toString()}};
+    var newMyStalks = {$set: {"myStalks": userStalks}};
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
       console.log("added ", locationName, " from ", imdbID, " on user: ", user.username)
