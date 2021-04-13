@@ -345,7 +345,7 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
 
 
 app.post("/removeLocationFromVisited", function(req, res) {//remove location from visited
-  console.log("checking to remove location")
+  console.log("checking to remove location");
   if(!req.session.loggedin){console.log("user not logged in"); return;}//return if user is not logged in
 
   var userid = req.session.userid;

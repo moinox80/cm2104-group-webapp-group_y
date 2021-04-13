@@ -76,7 +76,7 @@ function sendLocationVisitedToServer(marker, visited){
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(body);
     }
-    var body = ['movieId=' + marker.movie.imdbID + '&locationLat=' + marker.position[0] + "&locationLong=" + marker.position[1] + "&locationByName=" + marker.label]
+    var body = ['imdbID=' + marker.movie.imdbID + '&locationLat=' + marker.position[0] + "&locationLong=" + marker.position[1] + "&locationByName=" + marker.label]
 
     if (visited){
         requestUtils('post', '/addLocationToVisited', body);

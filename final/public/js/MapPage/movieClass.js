@@ -171,7 +171,7 @@ class Movie {
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send(body);
         }
-        var body = 'movieId=' + this.imdbID;
+        var body = 'imdbID=' + this.imdbID;
         var visitedLocations = []
         
         for (var filmingLocation of this.filmingLocationsMarkers){
@@ -187,13 +187,16 @@ class Movie {
 
     sendMovieIdToServerRemoveFromMyStalks(){
         function requestUtils(method, url, body) {//https://stackoverflow.com/questions/59511205/how-to-send-string-from-client-to-server-via-post
+            console.log(body);
             var xhr = new XMLHttpRequest();
             xhr.open(method, url, true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             xhr.send(body);
         }
         
-        requestUtils('post', '/removeMovieFromMyStalks', 'movieId=' + this.imdbID);
+        var body = 'imdbID=' + this.imdbID; 
+
+        requestUtils('post', '/removeMovieFromMyStalks', body);
     }
 }
 
