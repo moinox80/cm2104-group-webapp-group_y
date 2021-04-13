@@ -62,13 +62,13 @@ async function getResultsFromOMDBByID(movieID) {
         <div>
           <div>
             <label class="form-check-label">
-              <input type="checkbox" class="form-check-input" id="<%= stalk.imdbID %>" value="" <% if (newLocationVisited) { %> checked <%}%>>
-              <%= location.location %>
+              <input type="checkbox" class="form-check-input <%= stalk.imdbID %>" value="" <% if (newLocationVisited) { %> checked <%}%>>
+              <span class="locationText"><%= location.location %></span>
             </label>
           </div>
-          <div>
+          <!--<div>
             <a class="see-on-map" href="map?l=true">See on map</a>
-          </div>
+          </div>-->
         </div>
       <% } %>
     </div> 
