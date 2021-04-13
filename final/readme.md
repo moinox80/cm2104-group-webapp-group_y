@@ -101,3 +101,7 @@ Basic description : A site to track and mark movie filming locations, by display
 -Extra info
 --the my stalks page may take a while to load since all the api calls are being done server side
 --the directions page is located by clicking on a link in the marker banner
+--you can toggle the visited from by clicking on hte marker on the map
+--if you mark locations as visited and then add them to mystalks it will still save them
+--if you leave the map page and come back, only the ones marked as Stalking will remain
+--sometimes the email for the reset password will be ignored by the provider completely the first time, so it may be neccesery to send twice.
