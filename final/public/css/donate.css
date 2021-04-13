@@ -1,3 +1,4 @@
+/*Styles for the Donate us button*/
 #Metamask-button-box{
     height: 45px;
     width: 175px;
@@ -29,13 +30,14 @@ p {
     font-family: 'Dela Gothic One', cursive;     
     
 }
-
+/*Correctly placing the fox image*/
 #Metamask-button-box img {
     float:right;
     height: 43px;
     margin-right:10%;
 }
 
+/*Styling the user input box*/
 #ethInput{
     height: 50px;
     font-size:20px;
@@ -52,7 +54,7 @@ p {
      border-image-slice: 1;
     
 }
-
+/*Styling the circle*/
 #connected-circle{
     height: 10px;
   width: 10px;
@@ -61,6 +63,7 @@ p {
   border-radius: 50%;
   display: inline-block;
 }
+/*Styling the connected box*/
 .connectMetamask{
     height: 45px;
     width: 175px;
@@ -86,6 +89,7 @@ p {
   text-align:center;
   margin-top: 80px;
 }
+/*Styling the Account address*/
 .showAccount{
     padding: 10px;
     border: 1px solid black;
@@ -93,6 +97,7 @@ p {
     border-radius: 20px;
     font-size:80%;
 }
+/*General content adjustment*/
 main{
     position: relative;
     margin: 0 auto;
@@ -101,12 +106,16 @@ main{
     
     
 }
+/*Correcting font-size*/
 @media only screen and (min-width: 768px) {
   .showAccount{
     font-size:100%;
 }
     
 }
+
+
+
 
 
 

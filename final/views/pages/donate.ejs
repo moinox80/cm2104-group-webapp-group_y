@@ -10,12 +10,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">	
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&display=swap" rel="stylesheet">
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-   
-    </head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+  </head>
  
 <body>
     <%- include('../partials/navHome') %> 
@@ -33,12 +32,11 @@
     </div>
         
     
-<div id="input-container">
-    <input type="text"  id="ethInput" required minlength="1" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+    <div id="input-container">
+        <input type="text"  id="ethInput" required minlength="1" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
     </div>
 
-    <div id="Donate-wrapper">
-            
+    <div id="Donate-wrapper">     
          <button id="Metamask-button-box">
             <p>Donate us </p>
         <img src="../img/metamaskpng.png">
@@ -48,4 +46,7 @@
     <%- include('../partials/footer') %> 
 </body>
  <script src="../js/DonatePage/donate.js"></script>
+ <!--A Script with a space to fix the 
+  chrome transition bug when loading a page-->
+  <script> </script>
 </html>

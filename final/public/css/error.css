@@ -1,3 +1,4 @@
+/*Styles for the 404 message*/
 #wrapper-404{
    margin: 0;
   position: absolute;
@@ -18,6 +19,7 @@
     font-family: 'Dela Gothic One', cursive;
     margin:0;
 }
+/*Creating the computer animation*/
 #computer-wrapper {
     background-image: url(/img/computer-frame.png);
     position: relative;
@@ -60,7 +62,7 @@
     
 }
 
-
+/*Style for the home and contact us button*/
 #error-button-wrappers a{
   bottom: 0;
   right: 0;
