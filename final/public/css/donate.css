@@ -26,8 +26,7 @@ p {
     font-size: 13px;
     color:white;
     margin-left:10%;
-    font-family: 'Dela Gothic One', cursive;
-      
+    font-family: 'Dela Gothic One', cursive;     
     
 }
 
@@ -92,7 +91,7 @@ p {
     border: 1px solid black;
     font-weight:normal;
     border-radius: 20px;
-    margin-top:20px;
+    font-size:80%;
 }
 main{
     position: relative;
@@ -100,6 +99,12 @@ main{
     bottom: 60%;
     margin-bottom: 100px;
     
+    
+}
+@media only screen and (min-width: 768px) {
+  .showAccount{
+    font-size:100%;
+}
     
 }
 

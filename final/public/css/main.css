@@ -201,6 +201,29 @@ footer {
   border-radius: 30%;
   width: 30px;
 }
+#donate-link{
+    margin:auto;
+    padding:-1px;
+    width:90px;
+    border: 1px solid black;
+    
+    border-radius: 25px;
+    background: linear-gradient(270deg, #c7cfcd, #8c8f8e, #d5dedb);
+    background-size: 600% 600%;
+    -webkit-animation: gradientAnimation 5s ease infinite;
+    -moz-animation: gradientAnimation 5s ease infinite;
+    animation: gradientAnimation 5s ease infinite;
+    
+}
+#donate-link a:hover{
+    color:orange;
+}
+@-webkit-keyframes gradientAnimation {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
 
 /*Forms from all pages*/
 

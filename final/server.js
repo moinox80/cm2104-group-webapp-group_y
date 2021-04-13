@@ -565,6 +565,14 @@ app.post("/updateUserInfo", async function(req, res){//update user info.....sorr
   })
 })
 
+app.post("/footerForm", function(req, res){
+  var suggestionInfo = {email: req.body.email,
+    message: req.body.subject};
+  db.collection('suggestions').save(suggestionInfo);
+  console.log("added new suggestion: ", suggestionInfo);
+  res.redirect("/");
+})
+
 //usefull functions
 
 function removeResetPasswordKey(user){//removes the reset password key from a user

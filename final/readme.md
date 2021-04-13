@@ -77,7 +77,7 @@ Basic description : A site to track and mark movie filming locations, by display
 --Users can toggle visited on the movie locations (click on marker)
 --Users can get directions to location, either by google or by filmStalker (click on marker)
 --Users can toggle if a film is visible on the map (useful for when there are many films)
-
+--users can add comments with the comment section in the footer
 
 -NPM node modules
 --bcrypt to hash and salt passwords
@@ -96,8 +96,13 @@ Basic description : A site to track and mark movie filming locations, by display
 -Possible stuff to add
 --check that JS is enabled
 --save map and movie state when you log in (so dont remove all the movies when a user logs in and maybe send the ones they have added to the server)
+--extra page if you are logged in as a manager/developer that shows all the comments and you can remove some as well
 
 
 -Extra info
 --the my stalks page may take a while to load since all the api calls are being done server side
 --the directions page is located by clicking on a link in the marker banner
+--you can toggle the visited from by clicking on hte marker on the map
+--if you mark locations as visited and then add them to mystalks it will still save them
+--if you leave the map page and come back, only the ones marked as Stalking will remain
+--sometimes the email for the reset password will be ignored by the provider completely the first time, so it may be neccesery to send twice.
