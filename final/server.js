@@ -320,11 +320,12 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
     if (!result){return;}
 
     //get location info
-    var locationName = req.body.locationByName;
+    var imdbID = decodeURIComponent(req.body.imdbID);
+    var locationName = decodeURIComponent(req.body.locationByName);
     var user = result;
     var userStalks = user.myStalks;
-    var imdbID = req.body.movieId;
-
+  
+    console.log("Original myStalks: " + userStalks.toString());
     userStalks.forEach(stalk => {//find the stalk
       if (stalk.imdbID === imdbID) {
         if (stalk.locationsVisited.includes(locationName)) {
@@ -334,8 +335,9 @@ app.post("/addLocationToVisited", function(req, res) {//add a location to the us
         stalk.locationsVisited.push(locationName);
       }
     });
-
-    var newMyStalks = {$set: {"myStalks": userStalks}};
+    console.log("New myStalks: " + userStalks);
+    
+    var newMyStalks = {$set: {"myStalks": userStalks.toString()}};
     db.collection('users').updateOne({_id:o_id},newMyStalks,function(err, result) {
       if (err) throw err;
       console.log("added ", locationName, " from ", imdbID, " on user: ", user.username)
@@ -355,12 +357,11 @@ app.post("/removeLocationFromVisited", function(req, res) {//remove location fro
     if (!result){return;}
 
     //get all the info
-    var locationName = req.body.locationByName;
-    var MovieId = req.body.movieId;
-
+    var imdbID = decodeURIComponent(req.body.imdbID);
+    var locationName = decodeURIComponent(req.body.locationByName);
     var user = result;
     var userStalks = user.myStalks;
-    var imdbID = req.body.movieId;
+    
 
     var locationIndex = -1;
     var stalk;
@@ -368,7 +369,7 @@ app.post("/removeLocationFromVisited", function(req, res) {//remove location fro
     var index = 0;
 
     //find the location of the movie
-    while (index < userStalks.length && locationIndex  == -1){
+    while (index < userStalks.length && locationIndex === -1){
       var stalk = userStalks[index];
       if (stalk.imdbID === imdbID){
         stalkIndex = index;
@@ -377,7 +378,11 @@ app.post("/removeLocationFromVisited", function(req, res) {//remove location fro
       index++;
     }
 
-    if (locationIndex == -1) return;
+    if (locationIndex == -1) {
+      console.log("Error while removing");
+      console.log("Request location is " + locationName);
+      return;
+    }
 
     stalk.locationsVisited.splice(locationIndex);
     userStalks[stalkIndex] = stalk
