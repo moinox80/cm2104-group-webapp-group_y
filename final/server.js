@@ -568,6 +568,17 @@ app.post("/footerForm", function(req, res){
   res.redirect("/");
 })
 
+app.post("/addCommentFromContact", function(req, res){
+  var suggestionInfo = {email: req.body.email,
+    message: req.body.comment,
+    fname: req.body.fname,
+    lname:req.body.lname,
+  };
+  db.collection('suggestions').save(suggestionInfo);
+  console.log("added new suggestion: ", suggestionInfo);
+  res.redirect("/");
+})
+
 //usefull functions
 
 function removeResetPasswordKey(user){//removes the reset password key from a user
