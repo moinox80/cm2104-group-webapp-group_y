@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>FilmStalker - Contact</title>
-     <script src="../js/ContactPage/contact.js"></script>
+     <script defer src="../js/ContactPage/contact.js"></script>
     <link rel="stylesheet" href="../css/contact.css">
     <link rel="stylesheet" href="../css/main.css">
     <link rel="stylesheet" href="../css/normalize.css">
@@ -22,7 +22,7 @@
       <h1><i class="material-icons">call</i>Contact Us</h1>
       <div class="container">
       
-          <form onsubmit="isEmpty(); submit()">
+          <form id="form" onsubmit="submit()">
         
             <label for="fname">First Name</label>
             <input type="text" id="fname" name="firstname" placeholder="Your name...">
@@ -36,7 +36,7 @@
             <label for="subject">Message</label>
             <textarea id="text" name="subject" placeholder="Write something.." style="height:200px"></textarea>
         
-            <input id="submit-contact" type="submit" value="Submit ✈">
+            <input id="submit-contact" type="submit">
         
           </form>
       </div>
