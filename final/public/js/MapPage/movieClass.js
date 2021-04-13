@@ -194,7 +194,7 @@ class Movie {
             xhr.send(body);
         }
         
-        var body = 'imdbID=' + this.imdbID; 
+        var body = 'movieId=' + this.imdbID; 
 
         requestUtils('post', '/removeMovieFromMyStalks', body);
     }
